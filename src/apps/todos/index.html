@@ -19,6 +19,15 @@
 
         <h1>My Team's ToDos App</h1>
 
+        <ul>
+		<li>lily Ji</li>
+		<li>hui-min lu</li>
+		<li>Emily Randall</li>
+		<li>Varshini Jagannath </li>
+		<li>Yue Zhang </li>
+		<li> Yadira Valadeez </li>
+		</ul>
+
         <h2>Tasks</h2>
         <ul class="collection" id="tasks">
         </ul>
@@ -28,13 +37,14 @@
       <script>
 
         // create a firebase reference to the root
-        var ref = new Firebase('https://hello-ucdd2.firebaseio.com/')
+        var ref = new Firebase('https://vivid-torch-6257.firebaseio.com/')
 
         // read data from the location todos/tasks, only once
         ref.child('todos/tasks').once('value', function(snapshot){
           var tasks = snapshot.val()
           tasks.forEach(function(task){
-            $('#tasks').append('<li class="collection-item">' + task + '</li>')
+            // $('#tasks').append('<li class="collection-item">' + task + '</li>')
+			$('#tasks').append('<div class="row">  <div class="col s12 m6"> <div class="card blue darken-1"> <div class="card-content white-text">' + task + '</div></div></div></div>')
           })
         })
       </script>
