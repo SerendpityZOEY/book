@@ -19,18 +19,18 @@
 
         <h1>Yue ZHANG</h1>
 
-        <h2>Favorite Programming Languages</h2>
+        <h2><font size="6">Education</font></h2>
+        <ul class="collection" id="schools">
+        </ul>
+
+        <h2><font size="6">Technical Qualifications</font></h2>
         <ul class="collection" id="pl">
           <!--<li class="collection-item">Javascript</li>
           <li class="collection-item">Haskell</li> -->
         </ul>
 
-        <h2>Favorite Food</h2>
-        <ul class="collection" id="foods">
-        </ul>
-
-        <h2>Education</h2>
-        <ul class="collection" id="schools">
+        <h2><font size="6">Experience</font></h2>
+        <ul class="collection" id="experience">
         </ul>
 
       </div>
@@ -44,21 +44,22 @@
         ref.child('bio/education').once('value', function(snapshot){
 		  var schools = snapshot.val()
           schools.forEach(function(education){
-            $('#schools').append('<li class="collection-item">' + education+ '</li>')
+            $('#schools').append('<li class="collection-item">' + education.name +'<br\>'+ education.Major +'<br\>'+ education.Period + '</li>')
           })
         })
 
         ref.child('bio/programming_languages').once('value', function(snapshot){
 		  var pl = snapshot.val()
           pl.forEach(function(prolang){
-            $('#pl').append('<li class="collection-item">' + prolang.name +'<br\>'+'Years:' +prolang.years+'</li>')
+            //$('#pl').append('<li class="collection-item">' + prolang.name +'<br\>'+'Years:' +prolang.years+'</li>')
+			$('#pl').append('<li class="collection-item">' + prolang.programming +'<br\>'+ prolang.Tools +'<br\>'+prolang.OS + '</li>')
           })
         })
 
-        ref.child('bio/favorite_foods').once('value', function(snapshot){
-          var foods = snapshot.val()
-          foods.forEach(function(food){
-            $('#foods').append('<li class="collection-item">' + food + '</li>')
+        ref.child('bio/experience').once('value', function(snapshot){
+          var experience = snapshot.val()
+          experience.forEach(function(ex){
+            $('#experience').append('<li class="collection-item">' + ex.name+'<br\>'+ex.description+'<br\>' + '</li>')
           })
         })
 

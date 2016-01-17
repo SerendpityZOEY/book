@@ -37,14 +37,20 @@
       <script>
 
         // create a firebase reference to the root
-        var ref = new Firebase('https://vivid-torch-6257.firebaseio.com/')
-
+        var ref = new Firebase('https://shining-fire-9960.firebaseio.com/')
         // read data from the location todos/tasks, only once
         ref.child('todos/tasks').once('value', function(snapshot){
-          var tasks = snapshot.val()
+          var tasks = snapshot.val();
           tasks.forEach(function(task){
-            // $('#tasks').append('<li class="collection-item">' + task + '</li>')
-			$('#tasks').append('<div class="row">  <div class="col s12 m6"> <div class="card blue darken-1"> <div class="card-content white-text">' + task + '</div></div></div></div>')
+            var card ='<li class="card blue darken-1 z-depth-2 dismissable"><div class="card-content white-text"><span class="card-title">';
+            card += task.title + '</span>';
+            Object.keys(task).forEach(function(key) {
+              if (key != 'title') {
+                card += '<p>' + key + ': ' + task[key] + '</p>';
+              }
+            })
+            card += '</div></li>';
+            $('#tasks').append(card);
           })
         })
       </script>
