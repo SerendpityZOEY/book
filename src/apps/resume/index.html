@@ -20,26 +20,26 @@
         <h1><div align="center">Yue ZHANG</div></h1>
 
         <ul>
-		<li><div align="center">Address: 770A 29 th St. Apt 731, Boulder, CO 80303</div></li>
+		<li><div align="center">Address: 770A 29<sup>th</sup> St. Apt 731, Boulder, CO 80303</div></li>
 		<li><div align="center">Tel: 3035885485, Email: yuzh3168@colorado.edu</div></li>
 		</ul>
 
 
-        <h2><font size="6">Education</font></h2>
+        <h2><font size="6"><ins>Education</ins></font></h2>
         <ul class="collection" id="schools">
         </ul>
 
-        <h2><font size="6">Technical Qualifications</font></h2>
+        <h2><font size="6"><ins>Technical Qualifications</ins></font></h2>
         <ul class="collection" id="pl">
           <!--<li class="collection-item">Javascript</li>
           <li class="collection-item">Haskell</li> -->
         </ul>
 
-        <h2><font size="6">Experience</font></h2>
+        <h2><font size="6"><ins>Experience</ins></font></h2>
         <ul class="collection" id="experience">
         </ul>
 
-		<h2><font size="6">Activities</font></h2>
+		<h2><font size="6"><ins>Activities</ins></font></h2>
         <ul class="collection" id="activities">
         </ul>
 
@@ -54,7 +54,7 @@
         ref.child('bio/education').once('value', function(snapshot){
 		  var schools = snapshot.val()
           schools.forEach(function(education){
-            $('#schools').append('<li class="collection-item">' + education.name +'<br\>'+ education.Major +'<br\>'+ education.Period + '</li>')
+            $('#schools').append('<li class="collection-item">' + '<b>' +education.name +'</b>'+'<br\>'+'<i>'+'<small>'+education.Period+'</small>'+'</i>'+'<br\>'+ education.Major + '</li>')
           })
         })
 
@@ -62,21 +62,21 @@
 		  var pl = snapshot.val()
           pl.forEach(function(prolang){
             //$('#pl').append('<li class="collection-item">' + prolang.name +'<br\>'+'Years:' +prolang.years+'</li>')
-			$('#pl').append('<li class="collection-item">' + prolang.programming +'<br\>'+ prolang.Tools +'<br\>'+prolang.OS + '</li>')
+			$('#pl').append('<li class="collection-item">' + prolang.name + prolang.des + '</li>')
           })
         })
 
         ref.child('bio/experience').once('value', function(snapshot){
           var experience = snapshot.val()
           experience.forEach(function(ex){
-            $('#experience').append('<li class="collection-item">' + ex.name+'<br\>'+ex.description+'<br\>' + '</li>')
+            $('#experience').append('<li class="collection-item">' + '<b>'+ex.name+'</b>'+'<br\>'+'<i>'+'<small>'+ex.time+'</small>'+'</i>'+'<br\>'+ex.description+'<br\>' + '</li>')
           })
         })
 
         ref.child('bio/activities').once('value', function(snapshot){
           var experience = snapshot.val()
           experience.forEach(function(act){
-            $('#activities').append('<li class="collection-item">' + act.name+'<br\>'+act.description+'<br\>' + '</li>')
+            $('#activities').append('<li class="collection-item">' +'<b>' +act.name+'</b>'+'<br\>'+'<i>'+'<small>'+act.time+'</small>'+'</i>'+'<br\>'+act.description+'<br\>' + '</li>')
           })
         })
 
