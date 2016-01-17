@@ -17,7 +17,13 @@
 
       <div class="container">
 
-        <h1>Yue ZHANG</h1>
+        <h1><div align="center">Yue ZHANG</div></h1>
+
+        <ul>
+		<li><div align="center">Address: 770A 29 th St. Apt 731, Boulder, CO 80303</div></li>
+		<li><div align="center">Tel: 3035885485, Email: yuzh3168@colorado.edu</div></li>
+		</ul>
+
 
         <h2><font size="6">Education</font></h2>
         <ul class="collection" id="schools">
@@ -31,6 +37,10 @@
 
         <h2><font size="6">Experience</font></h2>
         <ul class="collection" id="experience">
+        </ul>
+
+		<h2><font size="6">Activities</font></h2>
+        <ul class="collection" id="activities">
         </ul>
 
       </div>
@@ -60,6 +70,13 @@
           var experience = snapshot.val()
           experience.forEach(function(ex){
             $('#experience').append('<li class="collection-item">' + ex.name+'<br\>'+ex.description+'<br\>' + '</li>')
+          })
+        })
+
+        ref.child('bio/activities').once('value', function(snapshot){
+          var experience = snapshot.val()
+          experience.forEach(function(act){
+            $('#activities').append('<li class="collection-item">' + act.name+'<br\>'+act.description+'<br\>' + '</li>')
           })
         })
 
