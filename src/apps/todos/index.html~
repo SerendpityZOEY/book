@@ -41,6 +41,9 @@
   <li> Yadira Valadeez </li>
   </ul>
 
+	<ul class="collection" id="tasks">
+	</ul>
+
   <footer id="foot01"></footer>
   </div></div>
 

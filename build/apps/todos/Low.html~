@@ -47,7 +47,7 @@
         ref.child('todos/tasks').on('value', function(snapshot){
           var tasks = snapshot.val();
           tasks.forEach(function(task){
-              if(task.priority==0){
+              if(task.priority==1){
                   var card ='<div class="card-content white-text"><div class="card #3f51b5 indigo lighten-2 z-depth-2 dismissable"><span class="card-title">';
             card += task.title + '</span>';
             Object.keys(task).forEach(function(key) {

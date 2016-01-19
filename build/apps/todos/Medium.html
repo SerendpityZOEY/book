@@ -42,7 +42,7 @@
 
 	<script>
         // create a firebase reference to the root
-        var ref = new Firebase('https://todolist1234.firebaseio.com/')
+        var ref = new Firebase('https://mynewlist.firebaseio.com/')
         // read data from the location todos/tasks, only once
         ref.child('todos/tasks').on('value', function(snapshot){
           var tasks = snapshot.val();
