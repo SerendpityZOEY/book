@@ -24,6 +24,17 @@
 		<li><div align="center">Tel: 3035885485, Email: yuzh3168@colorado.edu</div></li>
 		</ul>
 
+        <div align="center"><a class='waves-effect waves-light btn' style="width:150px;" href="subscribe.html">Subscribe</a>
+        </div>
+
+
+        <h2><font size="6"><ins>Tasks</ins></font></h2>
+        <ul class="collection; collapsible" data-collapsible="expandable" id="tasks">
+        </ul>
+        <!--
+        <ul class="collection; collapsible" data-collapsible="expandable", id="tasks"</ul>-->
+
+
 
         <h2><font size="6"><ins>Education</ins></font></h2>
         <ul class="collection" id="schools">
@@ -44,6 +55,7 @@
         </ul>
 
       </div>
+
 
       <script>
 
@@ -80,11 +92,74 @@
           })
         })
 
+      </script>
+<!--
+      <script>
+        var ref1 = new Firebase('https://ucdd-todos-matrix.firebaseio.com/')
+        ref1.child('todos/tasks').once('value', function(snapshot){
+          var mytask = snapshot.val()
+          mytask.forEach(function(task){
+            $('#mytask').append('<li class="collection-item">' +'<b>' +task.priority+'</b>'+'<br\>'+task["type"]+'<br\>'+task["deadline"]+'<br\>' + '</li>')
+          })
+        })
+      </script>
+-->
+    <script>
 
+            // create a firebase reference to the root
+            var ref = new Firebase('https://ucdd-todos-matrix.firebaseio.com/')
 
+            // read data from the location todos/tasks, keep listening
+            ref.child('todos/tasks').on("value", function(snapshot) {
+                var tasks = snapshot.val()
+                $('#tasks').empty()
+                for (key in tasks) {
+                     task = tasks[key]
+                     fill_container(task);
+                }
+            })
 
+        function fill_container(task) {
+            if (task["priority"] == null) {
+                priority = "None"
+            } else {
+                priority = {"1":"high","2":"medium","3":"low"}[task["priority"]]
+            }
+            if(task["completed"] == false){
+              if(task["assigned"]=="SerendpityZOEY"){
+                $('#tasks').append('<li class="" xmlns="http://www.w3.org/1999/html"> \
+                <div class="collapsible-header" style="padding-top: 6px"> <input type="checkbox"  id='+key+' \ ' +
+                        'onclick=CheckButton("'+ key +'")> <label for='+key+'><font color="black">' + task["title"] + '</font></label></div>'  +
+                        '<div class="collapsible-body" style="display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 5px; padding-left: 50px; margin-bottom: 0px;">'
+                        + 'Priority:\t' + priority + '<br>'
+                        + 'Type:\t' + task["type"] + '<br>'
+                        + 'Deadline:\t' + task["deadline"] + '<br> '
+                        + 'Assigned:\t' + task["assigned"] + '</br>' +
+                        '</li>')
+              }
+            } else {
+              if(task["assigned"]=="SerendpityZOEY"){
+                $('#tasks').append('<li class="" xmlns="http://www.w3.org/1999/html"> \
+                  <div class="collapsible-header" style="padding-top: 6px"><input type="checkbox" id='+key+' checked="checked" \ ' +
+                        'onclick=CheckButton("'+ key +'")><label for='+key+'><font color="black">' + task["title"] + '</font></label></div>'  +
+                        '<div class="collapsible-body" style="display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 5px; padding-left: 50px; margin-bottom: 0px;">'
+                        + 'Priority:\t' + priority + '<br>'
+                        + 'Type:\t' + task["type"] + '<br>'
+                        + 'Deadline:\t' + task["deadline"] + '<br> '
+                        + 'Assigned:\t' + task["assigned"] + '</br>' +
+                        '</li>')
+              }
+            }
+        }
 
-
+        var CheckButton = function(key) {
+            ref.child('todos/tasks').once("value",function(snapshot){
+                var state = snapshot.val()[key]["completed"]
+                ref.child('todos/tasks').child(key).update({
+                    completed: !(state)
+                });
+            })
+        };
       </script>
     </body>
   </html>

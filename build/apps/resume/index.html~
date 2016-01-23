@@ -24,6 +24,13 @@
 		<li><div align="center">Tel: 3035885485, Email: yuzh3168@colorado.edu</div></li>
 		</ul>
 
+        <div align="center"><a class='waves-effect waves-light btn' style="width:150px;" href="subscribe.html">Subscribe</a>
+        </div>
+
+
+        <h2><font size="6"><ins>Tasks</ins></font></h2>
+        <ul class="collection" id="mytask">
+        </ul>
 
         <h2><font size="6"><ins>Education</ins></font></h2>
         <ul class="collection" id="schools">
@@ -44,6 +51,7 @@
         </ul>
 
       </div>
+
 
       <script>
 
@@ -80,11 +88,23 @@
           })
         })
 
+      </script>
 
+      <script>
+        var ref1 = new Firebase('https://ucdd-todos-matrix.firebaseio.com/')
 
-
-
+        // read data from the location todos/tasks, only once
+                $('#tasks').append('<li class="" xmlns="http://www.w3.org/1999/html"> \
+                <div class="collapsible-header" style="padding-top: 6px"> <input type="checkbox"  id='+key+' \ ' +
+                        'onclick=CheckButton("'+ key +'")> <label for='+key+'><font color="black">' + task["title"] + '</font></label></div>'  +
+                        '<div class="collapsible-body" style="display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 5px; padding-left: 50px; margin-bottom: 0px;">'
+                        + 'Priority:\t' + priority + '<br>'
+                        + 'Type:\t' + task["type"] + '<br>'
+                        + 'Deadline:\t' + task["deadline"] + '<br> '
+                        + 'Assigned:\t' + task["assigned"] + '</br>' +
+                        '</li>')
 
       </script>
+
     </body>
   </html>

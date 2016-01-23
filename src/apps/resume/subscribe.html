@@ -18,13 +18,14 @@
       <div class="container">
 
         <h1> Subscribe </h1>
-
+        <form id="add_form">
         <div class="row">
           <div class="input-field col s12">
-            <input value="" id="email" type="text" class="validate">
+            <input value="" id="email" type="email" class="validate">
             <label for="email">Email</label>
           </div>
         </div>
+        </form>
 
         <div class="row">
           <div class="input-field col s12">
@@ -41,16 +42,39 @@
 
       <script>
 
+        var ref = new Firebase('https://radiant-heat-388.firebaseio.com/');
+        var ListRef = ref.child('subscriber/mail');
         $('#submit').click(function(){
-          console.log('the submit button is clicked')
+            console.log('the submit button is clicked')
 
-          // TODO: add code to submit an email address to your own Firebase
+              // TODO: add code to submit an email address to your own Firebase
+            var addr = $('#email').val();
 
+            var check_empty = document.forms["add_form"]["email"].value;
+            if (check_empty == null || check_empty == "" ) {
+                alert("Email address can not be empty");
+                return false;
+            }
+
+            if(addr.indexOf("@") == -1){
+                alert("Invalid!");
+                return false; // cancel form submission if email invalid
+            }
+
+            var newListRef = ListRef.push()
+            newListRef.set(addr);
         })
-
 
         // TODO: add code to pull emaill addresses from your own Firebase,
         // and populate "#emails" with these email addresses
+        var display = new Firebase('https://radiant-heat-388.firebaseio.com/');
+	        display.child('subscriber/mail').on('value', function(snapshot){
+		  $('#emails').empty();
+          var items = snapshot.val()
+          for(var item in items){
+            $('#emails').append('<li class="collection-item">' + items[item] + '</li>')
+          }
+        })
 
 
       </script>
