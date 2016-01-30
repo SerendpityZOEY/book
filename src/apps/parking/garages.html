@@ -15,42 +15,314 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
       <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
-      
-      <div class="container">
 
-        <h1>Garages</h1>
-        <ul class="collection" id="garages">
+     <nav class = "light-blue darken-3">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo center">Garages</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="garages.html">Garages</a></li>
+          <li><a href="garages_map.html">Map</a></li>
+        </ul>
+         <ul class="side-nav" id="mobile-demo">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="garages.html">Garages</a></li>
+          <li><a href="garages_map.html">Map</a></li>
+        </ul>
+      </div>
+     </nav>
+
+          <br>
+    <div class=" valign-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col s6 offset-s3">
+            <div class="card light-blue darken-3">
+              <div class="card-content white-text center">
+                <span class="card-title">Locations: </span>
+              </div>
+
+                    <div class="container">
+
+        <h1> </h1>
+        <ul class="collapsible" data-collapsible="expandable" id="garages">
         </ul>
 
       </div>
+        <span class = "card-content center">
+          <div class="card-action">
+          <a href="/apps/parking/garages_map.html">Go to Map</a></span>
 
-      <script>
 
-// create a firebase reference to the root
-var ref = new Firebase('https://publicdata-parking.firebaseio.com');
+        <script>
+    // create a firebase reference to the root
+    var ref = new Firebase('https://publicdata-parking.firebaseio.com');
+    var data
+    // read data from the location san_francisco/garages, only once
+    ref.child('san_francisco/garages').once('value', function(snapshot){
+      data = snapshot.val()
+      // filter the data
+      var garages = _.filter(data, function(d){
+          var date = new Date()
+          var day = date.getDay()
+          var hour = date.getHours()
+          return _.has(d, 'open_spaces')
+      })
+      displayGarages(garages)
+    })
 
-var data
+    function displayGarages(garages){
+      var d = new Date()
+      var day = d.getDay()
+      var hour = d.getHours()
+      if(day==0){day=7}
+      _.forEach(garages, function(val, key){
 
-// read data from the location san_francisco/garages, only once
-ref.child('san_francisco/garages').once('value', function(snapshot){
-  data = snapshot.val()
-  console.log('data is loaded', data)
+        if(checkedOpen(val.hours, day, hour)){
+          var rate = currentRate(val.rates, hour)
+          var list = '<li>'+'<div class="collapsible-header black-text" id="key">'+'<i class="material-icons">room</i>'+val["friendlyName"]+'</div>'+'<div class="collapsible-body grey lighten-4">'+'Open Space: '+val.open_spaces+'<br>'+'Current rate: '+rate+'/Hrs'+'<br>'
+          if (val.hours instanceof Array){
+            for (key in val.hours){
+              var h = val.hours[key]
+              if(typeof(h["TO"])=="string"){
+                list+=h["BEG"]+' - '+h["END"]+'   '+h["FROM"]+' - '+h["TO"]+'<br>'
+              }
+              else{
+                list += h["BEG"]+' - '+h["END"]+'   '+h["FROM"]+'<br>'
 
-  // filter the data
-  var garages = _.filter(data, function(d){
-      // keep only those values (d) that has "open_spaces" as a field
-      return _.has(d, 'open_spaces')
-  })
+              }
+            }
+          }
+          else{
+            list+=val.hours["BEG"]
+            if(typeof(val.hours["END"])=="string"){list+=' - '+val.hours["END"]}
+            list+='   '+val.hours["FROM"]
+            if(typeof(val.hours["TO"])=="string"){list+=' - '+val.hours["TO"]}
+          }
+          list+='</div></li>'
+          $('#garages').append(list)
+        }
+      })
+    }
+    function currentRate(rates, hour){
+      _.forEach(rates, function(rate){
+          var begTime = parseInt(rate.BEG)
+          var endTime = parseInt(rate.END)
+          if(typeof(rate.BEG)!="undefined") {
+            var amPMBeg = rate.BEG.split(" ")
+            if(amPMBeg[1] == "AM") {
+              if(parseInt(amPMBeg[0]) == 12){
+                begTime = 0
+              }
+            }
+            else {
+              if(parseInt(amPMBeg[0]) < 12) {
+                begTime = parseInt(amPMBeg[0]) + 12
+              }
+            }
+          }
+          if(typeof(rate.END)!="undefined") {
+            var amPMEnd = rate.END.split(" ");
+            if(amPMEnd[1] == "AM") {
+              if(parseInt(amPMEnd[0]) == 12){
+                endTime = 24
+              }
+            }
+            else {
+              if(parseInt(amPMEnd[0]) < 12) {
+                endTime = parseInt(amPMEnd[0]) + 12
+              }
+            }
+          }
+          if ((parseInt(begTime) <= hour) && (hour < parseInt(endTime))) {
+            cr = rate.RATE
+          }
+      })
+      return cr
+    }
+    function checkedOpen(openTime, day, hour){
+      if (openTime instanceof Array){
+        for(key in openTime){
+          time = openTime[key]
+          switch(time.FROM){
+            case "Monday":
+              from=1
+              break
+            case "Tuesday":
+              from=2
+              break
+            case "Wednesday":
+              from=3
+              break
+            case "Thursday":
+              from=4
+              break
+            case "Friday":
+              from=5
+              break
+            case "Saturday":
+              from=6
+              break
+            case "Sunday":
+              from=7
+              break
+          }
+          switch(time.TO){
+          case "Monday":
+            to=1
+            break
+          case "Tuesday":
+            to=2
+            break
+          case "Wednesday":
+            to=3
+            break
+          case "Thursday":
+            to=4
+            break
+          case "Friday":
+            to=5
+            break
+          case "Saturday":
+            to=6
+            break
+          case "Sunday":
+            to=7
+            break
+          }
+          if(typeof(time.TO)=="undefined"){to=from}
+          if((day > from && day<=to) || day==from || day==to){
+          var begin = parseInt(time.BEG)
+          var end = parseInt(time.END)
+          var ampmBeg = time.BEG.split(" ")
+          var ampmEnd = time.END.split(" ")
+          if(ampmBeg[1] == "AM") {
+            if(parseInt(ampmBeg[0]) == 12){
+                begin = 0;
+            }
+          }
+          else {
+            if(parseInt(ampmBeg[0]) < 12) {
+              begin = parseInt(ampmBeg[0]) + 12
+            }
+          }
+          if(ampmEnd[1] == "AM") {
+            if(parseInt(ampmEnd[0]) == 12){
+                end = 0;
+            }
+          }
+          else {
+            if(parseInt(ampmEnd[0]) < 12) {
+              end = parseInt(ampmEnd[0]) + 12
+            }
+          }
+          if(end < 12){
+            return !(hour>=end && hour< begin)}
+          else{
+            return (hour>=begin && hour<end)}
+          }
+        }
+      }
+      else{
+          if(openTime.BEG=="24 Hrs/Day"){
+            return true
+          }
+          else{
+            switch(openTime.FROM){
+              case "Monday":
+                from=1
+                break
+              case "Tuesday":
+                from=2
+                break
+              case "Wednesday":
+                from=3
+                break
+              case "Thursday":
+                from=4
+                break
+              case "Friday":
+                from=5
+                break
+              case "Saturday":
+                from=6
+                break
+              case "Sunday":
+                from=7
+                break
+              case "7 Days/Wk":
+                from=8
+                break
+            }
+            switch(openTime.TO){
+              case "Monday":
+                to=1
+                break
+              case "Tuesday":
+                to=2
+                break
+              case "Wednesday":
+                to=3
+                break
+              case "Thursday":
+                to=4
+                break
+              case "Friday":
+                to=5
+                break
+              case "Saturday":
+                to=6
+                break
+              case "Sunday":
+                to=7
+                break
+              case "undefined":
+                to=from
+                break
+            }
+            if(day<=to){
+              var begin = parseInt(openTime.BEG)
+              var end = parseInt(openTime.END)
+              var ampmBeg = openTime.BEG.split(" ")
+              var ampmEnd = openTime.END.split(" ")
+              if(ampmBeg[1] == "AM") {
+                if(parseInt(ampmBeg[0]) == 12){
+                  begin = 0;
+                }
+              }
+              else {
+                if(parseInt(ampmBeg[0]) < 12) {
+                begin = parseInt(ampmBeg[0]) + 12
+                }
+              }
+              if(ampmEnd[1] == "AM") {
+                if(parseInt(ampmEnd[0]) == 12){
+                  end = 0;
+                }
+              }
+              else {
+                if(parseInt(ampmEnd[0]) < 12) {
+                  end = parseInt(ampmEnd[0]) + 12
+                }
+              }
+              if(end < 12){return !(hour>=end && hour<begin)}
+              else{return (hour>=begin && hour<end)}
+            }
+         }
+      }
+    }
 
-  displayGarages(garages)
-})
 
-function displayGarages(garages){
-  // lodash _.forEach https://lodash.com/docs#forEach
-  _.forEach(garages, function(val, key){
-    $('#garages').append('<li class="collection-item">' + val['friendlyName'] + '</li>')
-  })
-}
-      </script>
+          </script>
+          <script type="text/javascript" src="js/main.js"></script>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     </body>
   </html>
