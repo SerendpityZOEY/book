@@ -12,11 +12,13 @@ Everything I've learned from UCDD 2 - Spring 2016.
 * [Parking](apps/parking)
 
 ## Learning
-* [Intro](learning/intro)
-* [Week 1](learning/week1)
-* [Week 2](learning/week2)
+* [Week 4](learning/week4) <span class="chip red">NEW</span>
 * [Week 3](learning/week3)
+* [Week 2](learning/week2)
+* [Week 1](learning/week1)
+* [Intro](learning/intro)
 
 ## Hackathons
-* [01-18](hackathons/01-18)
+* [02-01](hackathons/02-01) <span class="chip red">NEW</span>
 * [01-25](hackathons/01-25)
+* [01-18](hackathons/01-18)
