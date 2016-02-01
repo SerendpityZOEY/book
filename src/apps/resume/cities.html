@@ -12,6 +12,9 @@
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+      <!--Weather-->
+      <link rel="stylesheet" type="text/css" href="css/weather-icons.min.css">
     </head>
 
     <body>
@@ -22,29 +25,82 @@
       <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
       <script src="/js/leaflet.label.js"></script>
 
+      <nav class="blue darken-3 white-text">
+        <div class="nav-wrapper">
+        <div class="col s12">
+        <a href="index.html" class="breadcrumb" style="position: absolute;left:3%">Home</a>
+        <a href="cities.html" class="breadcrumb" style="position: absolute;left:7%">Cities</a>
+        </div>
+        </div>
+      </nav>
+
       <div class="container">
 
         <h1>My Favoirte Cities</h1>
-        <div id="cities"></div>
+        <ul class="collection"><div id="cities"></div></ul>
+            <!--
+            Select a City:
+            <select class="filter">
+                <option value="austin">Austin</option>
+                <option value="baltimore">Baltimore</option>
+                <option value="elpaso">El Paso</option>
+            </select>
+            -->
+
         <div id="map" style="height:500px"></div>
+        <a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Click the picture">
+            <h2><font size="6">Weather Forcast within a week</font></h2></a>
+            <div class="progress blue darken-3">
+            <div class="indeterminate"></div>
+            </div>
+        <div id="detail">
+          <div class="carousel">
+            <a class="carousel-item" href="#one!" onclick="Materialize.showStaggeredList('#staggered-test1')"><img src="image/denver.jpg"></a>
+            <a class="carousel-item" href="#two!" onclick="Materialize.showStaggeredList('#staggered-test2')"><img src="image/sandiego.jpg"></a>
+            <a class="carousel-item" href="#three!" onclick="Materialize.showStaggeredList('#staggered-test3')"><img src="image/newyork.jpg"></a>
+            <a class="carousel-item" href="#four!" onclick="Materialize.showStaggeredList('#staggered-test4')"><img src="image/phoenix.jpg"></a>
+            <a class="carousel-item" href="#five!" onclick="Materialize.showStaggeredList('#staggered-test5')"><img src="image/seattle.jpg"></a>
+          </div>
+            <div class="progress blue darken-3">
+            <div class="indeterminate"></div>
+            </div>
+          </div>
+
       </div>
 
+
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large blue">
+      <i class="large material-icons">mode_edit</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating yellow darken-1" href="index.html"><i class="material-icons">dashboard</i></a></li>
+      <li><a class="btn-floating green;back-to-top" href="#"><i class="material-icons">publish</i></a></li>
+    </ul>
+  </div>
+
+
       <script>
-
 // create a firebase reference to the root
-var weatherRef = new Firebase('https://publicdata-weather.firebaseio.com/austin');
-
-var data
+var weatherRef = new Firebase('https://publicdata-weather.firebaseio.com');
 
 // read data from only once
-weatherRef.once('value', function(snapshot){
-  var city = snapshot.val()
-  mapCity(city)
-  displayCity(city, 'austin')
+weatherRef.on('value', function(snapshot){
+  var cities = snapshot.val()
+  // Clear the layers
+  markersLayerGroup.clearLayers()
+  $('#cities').empty()
+  var Favcities = ['denver', 'sandiego', 'newyork', 'phoenix', 'seattle'];
+  var String = ['staggered-test1', 'staggered-test2', 'staggered-test3', 'staggered-test4', 'staggered-test5'];
+  for (i in Favcities) {
+    var city = Favcities[i];
+    mapCity(cities[city], city);
+    displayCity(cities[city], city);
+    showDetail(cities[city],city,String[i])
+  }
 })
 
-var attributionText = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a       href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
-
+var attributionText = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
 // initialzie the map
 var map = L.map($('#map')[0]).setView([39.50, -98.35], 4)
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -53,32 +109,83 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     id: 'doubleshow.noeko77m',
     accessToken: 'pk.eyJ1IjoiZG91Ymxlc2hvdyIsImEiOiJjaWZ5Y3B1eTE1MHRidWRtMG9uZXluajg4In0.u5ONW27Ly5cU7M5KYi6Y9Q'
 }).addTo(map)
-
 // create a layer group to hold all the markers
 var markersLayerGroup = L.layerGroup()
 // add the makers layer group to the map
 markersLayerGroup.addTo(map)
-
 // visualize cities on the map
-function mapCity(city){
-  console.log('mapCity', city)
-  var latlng = [city.latitude, city.longitude]
-  var circle = L.circle(latlng, 10, {
-      color: 'red',
-      fillColor: '#f03',
-      fillOpacity: 0.5
-  }).bindLabel('Austin')
-  
-  markersLayerGroup.addLayer(circle)
-}
+function mapCity(city,name){
 
+    var latlng = [city.latitude, city.longitude]
+    var WeatherIcon = L.Icon.extend({
+        options: {
+            iconUrl: "image/" + city.currently.icon + ".png",
+            iconSize: [50, 50],
+            shadowSize: [0,0]
+        }
+    })
+    var weatherIcon = new WeatherIcon();
+    L.marker(latlng, {icon: weatherIcon}).bindLabel(name.toUpperCase() + "<br>Conditions: " + city.currently.summary + "<br>Temperature: " + city.currently.temperature ).addTo(map);
+
+    L.marker(latlng).addTo(map);
+
+}
 function displayCity(city, name){
-  console.log('displayCity', city)
-  $('#cities').append('<li class="collection-item">' + name +
-    ' humidity = ' +
-    JSON.stringify(city.currently) + '</li>')
+
+  $('#cities').append(
+      '<li class="collection-item avatar">'+
+      '<img src="image/'+name+'.jpg" alt="" class="circle">'+
+      '<span class="title">'+name.toUpperCase()+'</span>'+
+      '<p><b>Summary:</b>\t' + city.currently.summary + '<br>' +
+      '<b>Temperature:</b>\t' + city.currently.temperature + '&degF<br>' +
+      '<b>Humidity:</b>\t' + city.currently.humidity + '<br>' +
+      '<b>Wind Speed:</b>\t' + city.currently.windSpeed + 'mph<br>' +
+      '<b>Daily:</b>\t'+ city.daily.summary + '<br>'+
+      '</p>'+
+      '<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>'+
+      '</li>'
+      )
 }
 
+function showDetail(city,name,curId){
+
+    var icon1=displayicon(city.daily.data[1].icon, 'daily')
+    var icon2=displayicon(city.daily.data[2].icon, 'daily')
+    var icon3=displayicon(city.daily.data[3].icon, 'daily')
+    var icon4=displayicon(city.daily.data[4].icon, 'daily')
+    var icon5=displayicon(city.daily.data[5].icon, 'daily')
+    var icon6=displayicon(city.daily.data[6].icon, 'daily')
+    var icon7=displayicon(city.daily.data[7].icon, 'daily')
+
+
+            $('#detail').append('<ul id='+curId+'>'+
+            '<li class="" style="transform: translateX(0px); opacity: 0;">'+
+            '<b>'+'<div align="center">'+name.toUpperCase()+'</div>'+'</b>'+
+					'<table class="striped">'+
+                    '<thead><tr><th data-field="id">Sunday</th><th data-field="id">Monday</th><th data-field="name">Tuesday</th>'+
+                    '<th data-field="price">Wednesday</th><th data-field="id">Thursday</th>'+
+                    '<th data-field="id">Friday</th><th data-field="id">Satarday</th></tr></thead>'+
+					'<tr cellspacing=0 >'+
+                    '<td>'+icon1+'<br>'+city.daily.data[1].temperatureMin+'~'+city.daily.data[1].temperatureMax+'</td>'+
+					'<td>'+icon2+'<br>'+city.daily.data[2].temperatureMin+'~'+city.daily.data[2].temperatureMax+'</td>'+
+					'<td>'+icon3+'<br>'+city.daily.data[3].temperatureMin+'~'+city.daily.data[3].temperatureMax+'</td>'+
+					'<td>'+icon4+'<br>'+city.daily.data[4].temperatureMin+'~'+city.daily.data[4].temperatureMax+'</td>'+
+					'<td>'+icon5+'<br>'+city.daily.data[5].temperatureMin+'~'+city.daily.data[5].temperatureMax+'</td>'+
+					'<td>'+icon6+'<br>'+city.daily.data[6].temperatureMin+'~'+city.daily.data[6].temperatureMax+'</td>'+
+					'<td>'+icon7+'<br>'+city.daily.data[7].temperatureMin+'~'+city.daily.data[7].temperatureMax+'</td>'+
+					'</tr>'+
+					'</table>'+
+            '</li>'+
+        '</ul>')
+}
+
+		function displayicon(weather) {
+			var	current_icon="<image src=image/"+weather+".png  height=38 width=38 title="+weather+">"
+			return current_icon;
+		}
       </script>
+
+    <script type="text/javascript" src="js/main.js"></script>
+
     </body>
   </html>
