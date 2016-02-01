@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+      <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+
+      <nav class="blue darken-3 white-text">
+        <div class="nav-wrapper">
+        <div class="col s12">
+        <a href="index.html" class="breadcrumb" style="position: absolute;left:3%">Home</a>
+        <a href="subcribe.html" class="breadcrumb" style="position: absolute;left:7%">Subscribe</a>
+        </div>
+        </div>
+      </nav>
+
+      <div class="container">
+
+        <h1> Subscribe </h1>
+        <form id="add_form">
+        <div class="row">
+          <div class="input-field col s12">
+            <input value="" id="email" type="email" class="validate">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        </form>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <a class="waves-effect waves-light btn blue accent-2" id="submit">Submit</a>
+          </div>
+        </div>
+
+        <div class="row">
+          <h3>Current Subscribers</h3>
+          <ul class="collection" id="emails">
+          </ul>
+        </div>
+      </div>
+
+      <script>
+
+        var ref = new Firebase('https://radiant-heat-388.firebaseio.com/');
+        var ListRef = ref.child('subscriber/mail');
+        $('#submit').click(function(){
+            console.log('the submit button is clicked')
+
+              // TODO: add code to submit an email address to your own Firebase
+            var addr = $('#email').val();
+
+            var check_empty = document.forms["add_form"]["email"].value;
+            if (check_empty == null || check_empty == "" ) {
+                alert("Email address can not be empty");
+                return false;
+            }
+
+            if(addr.indexOf("@") == -1){
+                alert("Invalid!");
+                return false; // cancel form submission if email invalid
+            }
+
+            var newListRef = ListRef.push()
+            newListRef.set(addr);
+        })
+
+        // TODO: add code to pull emaill addresses from your own Firebase,
+        // and populate "#emails" with these email addresses
+        var display = new Firebase('https://radiant-heat-388.firebaseio.com/');
+	        display.child('subscriber/mail').on('value', function(snapshot){
+		  $('#emails').empty();
+          var items = snapshot.val()
+          for(var item in items){
+            $('#emails').append('<li class="collection-item">' + items[item] + '</li>')
+          }
+        })
+
+
+      </script>
+    </body>
+  </html>
