@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html style=""><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <html>
+    <head>
       <!--Import Google Icon Font-->
-      <link href="cities_files/icon.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-      <link rel="stylesheet" href="cities_files/materialize.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
 
       <!--Import stylesheet for Leaflet to work-->
-      <link rel="stylesheet" href="cities_files/leaflet.css">
-      <link rel="stylesheet" href="cities_files/leaflet_002.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+    <link rel="stylesheet" href="/css/leaflet.label.css" />
 
       <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+      <!--Weather-->
+      <link rel="stylesheet" type="text/css" href="css/weather-icons.min.css">
     </head>
 
-    <body class="">
-      <script type="text/javascript" src="cities_files/jquery-2.js"></script>
-      <script src="cities_files/materialize.js"></script>
-      <script src="cities_files/firebase.js"></script>
-      <script src="cities_files/lodash.js"></script>
-      <script src="cities_files/leaflet.js"></script>
-      <script src="cities_files/leaflet_002.js"></script>
+    <body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <script src="/js/leaflet.label.js"></script>
 
     <nav class = "light-blue darken-3">
       <div class="nav-wrapper">
@@ -42,54 +45,70 @@
       <div class="container">
 
         <h1>My Favoirte Cities</h1>
-        <div id="cities"><li class="collection-item">
-            <p>austin humidity =
-{"apparentTemperature":54.01,"cloudCover":0,"dewPoint":38.15,"humidity":0.55,"icon":"clear-night",
- "nearestStormBearing":331,"nearestStormDistance":708,"ozone":298.99,"precipIntensity":0,"
-precipProbability":0,"pressure":1014.02,"summary":"Clear","temperature":54.01,"time":1454134217,
-"visibility":10,"windBearing":192,"windSpeed":8}</p></li></div>
+        <ul class="collection"><div id="cities"></div></ul>
+            <!--
+            Select a City:
+            <select class="filter">
+                <option value="austin">Austin</option>
+                <option value="baltimore">Baltimore</option>
+                <option value="elpaso">El Paso</option>
+            </select>
+            -->
 
-
+        <div id="map" style="height:500px"></div>
+        <a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Click the picture">
+            <h2><font size="6">Weather Forcast within a week</font></h2></a>
+            <div class="progress blue darken-3">
+            <div class="indeterminate"></div>
+            </div>
+        <div id="detail">
           <div class="carousel">
-            <a class="carousel-item" href="#one!" onclick="Materialize.showStaggeredList('#staggered-test')"><img src="http://lorempixel.com/250/250/nature/1"></a>
-            <a class="carousel-item" href="#two!" onclick="Materialize.showStaggeredList('#staggered-test')"><img src="http://lorempixel.com/250/250/nature/2"></a>
-            <a class="carousel-item" href="#three!" onclick="Materialize.showStaggeredList('#staggered-test')"><img src="http://lorempixel.com/250/250/nature/3"></a>
-            <a class="carousel-item" href="#four!" onclick="Materialize.showStaggeredList('#staggered-test')"><img src="http://lorempixel.com/250/250/nature/4"></a>
-            <a class="carousel-item" href="#five!" onclick="Materialize.showStaggeredList('#staggered-test')"><img src="http://lorempixel.com/250/250/nature/5"></a>
+            <a class="carousel-item" href="#one!" onclick="Materialize.showStaggeredList('#staggered-test1')"><img src="image/denver.jpg"></a>
+            <a class="carousel-item" href="#two!" onclick="Materialize.showStaggeredList('#staggered-test2')"><img src="image/sandiego.jpg"></a>
+            <a class="carousel-item" href="#three!" onclick="Materialize.showStaggeredList('#staggered-test3')"><img src="image/newyork.jpg"></a>
+            <a class="carousel-item" href="#four!" onclick="Materialize.showStaggeredList('#staggered-test4')"><img src="image/phoenix.jpg"></a>
+            <a class="carousel-item" href="#five!" onclick="Materialize.showStaggeredList('#staggered-test5')"><img src="image/seattle.jpg"></a>
+          </div>
+            <div class="progress blue darken-3">
+            <div class="indeterminate"></div>
+            </div>
           </div>
 
-            <ul id="staggered-test">
-                  <li class="" style="transform: translateX(0px); opacity: 0;">
-                    <h4><a href="#">List Item</a></h4>
-                    <p>This is a description</p>
-                  </li>
-                  <li class="" style="transform: translateX(0px); opacity: 0;">
-                    <h4><a href="#">List Item</a></h4>
-                    <p>This is a description</p>
-                  </li>
-            </ul>
-
-
-        <div tabindex="0" class="leaflet-container leaflet-fade-anim" id="map" style="height: 500px; position: relative;"><div style="transform: translate(-89px, -13px);" class="leaflet-map-pane"><div class="leaflet-tile-pane"><div class="leaflet-layer"><div class="leaflet-tile-container"></div><div class="leaflet-tile-container leaflet-zoom-animated"><img src="cities_files/6.png" style="height: 256px; width: 256px; transform: translate(299px, 228px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/5_002.png" style="height: 256px; width: 256px; transform: translate(299px, -28px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/6_003.png" style="height: 256px; width: 256px; transform: translate(43px, 228px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/6_002.png" style="height: 256px; width: 256px; transform: translate(555px, 228px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/7.png" style="height: 256px; width: 256px; transform: translate(299px, 484px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/5.png" style="height: 256px; width: 256px; transform: translate(43px, -28px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/5_005.png" style="height: 256px; width: 256px; transform: translate(555px, -28px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/7_003.png" style="height: 256px; width: 256px; transform: translate(43px, 484px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/7_004.png" style="height: 256px; width: 256px; transform: translate(555px, 484px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/6_005.png" style="height: 256px; width: 256px; transform: translate(-213px, 228px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/6_004.png" style="height: 256px; width: 256px; transform: translate(811px, 228px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/5_004.png" style="height: 256px; width: 256px; transform: translate(-213px, -28px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/5_003.png" style="height: 256px; width: 256px; transform: translate(811px, -28px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/7_002.png" style="height: 256px; width: 256px; transform: translate(-213px, 484px);" class="leaflet-tile leaflet-tile-loaded"><img src="cities_files/7_005.png" style="height: 256px; width: 256px; transform: translate(811px, 484px);" class="leaflet-tile leaflet-tile-loaded"></div></div></div><div class="leaflet-objects-pane"><div class="leaflet-shadow-pane"></div><div class="leaflet-overlay-pane"><svg viewBox="-151 -118 1400 762" height="762" width="1400" style="transform: translate(-151px, -118px);" class="leaflet-zoom-animated"><g><path d="M467,377A1,1,0,1,1,466.9,377 z" class="leaflet-clickable" fill-opacity="0.5" fill="#f03" stroke-width="5" stroke-opacity="0.5" stroke="red" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></div><div class="leaflet-marker-pane"></div><div class="leaflet-popup-pane"></div></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a title="Zoom in" href="#" class="leaflet-control-zoom-in">+</a><a title="Zoom out" href="#" class="leaflet-control-zoom-out">-</a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="http://leafletjs.com/" title="A JS library for interactive maps">Leaflet</a> | Map data © <a href="http://openstreetmap.org/">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com/">Mapbox</a></div></div></div></div>
       </div>
 
+
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large blue">
+      <i class="large material-icons">mode_edit</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating yellow darken-1" href="index.html"><i class="material-icons">dashboard</i></a></li>
+      <li><a class="btn-floating green;back-to-top" href="#"><i class="material-icons">publish</i></a></li>
+    </ul>
+  </div>
+
+
       <script>
-
-
 // create a firebase reference to the root
-var weatherRef = new Firebase('https://publicdata-weather.firebaseio.com/austin');
-
-var data
+var weatherRef = new Firebase('https://publicdata-weather.firebaseio.com');
 
 // read data from only once
-weatherRef.once('value', function(snapshot){
-  var city = snapshot.val()
-  mapCity(city)
-  displayCity(city, 'austin')
+weatherRef.on('value', function(snapshot){
+  var cities = snapshot.val()
+  // Clear the layers
+  markersLayerGroup.clearLayers()
+  $('#cities').empty()
+  var Favcities = ['denver', 'sandiego', 'newyork', 'phoenix', 'seattle'];
+  var String = ['staggered-test1', 'staggered-test2', 'staggered-test3', 'staggered-test4', 'staggered-test5'];
+  for (i in Favcities) {
+    var city = Favcities[i];
+    mapCity(cities[city], city);
+    displayCity(cities[city], city);
+    showDetail(cities[city],city,String[i])
+  }
 })
 
-var attributionText = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a       href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
-
+var attributionText = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
 // initialzie the map
 var map = L.map($('#map')[0]).setView([39.50, -98.35], 4)
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -98,36 +117,83 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     id: 'doubleshow.noeko77m',
     accessToken: 'pk.eyJ1IjoiZG91Ymxlc2hvdyIsImEiOiJjaWZ5Y3B1eTE1MHRidWRtMG9uZXluajg4In0.u5ONW27Ly5cU7M5KYi6Y9Q'
 }).addTo(map)
-
 // create a layer group to hold all the markers
 var markersLayerGroup = L.layerGroup()
 // add the makers layer group to the map
 markersLayerGroup.addTo(map)
-
 // visualize cities on the map
-function mapCity(city){
-  console.log('mapCity', city)
-  var latlng = [city.latitude, city.longitude]
-  var circle = L.circle(latlng, 10, {
-      color: 'red',
-      fillColor: '#f03',
-      fillOpacity: 0.5
-  }).bindLabel('Austin')
-  
-  markersLayerGroup.addLayer(circle)
-}
+function mapCity(city,name){
 
+    var latlng = [city.latitude, city.longitude]
+    var WeatherIcon = L.Icon.extend({
+        options: {
+            iconUrl: "image/" + city.currently.icon + ".png",
+            iconSize: [50, 50],
+            shadowSize: [0,0]
+        }
+    })
+    var weatherIcon = new WeatherIcon();
+    L.marker(latlng, {icon: weatherIcon}).bindLabel(name.toUpperCase() + "<br>Conditions: " + city.currently.summary + "<br>Temperature: " + city.currently.temperature ).addTo(map);
+
+    L.marker(latlng).addTo(map);
+
+}
 function displayCity(city, name){
-  console.log('displayCity', city)
-  $('#cities').append('<li class="collection-item">' + name +
-    ' humidity = ' +
-    JSON.stringify(city.currently) + '</li>')
+
+  $('#cities').append(
+      '<li class="collection-item avatar">'+
+      '<img src="image/'+name+'.jpg" alt="" class="circle">'+
+      '<span class="title">'+name.toUpperCase()+'</span>'+
+      '<p><b>Summary:</b>\t' + city.currently.summary + '<br>' +
+      '<b>Temperature:</b>\t' + city.currently.temperature + '&degF<br>' +
+      '<b>Humidity:</b>\t' + city.currently.humidity + '<br>' +
+      '<b>Wind Speed:</b>\t' + city.currently.windSpeed + 'mph<br>' +
+      '<b>Daily:</b>\t'+ city.daily.summary + '<br>'+
+      '</p>'+
+      '<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>'+
+      '</li>'
+      )
 }
 
+function showDetail(city,name,curId){
+
+    var icon1=displayicon(city.daily.data[1].icon, 'daily')
+    var icon2=displayicon(city.daily.data[2].icon, 'daily')
+    var icon3=displayicon(city.daily.data[3].icon, 'daily')
+    var icon4=displayicon(city.daily.data[4].icon, 'daily')
+    var icon5=displayicon(city.daily.data[5].icon, 'daily')
+    var icon6=displayicon(city.daily.data[6].icon, 'daily')
+    var icon7=displayicon(city.daily.data[7].icon, 'daily')
+
+
+            $('#detail').append('<ul id='+curId+'>'+
+            '<li class="" style="transform: translateX(0px); opacity: 0;">'+
+            '<b>'+'<div align="center">'+name.toUpperCase()+'</div>'+'</b>'+
+					'<table class="striped">'+
+                    '<thead><tr><th data-field="id">Sunday</th><th data-field="id">Monday</th><th data-field="name">Tuesday</th>'+
+                    '<th data-field="price">Wednesday</th><th data-field="id">Thursday</th>'+
+                    '<th data-field="id">Friday</th><th data-field="id">Satarday</th></tr></thead>'+
+					'<tr cellspacing=0 >'+
+                    '<td>'+icon1+'<br>'+city.daily.data[1].temperatureMin+'~'+city.daily.data[1].temperatureMax+'</td>'+
+					'<td>'+icon2+'<br>'+city.daily.data[2].temperatureMin+'~'+city.daily.data[2].temperatureMax+'</td>'+
+					'<td>'+icon3+'<br>'+city.daily.data[3].temperatureMin+'~'+city.daily.data[3].temperatureMax+'</td>'+
+					'<td>'+icon4+'<br>'+city.daily.data[4].temperatureMin+'~'+city.daily.data[4].temperatureMax+'</td>'+
+					'<td>'+icon5+'<br>'+city.daily.data[5].temperatureMin+'~'+city.daily.data[5].temperatureMax+'</td>'+
+					'<td>'+icon6+'<br>'+city.daily.data[6].temperatureMin+'~'+city.daily.data[6].temperatureMax+'</td>'+
+					'<td>'+icon7+'<br>'+city.daily.data[7].temperatureMin+'~'+city.daily.data[7].temperatureMax+'</td>'+
+					'</tr>'+
+					'</table>'+
+            '</li>'+
+        '</ul>')
+}
+
+		function displayicon(weather) {
+			var	current_icon="<image src=image/"+weather+".png  height=38 width=38 title="+weather+" >"
+			return current_icon;
+		}
       </script>
 
+    <script type="text/javascript" src="js/main.js"></script>
 
-      <script type="text/javascript" src="js/main.js"></script>
-    
-  
-<div class="hiddendiv common"></div></body></html>
+    </body>
+  </html>
