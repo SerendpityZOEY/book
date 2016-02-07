@@ -15,7 +15,7 @@ MyComponents.City = React.createClass({
         <p><b>Humidity:</b> {this.props.city.currently.humidity}%</p>
         <p><b>Wind:</b> {this.props.city.currently.windSpeed} mph</p>
         <p><b>Tomorrow Temperature:</b> {this.props.city.daily.data[1].temperatureMin} F~{this.props.city.daily.data[1].temperatureMax} F</p>
-        <p>Daily Summary: {this.props.city.daily.summary}</p>
+        <p><b>Daily Summary:</b> {this.props.city.daily.summary}</p>
         <a href="#!" className="secondary-content"><img src= {this.props.city.currently.icon}/></a>
       </li>
     );
