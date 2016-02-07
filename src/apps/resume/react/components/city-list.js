@@ -1,13 +1,23 @@
 MyComponents.City = React.createClass({
 
   render: function() {
+    //<img src= {this.props.city.currently.icon} width=40px; height=40px></img>
+    //div style="height:40px">
+                  //<p style="font-size:15px">{this.props.city.daily.summary}</p>
+                //</div>
+    this.props.city.currently.icon = "img/" + this.props.city.currently.icon + ".png"
     return (
-      <div className="card">
-        <div className="card-content">
-        TODO: This is a component to display the weather of a city.
-        Raw props data is {JSON.stringify(this.props.city)}
-        </div>
-      </div>
+      <li className="collection-item avatar">
+        <img src= {"img/"+this.props.city.name+".jpg"} alt="" className="circle"/>
+        <span className="title">{this.props.city.name.toUpperCase()}</span>
+        <p><b>Temperature:</b> {this.props.city.currently.temperature} F</p>
+        <p><b>Conditions:</b> {this.props.city.currently.summary}</p>
+        <p><b>Humidity:</b> {this.props.city.currently.humidity}%</p>
+        <p><b>Wind:</b> {this.props.city.currently.windSpeed} mph</p>
+        <p><b>Tomorrow Temperature:</b> {this.props.city.daily.data[1].temperatureMin} F~{this.props.city.daily.data[1].temperatureMax} F</p>
+        <p>Daily Summary: {this.props.city.daily.summary}</p>
+        <a href="#!" className="secondary-content"><img src= {this.props.city.currently.icon}/></a>
+      </li>
     );
   }
 
@@ -21,15 +31,9 @@ MyComponents.CityList = React.createClass({
     })
 
     return (
-      <div className="card">
-        <div className="card-content">
-        TODO: This is a component to display the weather of a list of cities
-        Raw props data is {JSON.stringify(this.props.cities)}
-
+      <ul className="collection">
         {cityElements}
-
-        </div>
-      </div>
+      </ul>
     );
   }
 });
