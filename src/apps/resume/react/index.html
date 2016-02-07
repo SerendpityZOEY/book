@@ -9,7 +9,6 @@
     <!--Import materialize.css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
 
-
     <script src="lib/react.js"></script>
     <script src="lib/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
@@ -33,13 +32,32 @@
       <h2 id="cities-heading">Favorite Cities</h2>
       <div id="cities"></div>
     </div>
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large blue">
+        <i class="large material-icons">mode_edit</i>
+      </a>
+      <ul>
+        <li><a class="btn-floating yellow darken-1" href="#cities-heading"><i class="material-icons">dashboard</i></a></li>
+        <li><a class="btn-floating green;back-to-top" href="#"><i class="material-icons">publish</i></a></li>
+        <li><a class="btn-floating red" href="index.html"><i class="material-icons">replay</i></a></li>
+      </ul>
+    </div>
+
+    <script>
+  $(document).ready(function(){
+    $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+  });
+    </script>
+
     <script>
       // MyComponents is a global object where each property is a reference to a component class
       MyComponents = {}
     </script>
 
     <!-- import each component class in components/ -->
-
     <script type="text/babel" src="components/navbar.js"></script>
 
     <script type="text/babel" src="components/about.js"></script>
@@ -105,12 +123,7 @@
         );
       })
 
-  $(document).ready(function(){
-    $('.collapsible').collapsible({
-      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-    });
-  });
     </script>
-    <script type="text/javascript" src={"js/main.js"}></script>
+
   </body>
 </html>

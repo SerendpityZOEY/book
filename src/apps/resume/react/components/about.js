@@ -13,7 +13,7 @@ MyComponents.About = React.createClass({
         <p><div className="chip">
           <img src={"img/yue.jpeg"}/>
           <a href={this.props.about.github}>My Github</a>
-        </div></p>
+        </div><font size="2"><i>   For More Details Click the Card.</i></font></p>
         </div>
 
         <div className="card-reveal light-blue lighten-2 white-text">
