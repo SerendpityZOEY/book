@@ -4,16 +4,18 @@ MyComponents.Task = React.createClass({
     return (
 
         <li className="collection-item">
-        <b>ToDo: </b>{this.props.task.name}
-        <br>Priority:{this.props.task.priority}</br>
+        <i className="material-icons">label_outline</i> <b> {this.props.task.name} </b>
+        <br>Priority: {this.props.task.priority}</br>
+        Deadline: {this.props.task.ddl} <br/>
+        Status : {this.props.task.status}<br/>
         </li>
 
 /*
     <li>
-      <div className="collapsible-header"><i className="material-icons">filter_drama</i>{this.props.task.name}</div>
-      <div className="collapsible-body"><p>{this.props.task.priority}</p></div>
+      <div className="collapsible-header"><i className="material-icons">filter_drama</i>{this.props.task.name}
+      </div>
     </li>
-    */
+*/
     );
   }
 
