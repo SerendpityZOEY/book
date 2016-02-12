@@ -1,1 +1,204 @@
-TODO
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Client</title>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+      <!--Import stylesheet for Leaflet to work-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+    <link rel="stylesheet" href="/css/leaflet.label.css" />
+
+    <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
+
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <!-- https://github.com/PaulLeCam/react-leaflet -->
+    <script src="https://npmcdn.com/react-leaflet/dist/react-leaflet.min.js"></script>
+
+    <style>
+      .leaflet-container {
+        height: 400px;
+        width: 80%;
+        margin: 0 auto;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <script src="/js/leaflet.label.js"></script>
+
+
+    <div id="app-container" class="container">
+    </div>
+
+    <script>
+      // MyComponents is a global object where each property is a reference to a component class
+      MyComponents = {}
+    </script>
+
+    <!-- import each component class in components/ -->
+    <!-- The order is important. Dependencies must be loaded first -->
+    <script type="text/babel" src="components/navbar.jsx"></script>
+    <script type="text/babel" src="components/team.jsx"></script>
+    <script type="text/babel" src="components/map.jsx"></script>
+    <script type="text/babel" src="components/user.jsx"></script>
+
+    <!-- Main app container -->
+    <script type="text/babel" src="components/app.jsx"></script>
+
+    <!-- Connect the app and data -->
+    <script type="text/babel" src="data.jsx"></script>
+      <nav class="blue darken-3 white-text">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo center">Hungry</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+         <ul class="side-nav" id="mobile-demo">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </div>
+      </nav>
+
+
+    <div class="container">
+
+        <h1>Restaurant List</h1>
+
+  <ul class="collection">
+    <li class="collection-item avatar">
+      <img src="sushi.jpg" alt="" class="circle">
+      <span class="title"><b>The House</b></span>
+      <p><b>Stars: </b>4.5<br>
+         <b>Location: </b>1230 Grant Ave San Francisco<br>
+         <b>Menu: </b>Deep Fried Salmon Roll, Blue Jake Bean Tempura, sea bass with wasabi noodles<br>
+         <b>License: </b>Yes<br>
+         <b>Style: </b>Japaness<br>
+         <b>Reviews: </b>"Greet restaurant"<br>
+         <b>Open hours: </b>11:30-20:00<br>
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    </li>
+
+    <li class="collection-item avatar">
+      <img src="salad.jpg" alt="" class="circle">
+      <span class="title"><b>Yamo</b></span>
+      <p><b>Stars: </b>4<br>
+         <b>Location: </b>3406 18th St San Francisco<br>
+         <b>Menu: </b>tea leaf salad, Yamo house oil noodle with chicken, Summer roll<br>
+         <b>License: </b>Yes<br>
+         <b>Style: </b>Japaness<br>
+         <b>Reviews: </b>"Not as high quality food as the other famous Burmese restaurants in SF", "I don't understand the high reviews."<br>
+         <b>Open hours: </b>11:00-21:30<br>
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    </li>
+
+    <li class="collection-item avatar">
+      <img src="chicken.jpg" alt="" class="circle">
+      <span class="title"><b>Homely Foods</b></span>
+      <p><b>Stars: </b>4<br>
+         <b>Location: </b>849 Vallejo St San Francisco<br>
+         <b>Menu: </b>pork stewed in soy sauce, Kung Pao Chicken<br>
+         <b>License: </b>Yes<br>
+         <b>Style: </b>Chinese<br>
+         <b>Reviews: </b>"Good food, nice host"<br>
+         <b>Open hours: </b>11:00-20:00<br>
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    </li>
+
+    <li class="collection-item avatar">
+      <img src="pho.jpg" alt="" class="circle">
+      <span class="title"><b>Vietnam Restaurant</b></span>
+      <p><b>Stars: </b>3.5<br>
+         <b>Location: </b>620 Broadway San Francisco<br>
+         <b>Menu: </b>Bun rieu, combo pho, pork spring rolls<br>
+         <b>License: </b>Yes<br>
+         <b>Style: </b>vietnamese<br>
+         <b>Reviews: </b>"superbly flavored grilled beef! more intense and robust than cheese steak.", "I tried this place based on the number of reviews, but was definitely disappointed."<br>
+         <b>Open hours: </b>9:00-3:00<br>
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    </li>
+  </ul>
+
+      <h2>Location Information</h2>
+        <ul class="collection"><div id="cities"></div></ul>
+
+
+        <div id="map" style="height:500px"></div>
+
+    </div>
+
+    <script>
+// create a firebase reference to the root
+var weatherRef = new Firebase('https://publicdata-weather.firebaseio.com');
+
+// read data from only once
+weatherRef.on('value', function(snapshot){
+  var cities = snapshot.val()
+  // Clear the layers
+  markersLayerGroup.clearLayers()
+  $('#cities').empty()
+  var Favcities = ['denver', 'sandiego', 'newyork', 'phoenix', 'seattle'];
+  var Rest = ['The House', 'Yamo', 'Homely foods'];
+  for (i in Rest) {
+    var city = Rest[i];
+    mapCity(city);
+  }
+})
+
+var attributionText = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
+// initialzie the map
+var map = L.map($('#map')[0]).setView([37.78, -122.41], 13)
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: attributionText,
+    maxZoom: 18,
+    id: 'doubleshow.noeko77m',
+    accessToken: 'pk.eyJ1IjoiZG91Ymxlc2hvdyIsImEiOiJjaWZ5Y3B1eTE1MHRidWRtMG9uZXluajg4In0.u5ONW27Ly5cU7M5KYi6Y9Q'
+}).addTo(map)
+// create a layer group to hold all the markers
+var markersLayerGroup = L.layerGroup()
+// add the makers layer group to the map
+markersLayerGroup.addTo(map)
+// visualize cities on the map
+function mapCity(name){
+
+    var latlng1 = [37.79847,-122.4092401]
+    var latlng2 = [37.7619888,-122.4218911]
+    var latlng3 = [37.798020, -122.411254]
+    var latlng4 = [37.7979278,-122.4096856]
+    L.marker(latlng1).bindLabel("The House").addTo(map);
+    L.marker(latlng2).bindLabel("Yamo").addTo(map);
+    L.marker(latlng3).bindLabel("Homely Foods").addTo(map);
+  L.marker(latlng4).bindLabel("Vietnam Restaurant").addTo(map);
+
+}
+
+
+
+      </script>
+
+  </body>
+</html>

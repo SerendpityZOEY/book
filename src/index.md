@@ -9,18 +9,13 @@ Everything I've learned from UCDD 2 - Spring 2016.
 ## Apps
 * [ToDos](apps/todos/)
 * [Resume](apps/resume/)
-<<<<<<< HEAD
- * [ReactJS](apps/resume/react)
-* [Parking](apps/parking)
- * [ReactJS](apps/parking/react)
-=======
   * [ReactJS](apps/resume/react)
 * [Parking](apps/parking/)
   * [ReactJS](apps/parking/react)
 * Uber <span class="chip red">NEW</span>
   * [Mockup](apps/uber/mockup)
   * [ReactJS](apps/uber/)
->>>>>>> upstream/master
+
 
 ## Learning
 * [Week 5](learning/week5) <span class="chip red">NEW</span>
