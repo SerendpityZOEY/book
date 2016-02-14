@@ -1,0 +1,48 @@
+{
+  "ohmywebsite" : {
+	"skills" : [ {"name":"Python: ",
+				  "years":"1 year"},
+
+                  {"name":"Java: ",
+				  "years":"2 years"},
+
+                  {"name":"JavaScript: ",
+                  "years":"< 1 year"},
+
+                  {"name":"C/C++: ",
+				  "years":"5 years"},
+
+                  {"name":"R: ",
+				  "years":"2 years"} ],
+
+	"tasks" : [ {"name":"Homework",
+				"priority":"2",
+                "ddl":"15th Feb",
+                "status":"incompleted"},
+
+				{"name":"Watch videos",
+				"priority":"0",
+                "ddl": "28th Feb",
+                "status":"incompleted"},
+
+                {"name":"Go to gym",
+                "priority":"1",
+                "ddl":"8th Feb",
+                "status":"incompleted"},
+
+                {"name":"Clean Room",
+                "priority":"1",
+                "ddl":"10th Feb",
+                "status":"completed"},
+
+                {"name":"Sleep early",
+                "priority":"2",
+                "ddl":"6th Feb",
+                "status":"completed"},
+
+                {"name":"Watch a movie",
+                "priority":"0",
+                "ddl":"31th Mar",
+                "status":"incompleted"} ]
+  }
+}
