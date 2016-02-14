@@ -2,7 +2,8 @@
 var data = {
   center: [37.78, -122.41], // San Francisco
   providers: [],
-  users: []
+  users: [],
+  restaurants: []
 }
 
 // a single 'handlers' object that holds all the actions of your entire app
@@ -24,7 +25,7 @@ function render(){
 // DATA
 //
 
-var firebaseRef = new Firebase('https://ucdd2-book.firebaseio.com/uber')
+var firebaseRef = new Firebase('https://hungry-asians.firebaseio.com/')
 
 // Real-time Data (load constantly on changes)
 firebaseRef.child('users')
@@ -40,6 +41,17 @@ firebaseRef.child('providers')
   .on('value', function(snapshot){
 
     data.providers = _.values(snapshot.val())
+
+    render()
+
+  })
+
+firebaseRef.child('restaurants')
+  .on('value', function(snapshot){
+
+    data.restaurants = _.values(snapshot.val());
+      console.log(data.restaurants);
+
 
     render()
 

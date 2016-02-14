@@ -34,6 +34,22 @@
       }
     </style>
 
+     <style>
+      html {
+        background: url(images/food.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    div.transbox {
+    margin: 30px;
+    background-color: #ffffff;
+    border: 1px solid black;
+    opacity: 0.6;
+    filter: alpha(opacity=60); /* For IE8 and earlier */}
+    </style>
+
   </head>
   <body>
 
@@ -65,9 +81,9 @@
 
     <!-- Connect the app and data -->
     <script type="text/babel" src="data.jsx"></script>
-      <nav class="blue darken-3 white-text">
+      <nav class="black darken-3 white-text">
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">Hungry</a>
+        <a href="#" class="brand-logo center">Asian Cuisine in San Francisco</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="index.html">Home</a></li>
@@ -83,8 +99,109 @@
 
     <div class="container">
 
-        <h1>Restaurant List</h1>
+               <div class="container" style="padding-top:30px; margin-bottom:-5px">
+                <div class="row">
+                   <div class="transbox">
+                       <p><font size="6"><div align="center">Cuisine Map</div></font></p>
+                  </div>
+                  <div id="map" style="height:400px"></div>
+                        <div class="row"></div>
 
+
+<!--
+                    <div class="col s1 pull-s2"> <span class="flow-text"> <font size="6">Restaurant</font> </span> </div>
+ -->
+                     <div class="col pull-s1">
+                        <a class="waves-effect btn modal-trigger" style="width:200px;right:50px;" href="#modal1">Add Restaurant</a>
+                    </div>
+
+
+                    <div class="col push-s7">
+                        <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Filter</a>
+                        <ul id='dropdown1' class='dropdown-content'>
+                        <li><a href="#!">Price</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#!">Star</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#!">Have License</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#!">Open Now</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>Add A New Restaurant</h4>
+                <form id="add_form">
+                    <fieldset>
+                        <div class="row">
+                          <div class="input-field col s12">
+                              <input value="" id="add_title" type="text" class="validate">
+                              <label for="add_title">Restaurant Name</label>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                               <input value="" id="add_location" type="text" class="validate">
+                               <label for="add_title">Location</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                              <input value="" id="add_menu" type="text" class="validate">
+                              <label for="add_menu">Upload Mean</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input value="" id="add_license" type="text" class="validate ">
+                                <label for="add_license">License</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input value="" id="add_style" type="text" class="validate ">
+                                <label for="add_style">Style</label>
+                            </div>
+                        </div>
+
+                         <div class="row">
+                            <div class="input-field col s12">
+                                <input value="" id="add_hour" type="text" class="validate ">
+                                <label for="add_hour">Open Hour</label>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+                <!--End-->
+            </div>
+
+            <div class="modal-footer">
+                <div class="container">
+                <!--<div class="col s1 push-s6">-->
+                <!--</div>-->
+                <!--<div class="col s1 push-s4">-->
+                    <a class="waves-effect waves-light btn" style="position: absolute;left: 30%" onclick="addCancel()" id="cancel">Cancel</a>
+                    <a class="waves-effect waves-light btn" style="position: absolute;left: 55%"  id="submit">Submit</a>
+                <!--</div>-->
+                </div></div>
+        </div>
+
+
+
+
+<!--         <h1>Restaurant List</h1>
+ -->
   <ul class="collection">
     <li class="collection-item avatar">
       <img src="sushi.jpg" alt="" class="circle">
@@ -143,18 +260,15 @@
     </li>
   </ul>
 
-      <h2>Location Information</h2>
-        <ul class="collection"><div id="cities"></div></ul>
+      <!-- <div class="col s1 pull-s2 white-text"><font size="8">Location Information</font></div> -->
 
 
-        <div id="map" style="height:500px"></div>
 
     </div>
 
     <script>
 // create a firebase reference to the root
 var weatherRef = new Firebase('https://publicdata-weather.firebaseio.com');
-
 // read data from only once
 weatherRef.on('value', function(snapshot){
   var cities = snapshot.val()
@@ -168,7 +282,6 @@ weatherRef.on('value', function(snapshot){
     mapCity(city);
   }
 })
-
 var attributionText = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
 // initialzie the map
 var map = L.map($('#map')[0]).setView([37.78, -122.41], 13)
@@ -184,7 +297,6 @@ var markersLayerGroup = L.layerGroup()
 markersLayerGroup.addTo(map)
 // visualize cities on the map
 function mapCity(name){
-
     var latlng1 = [37.79847,-122.4092401]
     var latlng2 = [37.7619888,-122.4218911]
     var latlng3 = [37.798020, -122.411254]
@@ -193,11 +305,11 @@ function mapCity(name){
     L.marker(latlng2).bindLabel("Yamo").addTo(map);
     L.marker(latlng3).bindLabel("Homely Foods").addTo(map);
   L.marker(latlng4).bindLabel("Vietnam Restaurant").addTo(map);
-
 }
-
-
-
+        $(document).ready(function(){
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal-trigger').leanModal();
+        });
       </script>
 
   </body>

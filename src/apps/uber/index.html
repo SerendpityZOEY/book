@@ -1,6 +1,140 @@
-TODO: Make me pretty
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<ul>
-  <li><a href="admin/">Admin</a></li>
-  <li><a href="client/">Client</a></li>
-</ul>
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Hungry Asians</title>
+  </head>
+
+  <body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+    <header>
+      <nav>
+        <div class="nav-wrapper orange darken-3">
+          <a href="#" class="brand-logo"> Hungry Asians</a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+          <ul id="nav-mobile" class="right">
+            <li><a href="client/">Clients</a></li>
+            <li><a href="admin/">Admins</a></li>
+          </ul>
+          <ul class="side-nav" id="mobile-demo">
+            <li><a href="client/">Clients</a></li>
+            <li><a href="admin/">Admins</a></li>
+          </ul>
+        </div>
+      </nav>
+      <!--
+      <div style="background-image: url('images/gyoza.jpg'); background-size: cover; background-position: center; min-height: 450px;">
+      -->
+    <div class="slider">
+    <ul class="slides">
+      <li>
+        <img src="client/images/gyoza.jpg">
+        <div class="caption center-align">
+          <h3>Welcome to Hungry Asians!</h3>
+          <h5 class="light grey-text text-lighten-3">Discover great food around you.</h5>
+        </div>
+      </li>
+      <li>
+        <img src="client/images/food.jpg">
+        <div class="caption left-align">
+          <h3>We are efficient, reliable and customer first.</h3>
+          <h5 class="light grey-text text-lighten-3">View information about reviews, location, etc. to help you make decision.</h5>
+        </div>
+      </li>
+      <li>
+        <img src="client/images/meat.jpg">
+        <div class="caption left-align">
+          <h3>Save time, less money.</h3>
+          <h5 class="light grey-text text-lighten-3">Place your order without going out and enjoy our discounts.</h5>
+        </div>
+      </li>
+      </ul>
+    </div>
+
+    <center>
+    <a class="btn-floating btn-large waves-effect waves-light z-depth-0 orange" href="#how_it_works" style="top: 10px;"><i class="material-icons">reorder</i></a>
+    </center>
+
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="center">
+          <h3 id="how_it_works"> How It Works </h3>
+          <p>Hungry Asians is matches hungry consumers with tasty food. Or tasty food with hungry customers. Something like that.</p>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <div class="center">
+              <i class="medium material-icons orange-text">grade</i>
+              <h4 class="promo-caption">About</h4>
+              <p class="light center">Our philosophy on food.</p>
+            </div>
+          </div>
+          <div class="col s4">
+            <div class="center">
+              <i class="medium material-icons orange-text">perm_identity</i>
+              <h4>Eat Food</h4>
+              <p class="light center">Find nearby Asian restaurants based on proximity and rating.</p>
+            </div>
+          </div>
+          <div class="col s4">
+            <div class="center">
+              <i class="medium material-icons orange-text">business</i>
+              <h4>Make Food</h4>
+              <p class="light center">Restaurant? Home cook? We'll match you with potential customers.</p>
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="center">
+          <p>Launching in San Francisco in Spring 2016, customers can find Asian restaurants and cooks based on rating, location, menu, style, and open hours. Restaurants can pay for listing positions, while customers only pay the price for food and delivery directly to the restaurant.</p>
+          <h4>Frequently Asked Questions</h4>
+          <ul class="collapsible popout" data-collapsible="accordion">
+            <li>
+              <div class="collapsible-header orange darken-2 white-text"><i class="material-icons">info_outline</i>What services do you provide?</div>
+              <div class="collapsible-body"><p>We recommend and match hungry customers to nearby Asian restaurants and cooks.</p></div>
+            </li>
+            <li>
+              <div class="collapsible-header orange darken-2 white-text"><i class="material-icons">perm_identity</i>Who can use the services?</div>
+              <div class="collapsible-body"><p>Hungry customers & businesses can order food through Hungry Asians.</p></div>
+            </li>
+            <li>
+              <div class="collapsible-header orange darken-2 white-text"><i class="material-icons">group_work</i>Who can join as service providers?</div>
+              <div class="collapsible-body"><p>Restaurants and home cooks can cook, deliver, and charge for meals.</p></div>
+            </li>
+            <li>
+              <div class="collapsible-header orange darken-2 white-text"><i class="material-icons">credit_card</i>What prices do customers pay for service?</div>
+              <div class="collapsible-body"><p>Customers provide the upfront price for their order based on prices set by the restaurant.</p></div>
+            </li>
+            <li>
+              <div class="collapsible-header orange darken-2 white-text"><i class="material-icons">store</i>How much can a service provider earn?</div>
+              <div class="collapsible-body"><p>The amount earned by a restaurant or home cook is solely determined by the prices they set, and the number of orders they receive.</p></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+  <script>
+    $(document).ready(function(){
+    $('.slider').slider({
+    indicators: false,
+    height: 527,
+    interval: 2000});
+});
+  $(".button-collapse").sideNav();
+
+    </script>
+
+  </body>
+</html>

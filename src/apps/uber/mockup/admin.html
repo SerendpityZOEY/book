@@ -1,1 +1,222 @@
-TODO
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <style>
+            .divright{width:100px; height:50px;border:1px solid #F00;float:right}
+        </style>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    </head>
+
+    <body>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+        <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+
+
+        <!--<div class="container">-->
+            <h1>Admin Page</h1>
+        <header>
+            <nav>
+                <div class="nav-wrapper orange darken-3">
+                    <a href="#" class="brand-logo"> Hungry Asians</a>
+                    <ul id="nav-mobile" class="right">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="client_consumer.html">Clients_Consumer</a></li>
+                        <li><a href="client_restaurant.html">Clients_Restaurant</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div style="background-image: url('images/gyoza.jpg'); background-size: cover; background-position: center; min-height: 450px;">
+        </header>
+        <div class="container">
+            <h1>Admin Page</h1>
+            <div class="row">
+            <div class="col push-s10">
+                <a class="waves-effect btn modal-trigger" style="width:200px;right:50px;" href="#modal1">Add Restaurant</a>
+            </div></div>
+            <h2>Restaurants</h2>
+            <ul class="collapsible" data-collapsible="accordion">
+                <li class="">
+                    <div class="collapsible-header">The House</div>
+                    <div class="collapsible-body" style="display: none;">
+                        <p>Name: The House <br>
+                            stars: 4.5<br>
+                            location: 1230 Grant Ave San Francisco, CA 94133 (37.79847,-122.4092401)<br>
+                            menu: Deep Fried Salmon Roll, Blue Jake Bean Tempura, sea bass with wasabi noodles<br>
+                            license: Yes<br>
+                            style: Japaness<br>
+                            reviews: "Greet restaurant"<br>
+                            open hours: 11:30-20:00</p>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="collapsible-header">Yamo</div>
+                    <div class="collapsible-body" style="display: none;">
+                        <p>Name: Yamo<br>
+                            stars: 4<br>
+                            location: 3406 18th St San Francisco, CA 94110 (37.7619888,-122.4218911)<br>
+                            menu: tea leaf salad, Yamo house oil noodle with chicken, Summer roll<br>
+                            license: Yes<br>
+                            style: Chinese<br>
+                            reviews: "Not as high quality food as the other famous Burmese restaurants in SF", "I don't understand the high reviews."<br>
+                            open hours: 11:00-21:30</p>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="collapsible-header">Vietnam Restaurant</div>
+                    <div class="collapsible-body" style="display: none;">
+                        <p>Name: Vietnam Restaurant<br>
+                            stars: 3.5<br>
+                            location: 620 Broadway San Francisco, CA 94133 (37.7979278,-122.4096856)<br>
+                            menu: Bun rieu, combo pho, pork spring rolls<br>
+                            license: Yes<br>
+                            style: vietnamese<br>
+                            reviews: "superbly flavored grilled beef! more intense and robust than cheese steak.", "I tried this place based on the number of reviews, but was definitely disappointed."<br>
+                            open hours: 9:00-3:00</p>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="collapsible-header">Homely foods</div>
+                    <div class="collapsible-body" style="display: none;">
+                        <p>Name: Homely foods<br>
+                            stars: 4<br>
+                            location: 849 Vallejo St San Francisco, CA 94133(37.798020, -122.411254)<br>
+                            menu: pork stewed in soy sauce, Kung Pao Chicken<br>
+                            license: No<br>
+                            style: Chinese<br>
+                            reviews: "Good food, nice host"<br>
+                            open hours: 11:00-20:00</p>
+                    </div>
+                </li>
+            </ul>
+            <h2>Customers</h2>
+            <ul class="collapsible" data-collapsible="accordion">
+                <li class="">
+                    <div class="collapsible-header">pegf4502</div>
+                    <div class="collapsible-body" style="display: none;">
+                        <p>ID: pegf4502<br>
+                            Profile: a.jpg<br>
+                            Phone: 3462345678</p>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="collapsible-header">fgda343</div>
+                    <div class="collapsible-body" style="display: none;">
+                        <p>ID: fgda343<br>
+                            Profile: b.jpg<br>
+                            Phone: 3627345772</p>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="collapsible-header">dfahhyq33j</div>
+                    <div class="collapsible-body" style="display: none;">
+                        <p>ID: dfahhyq33j<br>
+                            Profile: c.jpg<br>
+                            Phone: 3864569234</p>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="collapsible-header">wenkbia35</div>
+                    <div class="collapsible-body" style="display: none;">
+                        <p>ID: wenkbia35<br>
+                            Profile: d,jpg<br>
+                            Phone: 9845672345</p>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="collapsible-header">teq354</div>
+                    <div class="collapsible-body" style="display: none;">
+                        <p>ID: teq354<br>
+                            Profile: e.jpg<br>
+                            Phone: 3682346624</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>Add A New Restaurant</h4>
+                <form id="add_form">
+                    <fieldset>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input value="" id="add_title" type="text" class="validate">
+                                <label for="add_title">Restaurant Name</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input value="" id="add_location" type="text" class="validate">
+                                <label for="add_title">Location</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input value="" id="add_menu" type="text" class="validate">
+                                <label for="add_menu">Upload Mean</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input value="" id="add_license" type="text" class="validate ">
+                                <label for="add_license">License</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input value="" id="add_style" type="text" class="validate ">
+                                <label for="add_style">Style</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input value="" id="add_hour" type="text" class="validate ">
+                                <label for="add_hour">Open Hour</label>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+                <!--End-->
+            </div>
+
+            <div class="modal-footer">
+                <div class="container">
+                    <!--<div class="col s1 push-s6">-->
+                    <!--</div>-->
+                    <!--<div class="col s1 push-s4">-->
+                    <a class="waves-effect waves-light btn" style="position: absolute;left: 30%" onclick="addCancel()" id="cancel">Cancel</a>
+                    <a class="waves-effect waves-light btn" style="position: absolute;left: 55%"  id="submit">Submit</a>
+                    <!--</div>-->
+                </div></div>
+        <!--</div>-->
+
+
+        <script>
+            $(document).ready(function(){
+                // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+                $('.modal-trigger').leanModal();
+            });
+        </script>
+    </body>
+ </html>

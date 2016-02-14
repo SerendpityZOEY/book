@@ -2,17 +2,23 @@ class NavBar extends React.Component {
 
   render(){
     return (
-      <nav>
-        <div className="nav-wrapper">
-        <a href="#" className="brand-logo">TODO</a>
-        <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li><a href="todo.html">TODO</a></li>
-          <li><a href="todo.html">TODO</a></li>          
+    <nav>
+      <div className="nav-wrapper orange darken-3">
+        <ul className="left">
+          <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
+          <li><a href="/apps/uber/index.html">Home</a></li>
         </ul>
-        </div>
-      </nav>
+        <a href="/apps/uber" className="brand-logo center"> Hungry Asians</a>
+        <ul className="right">
+          <li className="active"><a href="/apps/uber/client">Clients</a></li>
+          <li><a href="../admin">Admins</a></li>
+        </ul>
+      </div>
+    </nav>
     );
   }
 
 }
 MyComponents.NavBar = NavBar
+
+ 

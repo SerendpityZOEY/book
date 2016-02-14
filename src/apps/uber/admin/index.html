@@ -6,6 +6,8 @@
 
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
     <!--Import materialize.css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
 
@@ -35,6 +37,24 @@
 
   </head>
   <body>
+    <nav>
+      <div class="nav-wrapper orange darken-3">
+        <ul class="left">
+          <li><a href="/apps/uber/index.html">Home</a></li>
+        </ul>
+        <a href="/apps/uber" class="brand-logo center"> Hungry Asians</a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right">
+          <li><a href="/apps/uber/client">Clients</a></li>
+          <li class="active"><a href="admin.html">Admins</a></li>
+        </ul>
+          <ul class="side-nav" id="mobile-demo">
+            <li><a href="client/">Clients</a></li>
+            <li><a href="admin/">Admins</a></li>
+        </ul>
+      </div>
+    </nav>
+
     <div id="app-container" class="container">
     </div>
 

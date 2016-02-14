@@ -2,6 +2,7 @@
 var data = {
   center: [37.78, -122.41], // San Francisco
   providers: [],
+  restaurants: [],
   user: null
 }
 
@@ -11,32 +12,52 @@ var actions = {}
 // the main render() function. call this function whenever the app's UI
 // needs to to re-rendered
 // 'data' and 'actions' are injected into the app
-function render(){
+function render_nav(){
   ReactDOM.render(
-    <MyComponents.App
-        data={data}
-        actions={actions}/>,
-    $('#app-container').get(0)
+      <MyComponents.NavBar
+          actions={actions}/>,
+      $('#nav-bar').get(0)
   )
 }
 
+function render(){
+  ReactDOM.render(
+      <MyComponents.App
+          data={data}
+          actions={actions}/>,
+      $('#app-container').get(0)
+  )
+}
 //
 // DATA
 //
 
-var firebaseRef = new Firebase('https://ucdd2-book.firebaseio.com/uber')
+var firebaseRef = new Firebase('https://hungry-asians.firebaseio.com/')
 
 // Real-time Data (load constantly on changes)
 firebaseRef.child('providers')
   .on('value', function(snapshot){
 
     data.providers = _.values(snapshot.val())
-
+    render_nav()
     render()
 
   })
 
-//
+firebaseRef.child('restaurants')
+  .on('value', function(snapshot){
+
+    data.restaurants = _.values(snapshot.val())
+
+    render_nav()
+    render()
+
+      // ReactDOM.render(
+      //   <MyComponents.RestList restaurants={data.restaurants}/>,
+      //   $('#restaurants').get(0)
+      // );
+  })
+
 // ACTIONS
 //
 
