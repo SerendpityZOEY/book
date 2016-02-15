@@ -7,7 +7,7 @@ var lineWidth = 8;
 var colorPurple = "#cb3594";
 var colorGreen = "#659b41";
 var colorYellow = "#ffcf33";
-var colorBrown = "#986928";
+var colorBrown = "#0000ff";
 var outlineImage = new Image();
 var crayonImage = new Image();
 var markerImage = new Image();
@@ -73,39 +73,39 @@ function prepareCanvas()
 	context = canvas.getContext("2d"); // Grab the 2d canvas context
 	// Note: The above code is a workaround for IE 8 and lower. Otherwise we could have used:
 	//     context = document.getElementById('canvas').getContext("2d");
-
+	
 	// Load images
 	// -----------
-	crayonImage.onload = function() { resourceLoaded();
+	crayonImage.onload = function() { resourceLoaded(); 
 	};
 	crayonImage.src = "images/crayon-outline.png";
 	//context.drawImage(crayonImage, 0, 0, 100, 100);
-
-	markerImage.onload = function() { resourceLoaded();
+	
+	markerImage.onload = function() { resourceLoaded(); 
 	};
 	markerImage.src = "images/marker-outline.png";
-
-	eraserImage.onload = function() { resourceLoaded();
+	
+	eraserImage.onload = function() { resourceLoaded(); 
 	};
-	eraserImage.src = "images/eraser-outline.png";
-
-	crayonBackgroundImage.onload = function() { resourceLoaded();
+	eraserImage.src = "images/eraser-outline.png";	
+	
+	crayonBackgroundImage.onload = function() { resourceLoaded(); 
 	};
 	crayonBackgroundImage.src = "images/crayon-background.png";
-
-	markerBackgroundImage.onload = function() { resourceLoaded();
+	
+	markerBackgroundImage.onload = function() { resourceLoaded(); 
 	};
 	markerBackgroundImage.src = "images/marker-background.png";
-
-	eraserBackgroundImage.onload = function() { resourceLoaded();
+	
+	eraserBackgroundImage.onload = function() { resourceLoaded(); 
 	};
 	eraserBackgroundImage.src = "images/eraser-background.png";
 
-	crayonTextureImage.onload = function() { resourceLoaded();
+	crayonTextureImage.onload = function() { resourceLoaded(); 
 	};
 	crayonTextureImage.src = "images/crayon-texture.png";
-
-	outlineImage.onload = function() { resourceLoaded();
+	
+	outlineImage.onload = function() { resourceLoaded(); 
 	};
 	outlineImage.src = "images/watermelon-duck-outline.png";
 
@@ -411,7 +411,7 @@ function redraw()
 	else if(curTool == "eraser")
 	{
 		context.drawImage(eraserBackgroundImage, 0, 0, canvasWidth, canvasHeight);
-		context.drawImage(eraserImage, 18, 19, mediumImageWidth, mediumImageHeight);
+		context.drawImage(eraserImage, 18, 19, mediumImageWidth, mediumImageHeight);	
 	}else{
 		alert("Error: Current Tool is undefined");
 	}
@@ -431,7 +431,7 @@ function redraw()
 	context.closePath();
 	context.fillStyle = '#333333';
 	context.fill();	
-
+	
 	// Keep the drawing in the drawing area
 	context.save();
 	context.beginPath();
@@ -485,7 +485,7 @@ function redraw()
 		context.drawImage(crayonTextureImage, 0, 0, canvasWidth, canvasHeight);
 	}
 	context.globalAlpha = 1; // No IE support
-
+	
 	// Draw the outline image
 	context.drawImage(outlineImage, drawingAreaX, drawingAreaY, drawingAreaWidth, drawingAreaHeight);
 }
