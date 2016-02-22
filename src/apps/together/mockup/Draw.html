@@ -65,7 +65,7 @@
             </div>
             <div class="container">
                 <ul class="collection">
-                  <li id='example-messages' class="collection-item example-chat-messages"></li>
+                  <div id="scroll"><li id='example-messages' class="collection-item example-chat-messages"></li></div>
                   <li class="white">Snape is typing...</li>
                 </ul>
             </div>
@@ -100,10 +100,15 @@
       </div> <!--end of row class-->
 
     <style>
-    #example-messages {
+    #scroll {
         height: 220px;
         width: 300px;
         overflow: auto;
+    }
+    #example-messages{
+        height: 800px;
+        width: 300px;
+        background-color: blue lighten-5;
     }
     </style>
 
