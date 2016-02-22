@@ -1,0 +1,36 @@
+Name: The House
+stars: 4.5
+location: 1230 Grant Ave San Francisco, CA 94133 (37.79847,-122.4092401)
+menu: Deep Fried Salmon Roll, Blue Jake Bean Tempura, sea bass with wasabi noodles
+license: Yes
+style: Japaness
+reviews: "Greet restaurant"
+open hours: 11:30-20:00
+
+Name: Yamo
+stars: 4
+location: 3406 18th St San Francisco, CA 94110 (37.7619888,-122.4218911)
+menu: tea leaf salad, Yamo house oil noodle with chicken, Summer roll
+license: Yes
+style: Chinese
+reviews: "Not as high quality food as the other famous Burmese restaurants in SF", "I don't understand the high reviews."
+open hours: 11:00-21:30
+
+Name: Vietnam Restaurant
+stars: 3.5
+location: 620 Broadway San Francisco, CA 94133 (37.7979278,-122.4096856)
+menu: Bun rieu, combo pho, pork spring rolls
+license: Yes
+style: vietnamese
+reviews: "superbly flavored grilled beef! more intense and robust than cheese steak.", "I tried this place based on the number of reviews, but was definitely disappointed."
+open hours: 9:00-3:00
+
+Name: Homely foods
+stars: 4
+location: 849 Vallejo St San Francisco, CA 94133(37.798020, -122.411254)
+menu: pork stewed in soy sauce, Kung Pao Chicken
+license: No
+style: Chinese
+reviews: "Good food, nice host"
+open hours: 11:00-20:00
+

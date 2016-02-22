@@ -1,0 +1,50 @@
+[
+    {
+        "name": "The House",
+        "stars": "4.5",
+        "address": "1230 Grant Ave San Francisco, CA 94133",
+        "lat": 37.79847,
+        "lon": -122.4092401,
+        "menu": ["Deep Fried Salmon Roll", "Blue Jake Bean Tempura", "sea bass with wasabi noodles"],
+        "style": "Japaness",
+        "reviews": ["Greet restaurant"],
+        "hours": "11:30-20:00"
+    },
+    {
+        "name": "Yamo",
+        "stars": "4",
+        "address": "3406 18th St San Francisco, CA 94110 ",
+        "lat": 37.7619888,
+        "lon": -122.4218911,
+        "menu": ["tea leaf salad", "Yamo house oil noodle with chicken", "Summer roll"],
+        "style": "Chinese",
+        "reviews": ["Not as high quality food as the other famous Burmese restaurants in SF", 
+        "I don't understand the high reviews."],
+        "hours": "11:00-21:30"
+    },
+    {
+        "name": "Vietnam Restaurant",
+        "stars": "3.5",
+        "address": "620 Broadway San Francisco, CA 94133",
+        "lat": 37.7979278,
+        "lon": -122.4096856,
+        "menu": ["Bun rieu", "combo pho", "pork spring rolls"],
+        "style": "Vietnamese",
+        "reviews": ["superbly flavored grilled beef! more intense and robust than cheese steak.", 
+        "I tried this place based on the number of reviews, but was definitely disappointed."],
+        "hours": "9:00-3:00"
+    },
+    {
+        "name": "Homely foods",
+        "stars": "4",
+        "address": "849 Vallejo St San Francisco, CA 94133",
+        "lat": 37.798020,
+        "lon": -122.411254,
+        "menu": ["pork stewed in soy sauce", "Kung Pao Chicken"],
+        "style": "Chinese",
+        "reviews": ["Good food, nice host."],
+        "hours": "11:00-20:00"
+    }
+]
+
+

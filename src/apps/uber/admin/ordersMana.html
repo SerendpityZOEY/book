@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<!--<head>-->
+    <!--&lt;!&ndash;Import Google Icon Font&ndash;&gt;-->
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+
+    <!--&lt;!&ndash;Import materialize.css&ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">-->
+    <!--&lt;!&ndash;Let browser know website is optimized for mobile&ndash;&gt;-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
+
+    <!--<title>Hungry Asians</title>-->
+    <!---->
+    <!---->
+<!--</head>-->
+<head>
+    <meta charset="UTF-8" />
+    <title>Admin</title>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
+
+
+    <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
+
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <!-- https://github.com/PaulLeCam/react-leaflet -->
+    <script src="https://npmcdn.com/react-leaflet/dist/react-leaflet.min.js"></script>
+
+    <style>
+        .leaflet-container {
+            height: 400px;
+            width: 80%;
+            margin: 0 auto;
+        }
+    </style>
+
+    <style>
+        html {
+            background: url(images/food.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+
+</head>
+<style>
+    html {
+        background-color: PapayaWhip;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style>
+
+
+<body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+<header>
+    <nav>
+        <div class="nav-wrapper orange darken-3">
+            <ul class="left">
+                <li><a href="/apps/uber/index.html">Home</a></li>
+            </ul>
+            <a href="/apps/uber" class="brand-logo center"> Hungry Asians</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right">
+                <li><a href="/apps/uber/client">Clients</a></li>
+                <li class="active"><a href="/apps/uber/admin">Admins</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--
+    <div style="background-image: url('images/gyoza.jpg'); background-size: cover; background-position: center; min-height: 450px;">
+    -->
+
+</header>
+
+<main>
+    <div class="container">
+        <ul class="collapsible" data-collapsible="expandable", id="tasks"</ul>
+    </div>
+</main>
+
+
+<script>
+    $(document).ready(function(){
+        $('.slider').slider({
+            indicators: false,
+            height: 527,
+            interval: 2000});
+    });
+    $(".button-collapse").sideNav();
+
+</script>
+
+
+<script>
+    var ref = new Firebase('https://hungry-asians.firebaseio.com')
+    ref.child('/orders').on("value", function(snapshot) {
+        var tasks = snapshot.val()
+        $('#tasks').empty()
+        for (key in tasks) {
+            task = tasks[key]
+            fill_container(task);
+        }
+    })
+    function fill_container(task) {
+        if (task["completed"] == false) {
+            $('#tasks').append('<li class="" xmlns="http://www.w3.org/1999/html"> \
+                <div class="collapsible-header" style="padding-top: 6px"> <input type="checkbox"  id=' + key + ' \ ' +
+                    'onclick=CheckButton("' + key + '")> <label for=' + key + '><font color="black">' + 'order by' + '&nbsp' + task["first_name"] + '&nbsp;' + task["last_name"] + '</font></label></div>' +
+                    '<div class="collapsible-body" style="background-color:white; opacity: 0.7; display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 5px; padding-left: 50px; margin-bottom: 0px;">'
+                    + 'Restaurant:\t' + task['restaurant'] + '<br>'
+                    + 'Ordered food:\t' + task["menu"] + '<br>'
+                    + 'Address:\t' + task["address"] + '&nbsp;' + task["zip"] + '<br> '
+                    + 'Telephone:\t' + task["telephone"] + '</br>' +
+                    '</li>')
+        }
+        else {
+            $('#tasks').append('<li class="" xmlns="http://www.w3.org/1999/html"> \
+                      <div class="collapsible-header" style="padding-top: 6px"><input type="checkbox" id=' + key + ' checked="checked" \ ' +
+                    'onclick=CheckButton("' + key + '")><label for=' + key + '><font color="#cccccc">' +'order by' + '&nbsp' + task["first_name"] + '&nbsp;' + task["last_name"]+ '</font></label></div>' +
+                    '<div class="collapsible-body" style="style="background-color:white; opacity: 0.7; display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 5px; padding-left: 50px; margin-bottom: 0px;">'
+                    + 'Restaurant:\t' + task['restaurant'] + '<br>'
+                    + 'Ordered food:\t' + task["menu"] + '<br>'
+                    + 'Address:\t' + task["address"] + '&nbsp;' + task["zip"] + '<br> '
+                    + 'Telephone:\t' + task["telephone"] + '</br>' +
+                    '</li>')
+        }
+    }
+
+
+      var CheckButton = function(key) {
+        ref.child('/orders').once("value",function(snapshot){
+          var state = snapshot.val()[key]["completed"]
+          ref.child('/orders').child(key).update({
+            completed: !(state)
+          });
+        })
+      };
+</script>
+
+
+
+
+
+
+<!--<footer class="page-footer" style="background-color: black; opacity:0.6">-->
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div class="col s4">-->
+                <!--<h5 class="white-text">Help Hungry Asians Grow</h5>-->
+                <!--<p class="grey-text text-lighten-4">We hope you have enjoyed using Hungry Asians! If you feel Hungry Asians has made your life colorful and want to support us, send over a donation! Any amount would help support and continue development on this project and is greatly appreciated.</p>-->
+                <!--<form id="paypal-donate" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">-->
+                    <!--<input type="hidden" name="cmd" value="_s-xclick">-->
+                    <!--<input type="hidden" name="encrypted" value="-&#45;&#45;&#45;&#45;BEGIN PKCS7-&#45;&#45;&#45;&#45;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-&#45;&#45;&#45;&#45;END PKCS7-&#45;&#45;&#45;&#45;-->
+<!--">-->
+                    <!--<button class="orange waves-effect waves-light btn" type="submit" name="action" alt="PayPal - The safer, easier way to pay online!">Donate Now-->
+                    <!--</button>-->
+                    <!--</input>-->
+                    <!--</input>-->
+                <!--</form>-->
+            <!--</div>-->
+
+            <!--<div class="col s4">-->
+                <!--<h5 class="white-text">Be A Business Partner</h5>-->
+                <!--<p class="grey-text text-lighten-4">Join Hungry Asian App and be a partner to extend your restaurant business. We have a Gitter chat room set up where you can talk about busniess directly with us.</p>-->
+                <!--<a class="orange waves-effect waves-light btn" target="_blank" href="https://gitter.im/sophyzhou/HungryAsianBusiness">Chat</a>-->
+            <!--</div>-->
+
+            <!--<div class="col s4">-->
+                <!--<h5 class="white-text">Connect</h5>-->
+                <!--<ul>-->
+                    <!--<li><a class="grey-text text-lighten-3" href="www.facebook.com">Facebook</a></li>-->
+                    <!--<li><a class="grey-text text-lighten-3" href="www.twitter.com">Twitter</a></li>-->
+                    <!--<li><a class="grey-text text-lighten-3" href="www.google.com">G+</a></li>-->
+                    <!--<li><a class="grey-text text-lighten-3" href="www.youtube.com">Youtube</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="footer-copyright">-->
+        <!--<div class="container"><center>-->
+            <!--© 2016-2017 Hungry Asians, All rights reserved-->
+        <!--</center>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</footer>-->
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+        "pegf4502": {
+            "id": "pegf4502",
+            "address": "48 Hoff St, San Francisco, CA 94110",
+            "lat": 37.76425207,
+            "lon": -122.4207729,
+            "phone": "3462345678"
+                     },
+        "fgda343": {
+            "id": "fgda343",
+            "address": "1881 Post St, San Francisco, CA 94115",
+            "lat": 37.784922,
+            "lon": -122.4323501,
+            "phone": "3627345772"
+                    },
+        "dfahhyq33j": {
+            "id": "dfahhyq33j",
+            "address": "3243 21st St San Francisco, CA 94110",
+            "lat": 37.7568504,
+            "lon": -122.4220437,
+            "phone": "3864569234"
+                       },
+        "wenkbia35": {
+            "id": "wenkbia35",
+            "address": "340 Grove St, San Francisco, CA 94102",
+            "lat": 37.7781532,
+            "lon": -122.4243758,
+            "phone": "9845672345"
+                      },
+        "teq354": {
+            "id": "teq354",
+            "address": "372 Sutter St San Francisco, CA 94108",
+            "lat": 37.7899027,
+            "lon": -122.4088392,
+            "phone": "3682346624"
+                   }
+}
