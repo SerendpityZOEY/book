@@ -58,7 +58,7 @@
          </div>
 
       <div class="container">
-        <div class="col s6">
+        <div class="col s6 push-s2">
           <div class="card light-blue darken-2">
             <div class="card-content white-text center">
               <span class="card-title">Chatting Area</span>
@@ -66,7 +66,7 @@
             <div class="container">
                 <ul class="collection">
                   <li id='example-messages' class="collection-item example-chat-messages"></li>
-                    <li class="white">Snape is typing...</li>
+                  <li class="white">Snape is typing...</li>
                 </ul>
             </div>
                     <!--Chatting Area-->
@@ -98,6 +98,14 @@
 
 
       </div> <!--end of row class-->
+
+    <style>
+    #example-messages {
+        height: 220px;
+        width: 300px;
+        overflow: auto;
+    }
+    </style>
 
 
     </main>
@@ -643,14 +651,6 @@
 
         });
 	</script>
-
-    <style>
-    #example-messages {
-        height: 220px;
-        width: 300px;
-        overflow: auto;
-    }
-    </style>
 
     <!-- CHAT JAVACRIPT -->
     <script>
