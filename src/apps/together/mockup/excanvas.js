@@ -1,6 +1,9 @@
 if (!document.createElement('canvas').getContext) {
 
 (function() {
+/**
+* Create a reference to the pixel data for our drawing.
+*/
 
   // alias some functions to make (compiled) code shorter
   var m = Math;

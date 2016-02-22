@@ -1,3 +1,4 @@
+var returnValue = new Array();
 var canvas;
 var context;
 var canvasWidth = 490;
@@ -45,6 +46,12 @@ sizeHotspotWidthObject.normal = 18;
 sizeHotspotWidthObject.small = 16;
 var totalLoadResources = 8;
 var curLoadResNum = 0;
+/**
+* Create a reference to the pixel data for our drawing.
+*/
+
+var pixelDataRef = new Firebase('https://uazcyx818wg.firebaseio-demo.com/');
+
 /**
 * Calls the redraw function after all neccessary resources are loaded.
 */
@@ -116,7 +123,7 @@ function prepareCanvas()
 		// Mouse down location
 		var mouseX = e.pageX - this.offsetLeft;
 		var mouseY = e.pageY - this.offsetTop;
-		
+
 		if(mouseX < drawingAreaX) // Left of the drawing area
 		{
 			if(mouseX > mediumStartX)
@@ -172,13 +179,19 @@ function prepareCanvas()
 		addClick(mouseX, mouseY, false);
 		redraw();
 	});
-	
-	$('#canvas').mousemove(function(e){
+
+	var lines = function tryit(e){
 		if(paint==true){
 			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+			var tmp = addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, false);
+			returnValue.push(tmp)
+			console.log('tracking:',returnValue)
 			redraw();
 		}
-	});
+		return returnValue;
+	};
+
+	$('#canvas').mousemove(lines);
 	
 	$('#canvas').mouseup(function(e){
 		paint = false;
@@ -188,6 +201,8 @@ function prepareCanvas()
 	$('#canvas').mouseleave(function(e){
 		paint = false;
 	});
+
+	console.log('try return :',lines)
 }
 
 /**
@@ -198,12 +213,17 @@ function prepareCanvas()
 */
 function addClick(x, y, dragging)
 {
+	var pixelDataRef = new Firebase('https://uazcyx818wg.firebaseio-demo.com/');
 	clickX.push(x);
 	clickY.push(y);
 	clickTool.push(curTool);
 	clickColor.push(curColor);
 	clickSize.push(curSize);
 	clickDrag.push(dragging);
+	pixelDataRef.child(x + ":" + y).set(curColor);
+	console.log('see location',x,y,curColor)
+	var ret = [x,y,curColor];
+	return ret
 }
 
 /**
@@ -489,6 +509,4 @@ function redraw()
 	// Draw the outline image
 	context.drawImage(outlineImage, drawingAreaX, drawingAreaY, drawingAreaWidth, drawingAreaHeight);
 }
-
-
 /**/
