@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -10,33 +10,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>Guess Show!</title>
-</head>
-<body>
+  </head>
+
+  <body>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
+    <header>
       <nav>
         <div class="nav-wrapper light-blue darken-4">
-          <a href="#" class="brand-logo center">Guess Show!</a>
+          <a href="index.html" class="brand-logo center">Guess Show!</a>
           <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
           <ul id="nav-mobile" class="right">
             <li><a href="Draw.html">Let's Draw</a></li>
-            <li><a href="about.html">Admin</a></li>
+            <li><a href="admin.html">Admin</a></li>
+            <li><a href="about.html">About</a></li>
           </ul>
         </div>
       </nav>
+		<!--
+      <div style="background-image: url('images/gyoza.jpg'); background-size: cover; background-position: center; min-height: 450px;">
+      -->
 
-    <h4 align="center">View User List:</h4>
+    </header>
 
-<div class="container">
-    <ul class="collection">
-      <li class="collection-item">Harry Potter<i class="material-icons secondary-content red-text">person_pin</i></li>
-      <li class="collection-item">Hermione Granger<i class="material-icons secondary-content green-text">person_pin</i></li>
-      <li class="collection-item">Ron Weasley<i class="material-icons secondary-content red-text">person_pin</i></li>
-      <li class="collection-item">Professor Snape<i class="material-icons secondary-content green-text">person_pin</i></li>
-    </ul>
-</div>
+    <main>
 
+      <div class="container">
+        <div class="center">
+          <h3> How It Works </h3>
+        </div>
 
-</body>
+        <div class="center">
+          <h4>Ideation</h4>
+          <ul class="collapsible" data-collapsible="expandable">
+            <li>
+              <div class="collapsible-header light-blue darken-4 white-text"><i class="material-icons">info_outline</i>What is the name of your app?</div>
+              <div class="collapsible-body"><p>Guess Show!</p></div>
+            </li>
+            <li>
+              <div class="collapsible-header light-blue darken-4 white-text"><i class="material-icons">perm_identity</i>What collaborative activity can people do together using your app?</div>
+              <div class="collapsible-body"><p>Players take turns to draw something with a tip of number of characters. The rest players take turns to guess the word based on what that person draw.</p></div>
+            </li>
+            <li>
+              <div class="collapsible-header light-blue darken-4 white-text"><i class="material-icons">group_work</i>What is the ideal number of concurrent users (must be at least 10 but no more than 40)?</div>
+              <div class="collapsible-body"><p>Ten People</p></div>
+            </li>
+            <li>
+              <div class="collapsible-header light-blue darken-4 white-text"><i class="material-icons">credit_card</i>What skills do people need in order to do this activity?</div>
+              <div class="collapsible-body"><p>Basic drawing skill and good expression and understanding skill.</p></div>
+            </li>
+            <li>
+              <div class="collapsible-header light-blue darken-4 white-text"><i class="material-icons">store</i>Is this activity for fun or for something practical?</div>
+              <div class="collapsible-body"><p>This activity is mainly for killing time.</p></div>
+            </li>
+            <li>
+              <div class="collapsible-header light-blue darken-4 white-text"><i class="material-icons">web</i>How can a person see what everyone else is doing?</div>
+              <div class="collapsible-body"><p>A player can see what others are talking in a chatting area.</p></div>
+            </li>
+            <li>
+              <div class="collapsible-header light-blue darken-4 white-text"><i class="material-icons">subtitles</i>How can a person see the most recent result of everyone’s collaborative effort?</div>
+              <div class="collapsible-body"><p>A player can see the history in the chatting area.</p></div>
+            </li>
+            <li>
+              <div class="collapsible-header  light-blue darken-4 white-text"><i class="material-icons">games</i>What can an admin see (i.e., God’s mode)?</div>
+              <div class="collapsible-body"><p>All the login users.</p></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+  <script>
+    $(document).ready(function(){
+    $('.slider').slider({
+    indicators: false,
+    height: 500,
+    interval: 2000});
+	});
+  	$(".button-collapse").sideNav();
+
+    </script>
+  </body>
 </html>
