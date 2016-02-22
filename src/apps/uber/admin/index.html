@@ -10,6 +10,9 @@
 
     <!--Import materialize.css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
 
@@ -35,6 +38,16 @@
       }
     </style>
 
+    <style>
+      html {
+        background: url(images/food.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+    </style>
+
   </head>
   <body>
     <nav>
@@ -46,11 +59,7 @@
           <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="right">
           <li><a href="/apps/uber/client">Clients</a></li>
-          <li class="active"><a href="admin.html">Admins</a></li>
-        </ul>
-          <ul class="side-nav" id="mobile-demo">
-            <li><a href="client/">Clients</a></li>
-            <li><a href="admin/">Admins</a></li>
+          <li class="active"><a href="/apps/uber/admin">Admins</a></li>
         </ul>
       </div>
     </nav>
@@ -69,12 +78,96 @@
     <script type="text/babel" src="components/user-map.jsx"></script>
     <script type="text/babel" src="components/provider-list.jsx"></script>
     <script type="text/babel" src="components/provider-map.jsx"></script>
+    <script type="text/babel" src="components/footer.jsx"></script>
+
 
     <!-- Main app container -->
     <script type="text/babel" src="components/app.jsx"></script>
 
     <!-- Connect the app and data -->
     <script type="text/babel" src="data.jsx"></script>
+
+  <!--<div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 45px; right: 24px;">-->
+    <!--<a class="btn-floating btn-large waves-effect waves-light orange darken-4" href="add.html" data-position="left" data-delay="50" data-tooltip="I am tooltip">-->
+      <!--<i class="large material-icons">mode_edit</i>-->
+    <!--</a>-->
+  <!--</div>-->
+
+    <!--&lt;!&ndash;<div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 45px; left: 24px;">&ndash;&gt;-->
+    <!--<a class="btn-floating btn-large waves-effect waves-light orange darken-4" href="ordersMana.html" style="bottom: 45px; left: 24px;"><i class="material-icons">view_module</i></a>-->
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large red">
+        <i class="large material-icons">view_module</i>
+      </a>
+      <ul>
+        <li><a class="btn-floating blue" href="add.html"><i class="material-icons">mode_edit</i></a></li>
+        <li><a class="btn-floating yellow darken-1" href="ordersMana.html"><i class="material-icons">perm_identity</i></a></li>
+        <li><a class="btn-floating green" href="https://gitter.im/sophyzhou/HungryAsianBusiness"><i class="material-icons">format_quote</i></a></li>
+      </ul>
+    </div>
+    <!--</div>-->
+
+
+    <script>
+//  $(document).ready(function(){
+//    $('.tooltipped').tooltip({delay: 50});
+//  });
+
+  $('.fixed-action-btn').openFAB();
+  $('.fixed-action-btn').closeFAB();
+
+    </script>
+
+    <script>
+      var ref = new Firebase('https://hungry-asians.firebaseio.com')
+      ref.child('/orders').on("value", function(snapshot) {
+        var tasks = snapshot.val()
+        $('#tasks').empty()
+        for (key in tasks) {
+          task = tasks[key]
+          fill_container(task);
+        }
+      })
+      function fill_container(task) {
+        if (task["completed"] == false) {
+          $('#tasks').append('<li class="" xmlns="http://www.w3.org/1999/html"> \
+                <div class="collapsible-header" style="padding-top: 6px"> <input type="checkbox"  id=' + key + ' \ ' +
+                  'onclick=CheckButton("' + key + '")> <label for=' + key + '><font color="black">' + 'order by' + '&nbsp' + task["first_name"] + '&nbsp;' + task["last_name"] + '</font></label></div>' +
+                  '<div class="collapsible-body" style="background-color:white; opacity: 0.7; display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 5px; padding-left: 50px; margin-bottom: 0px;">'
+                  + 'Restaurant:\t' + task['restaurant'] + '<br>'
+                  + 'Ordered food:\t' + task["menu"] + '<br>'
+                  + 'Address:\t' + task["address"] + '&nbsp;' + task["zip"] + '<br> '
+                  + 'Telephone:\t' + task["telephone"] + '</br>' +
+                  '</li>')
+        }
+        else {
+          $('#tasks').append('<li class="" xmlns="http://www.w3.org/1999/html"> \
+                      <div class="collapsible-header" style="padding-top: 6px"><input type="checkbox" id=' + key + ' checked="checked" \ ' +
+                  'onclick=CheckButton("' + key + '")><label for=' + key + '><font color="#cccccc">' +'order by' + '&nbsp' + task["first_name"] + '&nbsp;' + task["last_name"]+ '</font></label></div>' +
+                  '<div class="collapsible-body" style="style="background-color:white; opacity: 0.7; display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 5px; padding-left: 50px; margin-bottom: 0px;">'
+                  + 'Restaurant:\t' + task['restaurant'] + '<br>'
+                  + 'Ordered food:\t' + task["menu"] + '<br>'
+                  + 'Address:\t' + task["address"] + '&nbsp;' + task["zip"] + '<br> '
+                  + 'Telephone:\t' + task["telephone"] + '</br>' +
+                  '</li>')
+        }
+      }
+
+
+      var CheckButton = function(key) {
+        ref.child('/orders').once("value",function(snapshot){
+          var state = snapshot.val()[key]["completed"]
+          ref.child('/orders').child(key).update({
+            completed: !(state)
+          });
+        })
+      };
+    </script>
+
+    <script src="js/materialize.js"></script>
+    <div id="footer"></div>
+
 
   </body>
 </html>

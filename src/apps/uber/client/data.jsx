@@ -28,6 +28,14 @@ function render(){
       $('#app-container').get(0)
   )
 }
+
+function render_footer(){
+  ReactDOM.render(
+      <MyComponents.Footer
+          actions={actions}/>,
+      $('#footer').get(0)
+  )
+}
 //
 // DATA
 //
@@ -41,6 +49,7 @@ firebaseRef.child('providers')
     data.providers = _.values(snapshot.val())
     render_nav()
     render()
+    render_footer()
 
   })
 
@@ -51,7 +60,7 @@ firebaseRef.child('restaurants')
 
     render_nav()
     render()
-
+    render_footer()
       // ReactDOM.render(
       //   <MyComponents.RestList restaurants={data.restaurants}/>,
       //   $('#restaurants').get(0)

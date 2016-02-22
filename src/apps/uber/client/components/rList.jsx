@@ -7,17 +7,18 @@ class RestaurantList extends React.Component {
 
           <span className="title"><b>{r.name}</b></span>
           <p><b>Address: </b>{r.address}</p>
-          <p><b>Menu: </b>{r.menu}</p>
+          <p><b>Menu: </b>{r.menu[0]}, {r.menu[1]}, {r.menu[2]}</p>
           <p><b>Review: </b>{r.reviews}</p>
           <p><b>Stars: </b>{r.stars}</p>
           <p><b>Style: </b>{r.style}</p>
           <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
-
     </li>
     })
 
     return <div>
-      <ul className="collection">{restaurants}</ul>
+        <div>
+        <ul className="collection">{restaurants}</ul>
+      </div>
     </div>
   }
 }

@@ -34,6 +34,71 @@
       }
     </style>
 
+    <style>
+      html {
+        background: url(images/food.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+    </style>
+
+    <style type="text/css">
+      #abgne_float_ad {
+        display: none;
+        position: absolute;
+      }
+      #abgne_float_ad .abgne_close_ad {
+        display: block;
+        text-align: right;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      #abgne_float_ad a img {
+        border: black;
+      }
+      div.bigDiv {
+        height: 500px;
+      }
+    </style>
+
+
+    <script type="text/javascript">
+      // 當網頁載入完 reference: https://github.com/s301132001/u0124059/blob/master/search.php
+      $(window).load(function(){
+        var $win = $(window),
+                $ad = $('#abgne_float_ad').css('opacity', 0).show(),	// 讓廣告區塊變透明且顯示出來
+                _width = $ad.width(),
+                _height = $ad.height(),
+                _diffY = 80, _diffX = 50,	// 距離右及上方邊距
+                _moveSpeed = 800;	// 移動的速度
+
+        // 先把 #abgne_float_ad 移動到定點
+        $ad.css({
+          top: _diffY,	// 往上
+          left: $win.width() - _width - _diffX,
+          opacity: 1
+        });
+
+        // 幫網頁加上 scroll 及 resize 事件
+        $win.bind('scroll resize', function(){
+          var $this = $(this);
+
+          // 控制 #abgne_float_ad 的移動
+          $ad.stop().animate({
+            top: $this.scrollTop() + _diffY,	// 往上
+            left: $this.scrollLeft() + $this.width() - _width - _diffX
+          }, _moveSpeed);
+        }).scroll();	// 觸發一次 scroll()
+
+        // 關閉廣告
+        $('#abgne_float_ad .abgne_close_ad').click(function(){
+          $ad.hide();
+        });
+      });
+    </script>
+
   </head>
   <body>
 
@@ -55,15 +120,20 @@
     <script type="text/babel" src="components/navbar.jsx"></script>
     <script type="text/babel" src="components/map.jsx"></script>
     <script type="text/babel" src="components/RestList.jsx"></script>
+    <script type="text/babel" src="components/footer.jsx"></script>
 
     <script type="text/babel" src="components/user.jsx"></script>
     <script type="text/babel" src="components/rList.jsx"></script>
 
+
     <!-- Main app container -->
     <script type="text/babel" src="components/app.jsx"></script>
 
+
+
     <!-- Connect the app and data -->
     <script type="text/babel" src="data.jsx"></script>
+
 
 
 
@@ -74,6 +144,20 @@
 
      </div>
 
+    <div id="abgne_float_ad" >
+      <div class="abgne_close_ad"><font color="white" size = 4>Close [X]</font></div>
+      <div>
+        <a href="https://www.pandaexpress.com/">
+          <img src="images/pandaads.jpg" height="180" width="280"/>
+        </a>
+      </div>
+
+    </div>
+
+    <div id="footer"></div>
+
+
 
   </body>
+
 </html>

@@ -11,7 +11,7 @@ class NavBar extends React.Component {
         <a href="/apps/uber" className="brand-logo center"> Hungry Asians</a>
         <ul className="right">
           <li className="active"><a href="/apps/uber/client">Clients</a></li>
-          <li><a href="../admin">Admins</a></li>
+          <li><a href="/apps/uber/admin">Admins</a></li>
         </ul>
       </div>
     </nav>
