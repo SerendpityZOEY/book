@@ -25,7 +25,8 @@ Everything I've learned from UCDD 2 - Spring 2016.
 
 
 ## Learning
-* [Week 6](learning/week6) <span class="chip red">NEW</span>
+* [Week 7](learning/week7) <span class="chip red">NEW</span>
+* [Week 6](learning/week6)
 * [Week 5](learning/week5)
 * [Week 4](learning/week4)
 * [Week 3](learning/week3)
@@ -34,7 +35,8 @@ Everything I've learned from UCDD 2 - Spring 2016.
 * [Intro](learning/intro)
 
 ## Hackathons
-* [02-15](hackathons/02-15) <span class="chip red">NEW</span>
+* [02-22](hackathons/02-22) <span class="chip red">NEW</span>
+* [02-15](hackathons/02-15)
 * [02-08](hackathons/02-08)
 * [02-01](hackathons/02-01)
 * [01-25](hackathons/01-25)
