@@ -1,6 +1,14 @@
 // a single 'data' object that holds the data of your entire app, with initial values
+var city_location = {
+  lat: 37.78,
+  lon: -122.41
+}
+var radius = 0.03
+var lat = city_location.lat + radius * (Math.random() - 0.5) * 2
+var lon = city_location.lon + radius * (Math.random() - 0.5) * 2
+
 var data = {
-  center: [37.78, -122.41], // San Francisco
+  center: [lat, lon], //
   providers: [],
   restaurants: [],
   user: null

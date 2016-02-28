@@ -7,10 +7,12 @@ class ProviderList extends React.Component {
   		else {
   			var color = "material-icons secondary-content green-text"
   		}
+		if(p.name!=null){
+		  return <li key={i} className="collection-item">
+			  <div>{p.name}<i className={color}>person_pin</i></div>
+					 </li>
+		}
 
-      return <li key={i} className="collection-item">
-      					<div>{p.name}<i className={color}>person_pin</i></div>
-      			 </li>
     })
 
     return <div>

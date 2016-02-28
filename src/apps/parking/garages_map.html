@@ -10,6 +10,7 @@
     <!--Import stylesheet for Leaflet to work-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
     <link rel="stylesheet" href="/css/leaflet.label.css" />
+    <link rel="stylesheet" href="/css/parking_map.css" />
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,97 +24,279 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
     <script src="/js/leaflet.label.js"></script>
 
+    <nav class="light-blue darken-3">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo center">Garages Map</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="garages.html">Garages</a></li>
+                <li><a href="garages_map.html">Map</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="garages.html">Garages</a></li>
+                <li><a href="garages_map.html">Map</a></li>
+            </ul>
+        </div>
+    </nav>
 
-     <nav class = "light-blue darken-3">
-      <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">Garages</a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="garages.html">Garages</a></li>
-          <li><a href="garages_map.html">Map</a></li>
-        </ul>
-         <ul class="side-nav" id="mobile-demo">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="garages.html">Garages</a></li>
-          <li><a href="garages_map.html">Map</a></li>
-        </ul>
-      </div>
-     </nav>
+    <br>
 
     <div class="container">
+        <div class="row">
+            <div class="col s6">
+                <div class="card light-blue darken-3">
+                    <div class="card-content white-text">
+                        <span class="card-title">Realtime data:</span>
+                        <div id="map" style="height:500px"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Key -->
+                <div class="col s6">
+                    <div class="card light-blue darken-3">
+                        <div class="card-content white-text">
+                            <span class="card-title">Map Key:</span>
 
-        <h1>Garages Map</h1>
-        <div id="map" style="height:500px"></div>
+                            <ul class="collection">
+                                <li>
+                                    <a class="collection-item">
+                                    <div class="circle_green"> </div> Garages less than 50% full.Garages less than 50% full. </a>
+                                </li>
+                                <li>
+                                    <a class="collection-item">
+                                    <div class="circle_yellow"></div> Garage between 50% and 75% full.</a>
+                                </li>
+                                <li>
+                                    <a class="collection-item">
+                                    <div class="circle_red"></div> Garage more than 75% full.</a>
+                                </li>
+                                <li>
+                                    <a class="collection-item">
+                                    <div class="circle_blue"></div> People on our application now</a>
+                                </li>
+                                <li>
+                                    <a class="collection-item">
+                                    <div class="circle_black"></div> Buses on route.</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+<style>
+    .circle_red{width:15px;height:15px;border-radius:50px;line-height:100px;background:#f44336}
+    .circle_yellow{width:15px;height:15px;border-radius:50px;line-height:100px;background:#ffeb3b}
+    .circle_blue{width:15px;height:15px;border-radius:50px;line-height:100px;background:#03a9f4}
+    .circle_black{width:15px;height:15px;border-radius:50px;line-height:100px;background:#000}
+    .circle_green{width:15px;height:15px;border-radius:50px;line-height:100px;background:#4caf50}
+</style>
 
     </div>
-asdasd
-    <script>
-    // create a firebase reference to the root
-    var ref = new Firebase('https://publicdata-parking.firebaseio.com');
-    var data
-        // read data from the location san_francisco/garages, only once
-    ref.child('san_francisco/garages').on('value', function(snapshot) {
-        data = snapshot.val()
-        console.log('data is loaded', data)
-        var garages = _.filter(data, function(d) {
-            return _.has(d, 'open_spaces')
-        })
-        drawGarages(garages)
-    })
-    var attributionText = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a       href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
-        // create the map
-    var map = L.map($('#map')[0]).setView([37.78, -122.41], 13)
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-            attribution: attributionText,
-            maxZoom: 18,
-            id: 'doubleshow.noeko77m',
-            accessToken: 'pk.eyJ1IjoiZG91Ymxlc2hvdyIsImEiOiJjaWZ5Y3B1eTE1MHRidWRtMG9uZXluajg4In0.u5ONW27Ly5cU7M5KYi6Y9Q'
-        }).addTo(map)
-        // create a layer group to hold all the markers
-    var markersLayerGroup = L.layerGroup()
-        // add the makers layer group to the map
-    markersLayerGroup.addTo(map)
-        //TODO: Calculate Current Rate
-    var rate_period = 0;
-    // TODO: Calculate Current Days Hours
-    var hour = 0
+        <script>
+        // create a firebase reference to the root
+        var ref = new Firebase('https://publicdata-parking.firebaseio.com');
+        var ref_users = new Firebase('https://hello-ucdd2016.firebaseio.com');
+        var transitRef = new Firebase('https://publicdata-transit.firebaseio.com');
+        var data
+        var garages
+        var people
+        var vehicles
+        $(document).ready(function () {
+
+                        // read data from the location san_francisco/garages, only once
+                        ref.child('san_francisco/garages').on('value', function(snapshot) {
+                            data = snapshot.val()
+                                // console.log('data is loaded', data)
+                                //console.log('data is loaded', data)
+                            garages = _.filter(data, function(d) {
+                                return _.has(d, 'open_spaces')
+                            })
+                            drawGarages(garages)
+                            drawUsers(people)
+                            drawBuses(vehicles)
+
+                        })
+
+                        ref_users.child('people').on('value', function(snapshot) {
+                            data = snapshot.val()
+                            people = data
+                            // console.log('data is loaded', data)
+                            drawGarages(garages)
+                            drawUsers(people)
+                            drawBuses(vehicles)
+                        })
+
+                        transitRef.child('sf-muni/vehicles').on('value', function(snapshot) {
+                            data = snapshot.val()
+                            vehicles = data
+                            // console.log('data is loaded', data)
+                            drawGarages(garages)
+                            drawUsers(people)
+                            drawBuses(vehicles)
+                        })
+        });
+
+
+        var attributionText = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a       href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
+            // create the map
+        var map = L.map($('#map')[0]).setView([37.78, -122.41], 13)
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: attributionText,
+                maxZoom: 18,
+                id: 'doubleshow.noeko77m',
+                accessToken: 'pk.eyJ1IjoiZG91Ymxlc2hvdyIsImEiOiJjaWZ5Y3B1eTE1MHRidWRtMG9uZXluajg4In0.u5ONW27Ly5cU7M5KYi6Y9Q'
+            }).addTo(map)
+            // create a layer group to hold all the markers
+        var markersLayerGroup = L.layerGroup()
+            // add the makers layer group to the map
+        markersLayerGroup.addTo(map)
+            //TODO: Calculate Current Rate
+        var d = new Date()
+        var day = d.getDay()
+        var hour = d.getHours()
+        if (day == 0) {
+            day = 7
+        }
+        var rate_period = 0;
+        // TODO: Calculate Current Days Hours
         // visualize garages on a map
-    function drawGarages(garages) {
-        // clear all existing markers (if any)
-        markersLayerGroup.clearLayers()
-        _.forEach(garages, function(garage) {
-            var points = garage.points
-            var latlng = [points[0], points[1]]
-                // create a circle layer
-            var curr_rate = garage.rates[rate_period].RATE
-            var curr_beg
-            var circle = L.circle(latlng, 50, {
-                fillOpacity: 0.5
-            }).bindLabel(garage.friendlyName + "<br> Current Cost: $" + curr_rate + " Per/Hour");
-            var percent_open = garage.open_spaces / garage.total_spaces;
-            if (percent_open < 0.5) {
-                circle.setStyle({
-                    color: 'green',
-                    fillColor: 'green'
+        function drawGarages(garages) {
+            // clear all existing markers (if any)
+            markersLayerGroup.clearLayers()
+            _.forEach(garages, function(garage) {
+                var points = garage.points
+                var latlng = [points[0], points[1]]
+                    // create a circle layer
+                    // console.log("Garage: " + garage)
+                    // console.log("current rate: "+garage.rates)
+                var curr_rate = currentRate(garage.rates, hour)
+                var curr_beg
+                var circle = L.circle(latlng, 50, {
+                    fillOpacity: 0.5
+                }).bindLabel(garage.friendlyName + "<br> Current Cost: $" + curr_rate + " Per/Hour");
+                var percent_open = garage.open_spaces / garage.total_spaces;
+                if (percent_open < 0.5) {
+                    circle.setStyle({
+                        color: 'green',
+                        fillColor: 'green'
+                    });
+                } else if (percent_open > 0.5 && percent_open < .75) {
+                    circle.setStyle({
+                        color: 'yellow',
+                        fillColor: 'yellow'
+                    });
+                } else {
+                    circle.setStyle({
+                        color: 'red',
+                        fillColor: 'red'
+                    });
+                };
+                // add the circle layer to the makers layer group
+                markersLayerGroup.addLayer(circle)
+            })
+        }
+
+        function currentRate(rates, hour) {
+            _.forEach(rates, function(rate) {
+                var begTime = parseInt(rate.BEG)
+                var endTime = parseInt(rate.END)
+                if (typeof(rate.BEG) != "undefined") {
+                    var amPMBeg = rate.BEG.split(" ")
+                    if (amPMBeg[1] == "AM") {
+                        if (parseInt(amPMBeg[0]) == 12) {
+                            begTime = 0
+                        }
+                    } else {
+                        if (parseInt(amPMBeg[0]) < 12) {
+                            begTime = parseInt(amPMBeg[0]) + 12
+                        }
+                    }
+                }
+                if (typeof(rate.END) != "undefined") {
+                    var amPMEnd = rate.END.split(" ");
+                    if (amPMEnd[1] == "AM") {
+                        if (parseInt(amPMEnd[0]) == 12) {
+                            endTime = 24
+                        }
+                    } else {
+                        if (parseInt(amPMEnd[0]) < 12) {
+                            endTime = parseInt(amPMEnd[0]) + 12
+                        }
+                    }
+                }
+                if ((parseInt(begTime) <= hour) && (hour < parseInt(endTime))) {
+                    cr = rate.RATE
+                }
+            })
+            return cr
+        }
+
+        function drawUsers(people) {
+            // clear all existing markers (if any)
+
+            _.forEach(people, function(person) {
+                var latlng = [person.lat, person.lon]
+                    // create a circle layer
+                var circle = L.circle(latlng, 15, {
+                        fillOpacity: 0.5,
+                        color: 'blue',
+                        fillColor: 'blue'
+                    }).bindLabel(person.name)
+                    //console.log(person.name + " Added to Map")
+                    // add the circle layer to the makers layer group
+                markersLayerGroup.addLayer(circle)
+            })
+        }
+
+        function drawBuses(vehicles) {
+
+            _.forEach(vehicles, function(bus) {
+                var latlng = [bus.lat, bus.lon];
+                var Icon = L.Icon.extend({
+                    options: {
+                        iconUrl: "bus.png",
+                        iconSize: [10, 10],
+                        shadowSize: [0, 0]
+                    }
                 });
-            } else if (percent_open > 0.5 && percent_open < .75) {
-                circle.setStyle({
-                    color: 'yellow',
-                    fillColor: 'yellow'
+                var Icon1 = L.Icon.extend({
+                    options: {
+                        iconUrl: "train.png",
+                        iconSize: [20, 20],
+                        shadowSize: [0, 0]
+                    }
                 });
-            } else {
-                circle.setStyle({
-                    color: 'red',
-                    fillColor: 'red'
-                });
-            };
-            // add the circle layer to the makers layer group
-            markersLayerGroup.addLayer(circle)
-        })
-    }
-    </script>
-    <script type="text/javascript" src="js/main.js"></script>
+                //console.log(bus.id + " Added to Map")
+                var busIcon = new Icon();
+
+                var trainIcon = new Icon1();
+                if(bus.vtype=="bus"){
+
+                    var marker = L.marker(latlng, {
+                        icon: busIcon
+                    }).bindLabel("Route:"+bus.id).addTo(map);
+
+                }else if(bus.vtype=="train"){
+                    marker = L.marker(latlng, {
+                        icon: trainIcon
+                    }).bindLabel("Route:"+bus.id).addTo(map);
+
+                }
+                markersLayerGroup.addLayer(marker)
+            })
+        }
+        </script>
+
+        <script>
+        $('.button-collapse').sideNav({
+            menuWidth: 240, // Default is 240
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+        });
+        </script>
 
 </body>
 

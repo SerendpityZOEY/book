@@ -85,10 +85,10 @@
               <div class="input-field col s11">
                 <select id="restaurant">
                   <option value="" disabled selected>Choose restaurant</option>
-                  <option value="1">The House</option>
-                  <option value="2">Yamo</option>
-                  <option value="3">New Saigon</option>
-                  <option value="3">Homely Foods</option>
+                  <option value="The House">The House</option>
+                  <option value="Yamo">Yamo</option>
+                  <option value="New Saigon">New Saigon</option>
+                  <option value="Homely Foods">Homely Foods</option>
                 </select>
                 <label>Restaurant</label>
               </div>
@@ -98,10 +98,10 @@
               <div class="input-field col s11">
                 <select id="menu">
                   <option value="" disabled selected>Choose food</option>
-                  <option value="1">Las Vegas Rolls</option>
-                  <option value="2">California Rolls</option>
-                  <option value="3">Smoked Salmon</option>
-                  <option value="3">Misonikomi Udon </option>
+                  <option value="Las Vegas Rolls">Las Vegas Rolls</option>
+                  <option value="California Rolls">California Rolls</option>
+                  <option value="Smoked Salmon">Smoked Salmon</option>
+                  <option value="Misonikomi Udon">Misonikomi Udon </option>
                 </select>
                 <label>Menu</label>
               </div>
@@ -171,7 +171,8 @@
           menu:menu,
           telephone: telephone,
           zip: zip,
-          completed: false
+          completed: false,
+          provider: ""
         }
 
         // TODO: study why push() and set() are both necessary
