@@ -1,1459 +1,281 @@
-<!DOCTYPE html>
 <html>
-
 <head>
-    <title>HTML5 Create HTML5 Canvas JavaScript Drawing App Example</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
-    <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
-    <script type="text/javascript" src="html5-canvas-drawing-app.js"></script>
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!--Import materialize.css-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<!-- CSS  -->
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+	<script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+	<script src="js/leaflet.label.js"></script>
+
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+	<!--Import stylesheet for Leaflet to work-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+	<link rel="stylesheet" href="/css/leaflet.label.css" />
+
+	<script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
+
+	<script src="lib/react.js"></script>
+	<script src="lib/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+	<!-- https://github.com/PaulLeCam/react-leaflet -->
+	<script src="https://npmcdn.com/react-leaflet/dist/react-leaflet.min.js"></script>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/redmond/jquery-ui.css" rel="stylesheet" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+
 </head>
 
+<style>
+	html {
+		background-color: papayawhip;
+	}
+</style>
+
+<style type="text/css">
+	#abgne_float_ad {
+		display: none;
+		position: absolute;
+	}
+	#abgne_float_ad .abgne_close_ad {
+		display: block;
+		text-align: right;
+		cursor: pointer;
+		font-size: 12px;
+	}
+	#abgne_float_ad a img {
+		border: black;
+	}
+	div.bigDiv {
+		height: 500px;
+	}
+</style>
+
+
+<style type="text/css">
+	#slide {
+		position: relative;
+	}
+
+	#slide1 {
+		bottom: 0;
+		min-height: 80px;
+		left: 0;
+		position: absolute;
+		width: 100%;
+		z-index: 2;
+	}
+</style>
+
+<script type="text/javascript">
+	// 當網頁載入完 reference: https://github.com/s301132001/u0124059/blob/master/search.php
+	$(window).load(function(){
+		var $win = $(window),
+				$ad = $('#abgne_float_ad').css('opacity', 0).show(),	// 讓廣告區塊變透明且顯示出來
+				_width = $ad.width(),
+				_height = $ad.height(),
+				_diffY = 380, _diffX = 50,	// 距離右及上方邊距
+				_moveSpeed = 200;	// 移動的速度
+
+		// 先把 #abgne_float_ad 移動到定點
+		$ad.css({
+			top: _diffY,	// 往上
+			left: $win.width() - _width - _diffX,
+			opacity: 1
+		});
+
+		// 幫網頁加上 scroll 及 resize 事件
+		$win.bind('scroll resize', function(){
+			var $this = $(this);
+
+			// 控制 #abgne_float_ad 的移動
+			$ad.stop().animate({
+				top: $this.scrollTop() + _diffY,	// 往上
+				left: $this.scrollLeft() + $this.width() - _width - _diffX
+			}, _moveSpeed);
+		}).scroll();	// 觸發一次 scroll()
+
+		// 關閉廣告
+		$('#abgne_float_ad .abgne_close_ad').click(function(){
+			$ad.hide();
+			//First get the  iframe URL
+			var url = $('#ads').attr('src');
+			//Then assign the src to null, this then stops the video been playing
+			$('#ads').attr('src', '');
+			// Finally you reasign the URL back to your iframe, so when you hide and load it again you still have the link
+			$('#ads').attr('src', url);
+
+
+		});
+	});
+</script>
+
 <body>
-    <div id="canvasDiv"></div>
-    <script type="text/javascript"> $(document).ready(function() {
-    	 prepareCanvas();
-});</script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+<header>
+<nav class="nav-wrapper grey darken-3 " role="navigation" style="opacity: 0.7">
+	<div class="nav-wrapper container">
+		<a id="logo-container" href="#" class="brand-logo">We Travel</a>
+		<ul class="right hide-on-med-and-down">
+			<li><a href="travel.html">Create your Travel</a></li>
+			<li><a href="#">Log In</a></li>
+			<li><a href="idea.html">About</a></li>
+		</ul>
+	</div>
+</nav>
+
+<div id="abgne_float_ad" style="z-index: 110">
+	<div class="abgne_close_ad"><font color="white" size = 4>Close [X]</font></div>
+	<div>
+			<!--<img class="youtube" id="4eYSpIz2FjU" src="images/lv.jpg" height="180" width="280"; />-->
+		<iframe id="ads" src="https://www.youtube.com/embed/QPzxmIWWep0?autoplay=1" frameborder="0" allowfullscreen height="180" width="280"></iframe>
+	</div>
+
+</div>
+
+<div id="slide" class="slider" style="z-index: 100 ">
+
+	<ul class="slides">
+		<li>
+			<img src="images/slide1.jpg">
+			<div id="slide1" class="caption center-align">
+				<h3>Welcome to WeTravel!</h3>
+				<h5 class="light grey-text text-lighten-3">The world is a book and those who do not travel read only a page.</h5>
+			</div>
+		</li>
+		<li>
+			<img src="images/slide2.jpg">
+			<div id="slide2" class="caption left-align">
+				<h3>Welcome to WeTravel!</h3>
+				<h5 class="light grey-text text-lighten-3">Life is an adventure. Take risks!</h5>
+			</div>
+		</li>
+		<li>
+			<img src="images/slide3.jpg">
+			<div id="slide3" class="caption right-align">
+				<h3>Welcome to WeTravel!</h3>
+				<h5 class="light grey-text text-lighten-3">Travel is more than seeing sights;it is a chance to meet the inner side of yourself.</h5>
+			</div>
+		</li>
+	</ul>
+</div>
+</header>
+
+<main>
+
+
+<div class="container">
+	<div class="section">
+
+		<!--   Icon Section   -->
+		<div class="row">
+			<div class="col s12 m6">
+				<div class="icon-block">
+					<h2 class="center grey-text"><i class="material-icons">info</i></h2>
+					<h5 class="center">About</h5>
+					<p class="light">Feeling inconvinent to plan a travel through docs?<br>
+						Feeling hard to share and edit your travel schedule with your accompanies?<br>
+						We Travel!! we offer a convinent platform for you and your accompanies to organinze your travel together at the same time.<br>
+					</p>
+				</div>
+			</div>
+			<div class="col s12 m6">
+				<div class="icon-block">
+					<h2 class="center grey-text"><i class="material-icons">stars</i></h2>
+					<h5 class="center">How it works</h5>
+					<p class="light">
+						We offer a platform with easy understanding UI for you to organinze your trip day by day, you can add day, place, time and detail information of your trip. You can have a clear and neat page accompanied by the map to view your schedule. The best part of it is you can edit your trip with your accompanies.<br>
+						Before the trip, during the trip, travel with "We Travel", you don't need anything else.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+</main>
 
 <script>
-
-// Copyright 2010 William Malone (www.williammalone.com)
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-var canvas;
-var context;
-var canvasWidth = 490;
-var canvasHeight = 220;
-var padding = 25;
-var lineWidth = 8;
-var colorPurple = "#cb3594";
-var colorGreen = "#659b41";
-var colorYellow = "#ffcf33";
-var colorBrown = "#986928";
-var outlineImage = new Image();
-var crayonImage = new Image();
-var markerImage = new Image();
-var eraserImage = new Image();
-var crayonBackgroundImage = new Image();
-var markerBackgroundImage = new Image();
-var eraserBackgroundImage = new Image();
-var crayonTextureImage = new Image();
-var clickX = new Array();
-var clickY = new Array();
-var clickColor = new Array();
-var clickTool = new Array();
-var clickSize = new Array();
-var clickDrag = new Array();
-var paint = false;
-var curColor = colorPurple;
-var curTool = "crayon";
-var curSize = "normal";
-var mediumStartX = 18;
-var mediumStartY = 19;
-var mediumImageWidth = 93;
-var mediumImageHeight = 46;
-var drawingAreaX = 111;
-var drawingAreaY = 11;
-var drawingAreaWidth = 267;
-var drawingAreaHeight = 200;
-var toolHotspotStartY = 23;
-var toolHotspotHeight = 38;
-var sizeHotspotStartY = 157;
-var sizeHotspotHeight = 36;
-var sizeHotspotWidthObject = new Object();
-sizeHotspotWidthObject.huge = 39;
-sizeHotspotWidthObject.large = 25;
-sizeHotspotWidthObject.normal = 18;
-sizeHotspotWidthObject.small = 16;
-var totalLoadResources = 8;
-var curLoadResNum = 0;
-/**
-* Calls the redraw function after all neccessary resources are loaded.
-*/
-function resourceLoaded()
-{
-	if(++curLoadResNum >= totalLoadResources){
-		redraw();
-	}
-}
-
-/**
-* Creates a canvas element, loads images, adds events, and draws the canvas for the first time.
-*/
-function prepareCanvas()
-{
-	// Create the canvas (Neccessary for IE because it doesn't know what a canvas element is)
-	var canvasDiv = document.getElementById('canvasDiv');
-	canvas = document.createElement('canvas');
-	canvas.setAttribute('width', canvasWidth);
-	canvas.setAttribute('height', canvasHeight);
-	canvas.setAttribute('id', 'canvas');
-	canvasDiv.appendChild(canvas);
-	if(typeof G_vmlCanvasManager != 'undefined') {
-		canvas = G_vmlCanvasManager.initElement(canvas);
-	}
-	context = canvas.getContext("2d"); // Grab the 2d canvas context
-	// Note: The above code is a workaround for IE 8 and lower. Otherwise we could have used:
-	//     context = document.getElementById('canvas').getContext("2d");
-
-	// Load images
-	// -----------
-	crayonImage.onload = function() { resourceLoaded();
-	};
-	crayonImage.src = "images/crayon-outline.png";
-	//context.drawImage(crayonImage, 0, 0, 100, 100);
-
-	markerImage.onload = function() { resourceLoaded();
-	};
-	markerImage.src = "images/marker-outline.png";
-
-	eraserImage.onload = function() { resourceLoaded();
-	};
-	eraserImage.src = "images/eraser-outline.png";
-
-	crayonBackgroundImage.onload = function() { resourceLoaded();
-	};
-	crayonBackgroundImage.src = "images/crayon-background.png";
-
-	markerBackgroundImage.onload = function() { resourceLoaded();
-	};
-	markerBackgroundImage.src = "images/marker-background.png";
-
-	eraserBackgroundImage.onload = function() { resourceLoaded();
-	};
-	eraserBackgroundImage.src = "images/eraser-background.png";
-
-	crayonTextureImage.onload = function() { resourceLoaded();
-	};
-	crayonTextureImage.src = "images/crayon-texture.png";
-
-	outlineImage.onload = function() { resourceLoaded();
-	};
-	outlineImage.src = "images/watermelon-duck-outline.png";
-
-	// Add mouse events
-	// ----------------
-	$('#canvas').mousedown(function(e)
-	{
-		// Mouse down location
-		var mouseX = e.pageX - this.offsetLeft;
-		var mouseY = e.pageY - this.offsetTop;
-
-		if(mouseX < drawingAreaX) // Left of the drawing area
-		{
-			if(mouseX > mediumStartX)
-			{
-				if(mouseY > mediumStartY && mouseY < mediumStartY + mediumImageHeight){
-					curColor = colorPurple;
-				}else if(mouseY > mediumStartY + mediumImageHeight && mouseY < mediumStartY + mediumImageHeight * 2){
-					curColor = colorGreen;
-				}else if(mouseY > mediumStartY + mediumImageHeight * 2 && mouseY < mediumStartY + mediumImageHeight * 3){
-					curColor = colorYellow;
-				}else if(mouseY > mediumStartY + mediumImageHeight * 3 && mouseY < mediumStartY + mediumImageHeight * 4){
-					curColor = colorBrown;
-				}
-			}
-		}
-		else if(mouseX > drawingAreaX + drawingAreaWidth) // Right of the drawing area
-		{
-			if(mouseY > toolHotspotStartY)
-			{
-				if(mouseY > sizeHotspotStartY)
-				{
-					var sizeHotspotStartX = drawingAreaX + drawingAreaWidth;
-					if(mouseY < sizeHotspotStartY + sizeHotspotHeight && mouseX > sizeHotspotStartX)
-					{
-						if(mouseX < sizeHotspotStartX + sizeHotspotWidthObject.huge){
-							curSize = "huge";
-						}else if(mouseX < sizeHotspotStartX + sizeHotspotWidthObject.large + sizeHotspotWidthObject.huge){
-							curSize = "large";
-						}else if(mouseX < sizeHotspotStartX + sizeHotspotWidthObject.normal + sizeHotspotWidthObject.large + sizeHotspotWidthObject.huge){
-							curSize = "normal";
-						}else if(mouseX < sizeHotspotStartX + sizeHotspotWidthObject.small + sizeHotspotWidthObject.normal + sizeHotspotWidthObject.large + sizeHotspotWidthObject.huge){
-							curSize = "small";
-						}
-					}
-				}
-				else
-				{
-					if(mouseY < toolHotspotStartY + toolHotspotHeight){
-						curTool = "crayon";
-					}else if(mouseY < toolHotspotStartY + toolHotspotHeight * 2){
-						curTool = "marker";
-					}else if(mouseY < toolHotspotStartY + toolHotspotHeight * 3){
-						curTool = "eraser";
-					}
-				}
-			}
-		}
-		else if(mouseY > drawingAreaY && mouseY < drawingAreaY + drawingAreaHeight)
-		{
-			// Mouse click location on drawing area
-		}
-		paint = true;
-		addClick(mouseX, mouseY, false);
-		redraw();
+	$(document).ready(function(){
+		$('.slider').slider({
+			indicators: false,
+			height: 527,
+			interval: 3000});
 	});
+	$(".button-collapse").sideNav();
 
-	$('#canvas').mousemove(function(e){
-		if(paint==true){
-			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-			redraw();
-		}
-	});
-
-	$('#canvas').mouseup(function(e){
-		paint = false;
-	  	redraw();
-	});
-
-	$('#canvas').mouseleave(function(e){
-		paint = false;
-	});
-}
-
-/**
-* Adds a point to the drawing array.
-* @param x
-* @param y
-* @param dragging
-*/
-function addClick(x, y, dragging)
-{
-	clickX.push(x);
-	clickY.push(y);
-	clickTool.push(curTool);
-	clickColor.push(curColor);
-	clickSize.push(curSize);
-	clickDrag.push(dragging);
-}
-
-/**
-* Clears the canvas.
-*/
-function clearCanvas()
-{
-	context.clearRect(0, 0, canvasWidth, canvasHeight);
-}
-
-/**
-* Redraws the canvas.
-*/
-function redraw()
-{
-	// Make sure required resources are loaded before redrawing
-	if(curLoadResNum < totalLoadResources){ return; }
-
-	clearCanvas();
-
-	var locX;
-	var locY;
-	if(curTool == "crayon")
-	{
-		// Draw the crayon tool background
-		context.drawImage(crayonBackgroundImage, 0, 0, canvasWidth, canvasHeight);
-
-		// Purple
-		locX = (curColor == colorPurple) ? 18 : 52;
-		locY = 19;
-
-		context.beginPath();
-		context.moveTo(locX + 41, locY + 11);
-		context.lineTo(locX + 41, locY + 35);
-		context.lineTo(locX + 29, locY + 35);
-		context.lineTo(locX + 29, locY + 33);
-		context.lineTo(locX + 11, locY + 27);
-		context.lineTo(locX + 11, locY + 19);
-		context.lineTo(locX + 29, locY + 13);
-		context.lineTo(locX + 29, locY + 11);
-		context.lineTo(locX + 41, locY + 11);
-		context.closePath();
-		context.fillStyle = colorPurple;
-		context.fill();
-
-		if(curColor == colorPurple){
-			context.drawImage(crayonImage, locX, locY, mediumImageWidth, mediumImageHeight);
-		}else{
-			context.drawImage(crayonImage, 0, 0, 59, mediumImageHeight, locX, locY, 59, mediumImageHeight);
-		}
-
-		// Green
-		locX = (curColor == colorGreen) ? 18 : 52;
-		locY += 46;
-
-		context.beginPath();
-		context.moveTo(locX + 41, locY + 11);
-		context.lineTo(locX + 41, locY + 35);
-		context.lineTo(locX + 29, locY + 35);
-		context.lineTo(locX + 29, locY + 33);
-		context.lineTo(locX + 11, locY + 27);
-		context.lineTo(locX + 11, locY + 19);
-		context.lineTo(locX + 29, locY + 13);
-		context.lineTo(locX + 29, locY + 11);
-		context.lineTo(locX + 41, locY + 11);
-		context.closePath();
-		context.fillStyle = colorGreen;
-		context.fill();
-
-		if(curColor == colorGreen){
-			context.drawImage(crayonImage, locX, locY, mediumImageWidth, mediumImageHeight);
-		}else{
-			context.drawImage(crayonImage, 0, 0, 59, mediumImageHeight, locX, locY, 59, mediumImageHeight);
-		}
-
-		// Yellow
-		locX = (curColor == colorYellow) ? 18 : 52;
-		locY += 46;
-
-		context.beginPath();
-		context.moveTo(locX + 41, locY + 11);
-		context.lineTo(locX + 41, locY + 35);
-		context.lineTo(locX + 29, locY + 35);
-		context.lineTo(locX + 29, locY + 33);
-		context.lineTo(locX + 11, locY + 27);
-		context.lineTo(locX + 11, locY + 19);
-		context.lineTo(locX + 29, locY + 13);
-		context.lineTo(locX + 29, locY + 11);
-		context.lineTo(locX + 41, locY + 11);
-		context.closePath();
-		context.fillStyle = colorYellow;
-		context.fill();
-
-		if(curColor == colorYellow){
-			context.drawImage(crayonImage, locX, locY, mediumImageWidth, mediumImageHeight);
-		}else{
-			context.drawImage(crayonImage, 0, 0, 59, mediumImageHeight, locX, locY, 59, mediumImageHeight);
-		}
-
-		// Yellow
-		locX = (curColor == colorBrown) ? 18 : 52;
-		locY += 46;
-
-		context.beginPath();
-		context.moveTo(locX + 41, locY + 11);
-		context.lineTo(locX + 41, locY + 35);
-		context.lineTo(locX + 29, locY + 35);
-		context.lineTo(locX + 29, locY + 33);
-		context.lineTo(locX + 11, locY + 27);
-		context.lineTo(locX + 11, locY + 19);
-		context.lineTo(locX + 29, locY + 13);
-		context.lineTo(locX + 29, locY + 11);
-		context.lineTo(locX + 41, locY + 11);
-		context.closePath();
-		context.fillStyle = colorBrown;
-		context.fill();
-
-		if(curColor == colorBrown){
-			context.drawImage(crayonImage, locX, locY, mediumImageWidth, mediumImageHeight);
-		}else{
-			context.drawImage(crayonImage, 0, 0, 59, mediumImageHeight, locX, locY, 59, mediumImageHeight);
-		}
-	}
-	else if(curTool == "marker")
-	{
-		// Draw the marker tool background
-		context.drawImage(markerBackgroundImage, 0, 0, canvasWidth, canvasHeight);
-
-		// Purple
-		locX = (curColor == colorPurple) ? 18 : 52;
-		locY = 19;
-
-		context.beginPath();
-		context.moveTo(locX + 10, locY + 24);
-		context.lineTo(locX + 10, locY + 24);
-		context.lineTo(locX + 22, locY + 16);
-		context.lineTo(locX + 22, locY + 31);
-		context.closePath();
-		context.fillStyle = colorPurple;
-		context.fill();
-
-		if(curColor == colorPurple){
-			context.drawImage(markerImage, locX, locY, mediumImageWidth, mediumImageHeight);
-		}else{
-			context.drawImage(markerImage, 0, 0, 59, mediumImageHeight, locX, locY, 59, mediumImageHeight);
-		}
-
-		// Green
-		locX = (curColor == colorGreen) ? 18 : 52;
-		locY += 46;
-
-		context.beginPath();
-		context.moveTo(locX + 10, locY + 24);
-		context.lineTo(locX + 10, locY + 24);
-		context.lineTo(locX + 22, locY + 16);
-		context.lineTo(locX + 22, locY + 31);
-		context.closePath();
-		context.fillStyle = colorGreen;
-		context.fill();
-
-		if(curColor == colorGreen){
-			context.drawImage(markerImage, locX, locY, mediumImageWidth, mediumImageHeight);
-		}else{
-			context.drawImage(markerImage, 0, 0, 59, mediumImageHeight, locX, locY, 59, mediumImageHeight);
-		}
-
-		// Yellow
-		locX = (curColor == colorYellow) ? 18 : 52;
-		locY += 46;
-
-		context.beginPath();
-		context.moveTo(locX + 10, locY + 24);
-		context.lineTo(locX + 10, locY + 24);
-		context.lineTo(locX + 22, locY + 16);
-		context.lineTo(locX + 22, locY + 31);
-		context.closePath();
-		context.fillStyle = colorYellow;
-		context.fill();
-
-		if(curColor == colorYellow){
-			context.drawImage(markerImage, locX, locY, mediumImageWidth, mediumImageHeight);
-		}else{
-			context.drawImage(markerImage, 0, 0, 59, mediumImageHeight, locX, locY, 59, mediumImageHeight);
-		}
-
-		// Yellow
-		locX = (curColor == colorBrown) ? 18 : 52;
-		locY += 46;
-
-		context.beginPath();
-		context.moveTo(locX + 10, locY + 24);
-		context.lineTo(locX + 10, locY + 24);
-		context.lineTo(locX + 22, locY + 16);
-		context.lineTo(locX + 22, locY + 31);
-		context.closePath();
-		context.fillStyle = colorBrown;
-		context.fill();
-
-		if(curColor == colorBrown){
-			context.drawImage(markerImage, locX, locY, mediumImageWidth, mediumImageHeight);
-		}else{
-			context.drawImage(markerImage, 0, 0, 59, mediumImageHeight, locX, locY, 59, mediumImageHeight);
-		}
-	}
-	else if(curTool == "eraser")
-	{
-		context.drawImage(eraserBackgroundImage, 0, 0, canvasWidth, canvasHeight);
-		context.drawImage(eraserImage, 18, 19, mediumImageWidth, mediumImageHeight);
-	}else{
-		alert("Error: Current Tool is undefined");
-	}
-
-	if(curSize == "small"){
-		locX = 467;
-	}else if(curSize == "normal"){
-		locX = 450;
-	}else if(curSize == "large"){
-		locX = 428;
-	}else if(curSize == "huge"){
-		locX = 399;
-	}
-	locY = 189;
-	context.beginPath();
-	context.rect(locX, locY, 2, 12);
-	context.closePath();
-	context.fillStyle = '#333333';
-	context.fill();
-
-	// Keep the drawing in the drawing area
-	context.save();
-	context.beginPath();
-	context.rect(drawingAreaX, drawingAreaY, drawingAreaWidth, drawingAreaHeight);
-	context.clip();
-
-	var radius;
-	var i = 0;
-	for(; i < clickX.length; i++)
-	{
-		if(clickSize[i] == "small"){
-			radius = 2;
-		}else if(clickSize[i] == "normal"){
-			radius = 5;
-		}else if(clickSize[i] == "large"){
-			radius = 10;
-		}else if(clickSize[i] == "huge"){
-			radius = 20;
-		}else{
-			alert("Error: Radius is zero for click " + i);
-			radius = 0;
-		}
-
-		context.beginPath();
-		if(clickDrag[i] && i){
-			context.moveTo(clickX[i-1], clickY[i-1]);
-		}else{
-			context.moveTo(clickX[i], clickY[i]);
-		}
-		context.lineTo(clickX[i], clickY[i]);
-		context.closePath();
-
-		if(clickTool[i] == "eraser"){
-			//context.globalCompositeOperation = "destination-out"; // To erase instead of draw over with white
-			context.strokeStyle = 'white';
-		}else{
-			//context.globalCompositeOperation = "source-over";	// To erase instead of draw over with white
-			context.strokeStyle = clickColor[i];
-		}
-		context.lineJoin = "round";
-		context.lineWidth = radius;
-		context.stroke();
-
-	}
-	//context.globalCompositeOperation = "source-over";// To erase instead of draw over with white
-	context.restore();
-
-	// Overlay a crayon texture (if the current tool is crayon)
-	if(curTool == "crayon"){
-		context.globalAlpha = 0.4; // No IE support
-		context.drawImage(crayonTextureImage, 0, 0, canvasWidth, canvasHeight);
-	}
-	context.globalAlpha = 1; // No IE support
-
-	// Draw the outline image
-	context.drawImage(outlineImage, drawingAreaX, drawingAreaY, drawingAreaWidth, drawingAreaHeight);
-}
-
-
-/**/
 </script>
 
-<script>
-    // Copyright 2006 Google Inc.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
 
 
-// Known Issues:
-//
-// * Patterns are not implemented.
-// * Radial gradient are not implemented. The VML version of these look very
-//   different from the canvas one.
-// * Clipping paths are not implemented.
-// * Coordsize. The width and height attribute have higher priority than the
-//   width and height style values which isn't correct.
-// * Painting mode isn't implemented.
-// * Canvas width/height should is using content-box by default. IE in
-//   Quirks mode will draw the canvas using border-box. Either change your
-//   doctype to HTML5
-//   (http://www.whatwg.org/specs/web-apps/current-work/#the-doctype)
-//   or use Box Sizing Behavior from WebFX
-//   (http://webfx.eae.net/dhtml/boxsizing/boxsizing.html)
-// * Non uniform scaling does not correctly scale strokes.
-// * Optimize. There is always room for speed improvements.
-
-// Only add this code if we do not already have a canvas implementation
-if (!document.createElement('canvas').getContext) {
-
-(function() {
-
-  // alias some functions to make (compiled) code shorter
-  var m = Math;
-  var mr = m.round;
-  var ms = m.sin;
-  var mc = m.cos;
-  var abs = m.abs;
-  var sqrt = m.sqrt;
-
-  // this is used for sub pixel precision
-  var Z = 10;
-  var Z2 = Z / 2;
-
-  /**
-   * This funtion is assigned to the <canvas> elements as element.getContext().
-   * @this {HTMLElement}
-   * @return {CanvasRenderingContext2D_}
-   */
-  function getContext() {
-    return this.context_ ||
-        (this.context_ = new CanvasRenderingContext2D_(this));
-  }
-
-  var slice = Array.prototype.slice;
-
-  /**
-   * Binds a function to an object. The returned function will always use the
-   * passed in {@code obj} as {@code this}.
-   *
-   * Example:
-   *
-   *   g = bind(f, obj, a, b)
-   *   g(c, d) // will do f.call(obj, a, b, c, d)
-   *
-   * @param {Function} f The function to bind the object to
-   * @param {Object} obj The object that should act as this when the function
-   *     is called
-   * @param {*} var_args Rest arguments that will be used as the initial
-   *     arguments when the function is called
-   * @return {Function} A new function that has bound this
-   */
-  function bind(f, obj, var_args) {
-    var a = slice.call(arguments, 2);
-    return function() {
-      return f.apply(obj, a.concat(slice.call(arguments)));
-    };
-  }
-
-  var G_vmlCanvasManager_ = {
-    init: function(opt_doc) {
-      if (/MSIE/.test(navigator.userAgent) && !window.opera) {
-        var doc = opt_doc || document;
-        // Create a dummy element so that IE will allow canvas elements to be
-        // recognized.
-        doc.createElement('canvas');
-        doc.attachEvent('onreadystatechange', bind(this.init_, this, doc));
-      }
-    },
-
-    init_: function(doc) {
-      // create xmlns
-      if (!doc.namespaces['g_vml_']) {
-        doc.namespaces.add('g_vml_', 'urn:schemas-microsoft-com:vml',
-                           '#default#VML');
-
-      }
-      if (!doc.namespaces['g_o_']) {
-        doc.namespaces.add('g_o_', 'urn:schemas-microsoft-com:office:office',
-                           '#default#VML');
-      }
-
-      // Setup default CSS.  Only add one style sheet per document
-      if (!doc.styleSheets['ex_canvas_']) {
-        var ss = doc.createStyleSheet();
-        ss.owningElement.id = 'ex_canvas_';
-        ss.cssText = 'canvas{display:inline-block;overflow:hidden;' +
-            // default size is 300x150 in Gecko and Opera
-            'text-align:left;width:300px;height:150px}' +
-            'g_vml_\\:*{behavior:url(#default#VML)}' +
-            'g_o_\\:*{behavior:url(#default#VML)}';
-
-      }
-
-      // find all canvas elements
-      var els = doc.getElementsByTagName('canvas');
-      for (var i = 0; i < els.length; i++) {
-        this.initElement(els[i]);
-      }
-    },
-
-    /**
-     * Public initializes a canvas element so that it can be used as canvas
-     * element from now on. This is called automatically before the page is
-     * loaded but if you are creating elements using createElement you need to
-     * make sure this is called on the element.
-     * @param {HTMLElement} el The canvas element to initialize.
-     * @return {HTMLElement} the element that was created.
-     */
-    initElement: function(el) {
-      if (!el.getContext) {
-
-        el.getContext = getContext;
-
-        // Remove fallback content. There is no way to hide text nodes so we
-        // just remove all childNodes. We could hide all elements and remove
-        // text nodes but who really cares about the fallback content.
-        el.innerHTML = '';
-
-        // do not use inline function because that will leak memory
-        el.attachEvent('onpropertychange', onPropertyChange);
-        el.attachEvent('onresize', onResize);
-
-        var attrs = el.attributes;
-        if (attrs.width && attrs.width.specified) {
-          // TODO: use runtimeStyle and coordsize
-          // el.getContext().setWidth_(attrs.width.nodeValue);
-          el.style.width = attrs.width.nodeValue + 'px';
-        } else {
-          el.width = el.clientWidth;
-        }
-        if (attrs.height && attrs.height.specified) {
-          // TODO: use runtimeStyle and coordsize
-          // el.getContext().setHeight_(attrs.height.nodeValue);
-          el.style.height = attrs.height.nodeValue + 'px';
-        } else {
-          el.height = el.clientHeight;
-        }
-        //el.getContext().setCoordsize_()
-      }
-      return el;
-    }
-  };
-
-  function onPropertyChange(e) {
-    var el = e.srcElement;
-
-    switch (e.propertyName) {
-      case 'width':
-        el.style.width = el.attributes.width.nodeValue + 'px';
-        el.getContext().clearRect();
-        break;
-      case 'height':
-        el.style.height = el.attributes.height.nodeValue + 'px';
-        el.getContext().clearRect();
-        break;
-    }
-  }
-
-  function onResize(e) {
-    var el = e.srcElement;
-    if (el.firstChild) {
-      el.firstChild.style.width =  el.clientWidth + 'px';
-      el.firstChild.style.height = el.clientHeight + 'px';
-    }
-  }
-
-  G_vmlCanvasManager_.init();
-
-  // precompute "00" to "FF"
-  var dec2hex = [];
-  for (var i = 0; i < 16; i++) {
-    for (var j = 0; j < 16; j++) {
-      dec2hex[i * 16 + j] = i.toString(16) + j.toString(16);
-    }
-  }
-
-  function createMatrixIdentity() {
-    return [
-      [1, 0, 0],
-      [0, 1, 0],
-      [0, 0, 1]
-    ];
-  }
-
-  function matrixMultiply(m1, m2) {
-    var result = createMatrixIdentity();
-
-    for (var x = 0; x < 3; x++) {
-      for (var y = 0; y < 3; y++) {
-        var sum = 0;
-
-        for (var z = 0; z < 3; z++) {
-          sum += m1[x][z] * m2[z][y];
-        }
-
-        result[x][y] = sum;
-      }
-    }
-    return result;
-  }
-
-  function copyState(o1, o2) {
-    o2.fillStyle     = o1.fillStyle;
-    o2.lineCap       = o1.lineCap;
-    o2.lineJoin      = o1.lineJoin;
-    o2.lineWidth     = o1.lineWidth;
-    o2.miterLimit    = o1.miterLimit;
-    o2.shadowBlur    = o1.shadowBlur;
-    o2.shadowColor   = o1.shadowColor;
-    o2.shadowOffsetX = o1.shadowOffsetX;
-    o2.shadowOffsetY = o1.shadowOffsetY;
-    o2.strokeStyle   = o1.strokeStyle;
-    o2.globalAlpha   = o1.globalAlpha;
-    o2.arcScaleX_    = o1.arcScaleX_;
-    o2.arcScaleY_    = o1.arcScaleY_;
-    o2.lineScale_    = o1.lineScale_;
-  }
-
-  function processStyle(styleString) {
-    var str, alpha = 1;
-
-    styleString = String(styleString);
-    if (styleString.substring(0, 3) == 'rgb') {
-      var start = styleString.indexOf('(', 3);
-      var end = styleString.indexOf(')', start + 1);
-      var guts = styleString.substring(start + 1, end).split(',');
-
-      str = '#';
-      for (var i = 0; i < 3; i++) {
-        str += dec2hex[Number(guts[i])];
-      }
-
-      if (guts.length == 4 && styleString.substr(3, 1) == 'a') {
-        alpha = guts[3];
-      }
-    } else {
-      str = styleString;
-    }
-
-    return {color: str, alpha: alpha};
-  }
-
-  function processLineCap(lineCap) {
-    switch (lineCap) {
-      case 'butt':
-        return 'flat';
-      case 'round':
-        return 'round';
-      case 'square':
-      default:
-        return 'square';
-    }
-  }
-
-  /**
-   * This class implements CanvasRenderingContext2D interface as described by
-   * the WHATWG.
-   * @param {HTMLElement} surfaceElement The element that the 2D context should
-   * be associated with
-   */
-  function CanvasRenderingContext2D_(surfaceElement) {
-    this.m_ = createMatrixIdentity();
-
-    this.mStack_ = [];
-    this.aStack_ = [];
-    this.currentPath_ = [];
-
-    // Canvas context properties
-    this.strokeStyle = '#000';
-    this.fillStyle = '#000';
-
-    this.lineWidth = 1;
-    this.lineJoin = 'miter';
-    this.lineCap = 'butt';
-    this.miterLimit = Z * 1;
-    this.globalAlpha = 1;
-    this.canvas = surfaceElement;
-
-    var el = surfaceElement.ownerDocument.createElement('div');
-    el.style.width =  surfaceElement.clientWidth + 'px';
-    el.style.height = surfaceElement.clientHeight + 'px';
-    el.style.overflow = 'hidden';
-    el.style.position = 'absolute';
-    surfaceElement.appendChild(el);
-
-    this.element_ = el;
-    this.arcScaleX_ = 1;
-    this.arcScaleY_ = 1;
-    this.lineScale_ = 1;
-  }
-
-  var contextPrototype = CanvasRenderingContext2D_.prototype;
-  contextPrototype.clearRect = function() {
-    this.element_.innerHTML = '';
-  };
-
-  contextPrototype.beginPath = function() {
-    // TODO: Branch current matrix so that save/restore has no effect
-    //       as per safari docs.
-    this.currentPath_ = [];
-  };
-
-  contextPrototype.moveTo = function(aX, aY) {
-    var p = this.getCoords_(aX, aY);
-    this.currentPath_.push({type: 'moveTo', x: p.x, y: p.y});
-    this.currentX_ = p.x;
-    this.currentY_ = p.y;
-  };
-
-  contextPrototype.lineTo = function(aX, aY) {
-    var p = this.getCoords_(aX, aY);
-    this.currentPath_.push({type: 'lineTo', x: p.x, y: p.y});
-
-    this.currentX_ = p.x;
-    this.currentY_ = p.y;
-  };
-
-  contextPrototype.bezierCurveTo = function(aCP1x, aCP1y,
-                                            aCP2x, aCP2y,
-                                            aX, aY) {
-    var p = this.getCoords_(aX, aY);
-    var cp1 = this.getCoords_(aCP1x, aCP1y);
-    var cp2 = this.getCoords_(aCP2x, aCP2y);
-    bezierCurveTo(this, cp1, cp2, p);
-  };
-
-  // Helper function that takes the already fixed cordinates.
-  function bezierCurveTo(self, cp1, cp2, p) {
-    self.currentPath_.push({
-      type: 'bezierCurveTo',
-      cp1x: cp1.x,
-      cp1y: cp1.y,
-      cp2x: cp2.x,
-      cp2y: cp2.y,
-      x: p.x,
-      y: p.y
-    });
-    self.currentX_ = p.x;
-    self.currentY_ = p.y;
-  }
-
-  contextPrototype.quadraticCurveTo = function(aCPx, aCPy, aX, aY) {
-    // the following is lifted almost directly from
-    // http://developer.mozilla.org/en/docs/Canvas_tutorial:Drawing_shapes
-
-    var cp = this.getCoords_(aCPx, aCPy);
-    var p = this.getCoords_(aX, aY);
-
-    var cp1 = {
-      x: this.currentX_ + 2.0 / 3.0 * (cp.x - this.currentX_),
-      y: this.currentY_ + 2.0 / 3.0 * (cp.y - this.currentY_)
-    };
-    var cp2 = {
-      x: cp1.x + (p.x - this.currentX_) / 3.0,
-      y: cp1.y + (p.y - this.currentY_) / 3.0
-    };
-
-    bezierCurveTo(this, cp1, cp2, p);
-  };
-
-  contextPrototype.arc = function(aX, aY, aRadius,
-                                  aStartAngle, aEndAngle, aClockwise) {
-    aRadius *= Z;
-    var arcType = aClockwise ? 'at' : 'wa';
-
-    var xStart = aX + mc(aStartAngle) * aRadius - Z2;
-    var yStart = aY + ms(aStartAngle) * aRadius - Z2;
-
-    var xEnd = aX + mc(aEndAngle) * aRadius - Z2;
-    var yEnd = aY + ms(aEndAngle) * aRadius - Z2;
-
-    // IE won't render arches drawn counter clockwise if xStart == xEnd.
-    if (xStart == xEnd && !aClockwise) {
-      xStart += 0.125; // Offset xStart by 1/80 of a pixel. Use something
-                       // that can be represented in binary
-    }
-
-    var p = this.getCoords_(aX, aY);
-    var pStart = this.getCoords_(xStart, yStart);
-    var pEnd = this.getCoords_(xEnd, yEnd);
-
-    this.currentPath_.push({type: arcType,
-                           x: p.x,
-                           y: p.y,
-                           radius: aRadius,
-                           xStart: pStart.x,
-                           yStart: pStart.y,
-                           xEnd: pEnd.x,
-                           yEnd: pEnd.y});
-
-  };
-
-  contextPrototype.rect = function(aX, aY, aWidth, aHeight) {
-    this.moveTo(aX, aY);
-    this.lineTo(aX + aWidth, aY);
-    this.lineTo(aX + aWidth, aY + aHeight);
-    this.lineTo(aX, aY + aHeight);
-    this.closePath();
-  };
-
-  contextPrototype.strokeRect = function(aX, aY, aWidth, aHeight) {
-    var oldPath = this.currentPath_;
-    this.beginPath();
-
-    this.moveTo(aX, aY);
-    this.lineTo(aX + aWidth, aY);
-    this.lineTo(aX + aWidth, aY + aHeight);
-    this.lineTo(aX, aY + aHeight);
-    this.closePath();
-    this.stroke();
-
-    this.currentPath_ = oldPath;
-  };
-
-  contextPrototype.fillRect = function(aX, aY, aWidth, aHeight) {
-    var oldPath = this.currentPath_;
-    this.beginPath();
-
-    this.moveTo(aX, aY);
-    this.lineTo(aX + aWidth, aY);
-    this.lineTo(aX + aWidth, aY + aHeight);
-    this.lineTo(aX, aY + aHeight);
-    this.closePath();
-    this.fill();
-
-    this.currentPath_ = oldPath;
-  };
-
-  contextPrototype.createLinearGradient = function(aX0, aY0, aX1, aY1) {
-    var gradient = new CanvasGradient_('gradient');
-    gradient.x0_ = aX0;
-    gradient.y0_ = aY0;
-    gradient.x1_ = aX1;
-    gradient.y1_ = aY1;
-    return gradient;
-  };
-
-  contextPrototype.createRadialGradient = function(aX0, aY0, aR0,
-                                                   aX1, aY1, aR1) {
-    var gradient = new CanvasGradient_('gradientradial');
-    gradient.x0_ = aX0;
-    gradient.y0_ = aY0;
-    gradient.r0_ = aR0;
-    gradient.x1_ = aX1;
-    gradient.y1_ = aY1;
-    gradient.r1_ = aR1;
-    return gradient;
-  };
-
-  contextPrototype.drawImage = function(image, var_args) {
-    var dx, dy, dw, dh, sx, sy, sw, sh;
-
-    // to find the original width we overide the width and height
-    var oldRuntimeWidth = image.runtimeStyle.width;
-    var oldRuntimeHeight = image.runtimeStyle.height;
-    image.runtimeStyle.width = 'auto';
-    image.runtimeStyle.height = 'auto';
-
-    // get the original size
-    var w = image.width;
-    var h = image.height;
-
-    // and remove overides
-    image.runtimeStyle.width = oldRuntimeWidth;
-    image.runtimeStyle.height = oldRuntimeHeight;
-
-    if (arguments.length == 3) {
-      dx = arguments[1];
-      dy = arguments[2];
-      sx = sy = 0;
-      sw = dw = w;
-      sh = dh = h;
-    } else if (arguments.length == 5) {
-      dx = arguments[1];
-      dy = arguments[2];
-      dw = arguments[3];
-      dh = arguments[4];
-      sx = sy = 0;
-      sw = w;
-      sh = h;
-    } else if (arguments.length == 9) {
-      sx = arguments[1];
-      sy = arguments[2];
-      sw = arguments[3];
-      sh = arguments[4];
-      dx = arguments[5];
-      dy = arguments[6];
-      dw = arguments[7];
-      dh = arguments[8];
-    } else {
-      throw Error('Invalid number of arguments');
-    }
-
-    var d = this.getCoords_(dx, dy);
-
-    var w2 = sw / 2;
-    var h2 = sh / 2;
-
-    var vmlStr = [];
-
-    var W = 10;
-    var H = 10;
-
-    // For some reason that I've now forgotten, using divs didn't work
-    vmlStr.push(' <g_vml_:group',
-                ' coordsize="', Z * W, ',', Z * H, '"',
-                ' coordorigin="0,0"' ,
-                ' style="width:', W, 'px;height:', H, 'px;position:absolute;');
-
-    // If filters are necessary (rotation exists), create them
-    // filters are bog-slow, so only create them if abbsolutely necessary
-    // The following check doesn't account for skews (which don't exist
-    // in the canvas spec (yet) anyway.
-
-    if (this.m_[0][0] != 1 || this.m_[0][1]) {
-      var filter = [];
-
-      // Note the 12/21 reversal
-      filter.push('M11=', this.m_[0][0], ',',
-                  'M12=', this.m_[1][0], ',',
-                  'M21=', this.m_[0][1], ',',
-                  'M22=', this.m_[1][1], ',',
-                  'Dx=', mr(d.x / Z), ',',
-                  'Dy=', mr(d.y / Z), '');
-
-      // Bounding box calculation (need to minimize displayed area so that
-      // filters don't waste time on unused pixels.
-      var max = d;
-      var c2 = this.getCoords_(dx + dw, dy);
-      var c3 = this.getCoords_(dx, dy + dh);
-      var c4 = this.getCoords_(dx + dw, dy + dh);
-
-      max.x = m.max(max.x, c2.x, c3.x, c4.x);
-      max.y = m.max(max.y, c2.y, c3.y, c4.y);
-
-      vmlStr.push('padding:0 ', mr(max.x / Z), 'px ', mr(max.y / Z),
-                  'px 0;filter:progid:DXImageTransform.Microsoft.Matrix(',
-                  filter.join(''), ", sizingmethod='clip');")
-    } else {
-      vmlStr.push('top:', mr(d.y / Z), 'px;left:', mr(d.x / Z), 'px;');
-    }
-
-    vmlStr.push(' ">' ,
-                '<g_vml_:image src="', image.src, '"',
-                ' style="width:', Z * dw, 'px;',
-                ' height:', Z * dh, 'px;"',
-                ' cropleft="', sx / w, '"',
-                ' croptop="', sy / h, '"',
-                ' cropright="', (w - sx - sw) / w, '"',
-                ' cropbottom="', (h - sy - sh) / h, '"',
-                ' />',
-                '</g_vml_:group>');
-
-    this.element_.insertAdjacentHTML('BeforeEnd',
-                                    vmlStr.join(''));
-  };
-
-  contextPrototype.stroke = function(aFill) {
-    var lineStr = [];
-    var lineOpen = false;
-    var a = processStyle(aFill ? this.fillStyle : this.strokeStyle);
-    var color = a.color;
-    var opacity = a.alpha * this.globalAlpha;
-
-    var W = 10;
-    var H = 10;
-
-    lineStr.push('<g_vml_:shape',
-                 ' filled="', !!aFill, '"',
-                 ' style="position:absolute;width:', W, 'px;height:', H, 'px;"',
-                 ' coordorigin="0 0" coordsize="', Z * W, ' ', Z * H, '"',
-                 ' stroked="', !aFill, '"',
-                 ' path="');
-
-    var newSeq = false;
-    var min = {x: null, y: null};
-    var max = {x: null, y: null};
-
-    for (var i = 0; i < this.currentPath_.length; i++) {
-      var p = this.currentPath_[i];
-      var c;
-
-      switch (p.type) {
-        case 'moveTo':
-          c = p;
-          lineStr.push(' m ', mr(p.x), ',', mr(p.y));
-          break;
-        case 'lineTo':
-          lineStr.push(' l ', mr(p.x), ',', mr(p.y));
-          break;
-        case 'close':
-          lineStr.push(' x ');
-          p = null;
-          break;
-        case 'bezierCurveTo':
-          lineStr.push(' c ',
-                       mr(p.cp1x), ',', mr(p.cp1y), ',',
-                       mr(p.cp2x), ',', mr(p.cp2y), ',',
-                       mr(p.x), ',', mr(p.y));
-          break;
-        case 'at':
-        case 'wa':
-          lineStr.push(' ', p.type, ' ',
-                       mr(p.x - this.arcScaleX_ * p.radius), ',',
-                       mr(p.y - this.arcScaleY_ * p.radius), ' ',
-                       mr(p.x + this.arcScaleX_ * p.radius), ',',
-                       mr(p.y + this.arcScaleY_ * p.radius), ' ',
-                       mr(p.xStart), ',', mr(p.yStart), ' ',
-                       mr(p.xEnd), ',', mr(p.yEnd));
-          break;
-      }
-
-
-      // TODO: Following is broken for curves due to
-      //       move to proper paths.
-
-      // Figure out dimensions so we can do gradient fills
-      // properly
-      if (p) {
-        if (min.x == null || p.x < min.x) {
-          min.x = p.x;
-        }
-        if (max.x == null || p.x > max.x) {
-          max.x = p.x;
-        }
-        if (min.y == null || p.y < min.y) {
-          min.y = p.y;
-        }
-        if (max.y == null || p.y > max.y) {
-          max.y = p.y;
-        }
-      }
-    }
-    lineStr.push(' ">');
-
-    if (!aFill) {
-      var lineWidth = this.lineScale_ * this.lineWidth;
-
-      // VML cannot correctly render a line if the width is less than 1px.
-      // In that case, we dilute the color to make the line look thinner.
-      if (lineWidth < 1) {
-        opacity *= lineWidth;
-      }
-
-      lineStr.push(
-        '<g_vml_:stroke',
-        ' opacity="', opacity, '"',
-        ' joinstyle="', this.lineJoin, '"',
-        ' miterlimit="', this.miterLimit, '"',
-        ' endcap="', processLineCap(this.lineCap), '"',
-        ' weight="', lineWidth, 'px"',
-        ' color="', color, '" />'
-      );
-    } else if (typeof this.fillStyle == 'object') {
-      var fillStyle = this.fillStyle;
-      var angle = 0;
-      var focus = {x: 0, y: 0};
-
-      // additional offset
-      var shift = 0;
-      // scale factor for offset
-      var expansion = 1;
-
-      if (fillStyle.type_ == 'gradient') {
-        var x0 = fillStyle.x0_ / this.arcScaleX_;
-        var y0 = fillStyle.y0_ / this.arcScaleY_;
-        var x1 = fillStyle.x1_ / this.arcScaleX_;
-        var y1 = fillStyle.y1_ / this.arcScaleY_;
-        var p0 = this.getCoords_(x0, y0);
-        var p1 = this.getCoords_(x1, y1);
-        var dx = p1.x - p0.x;
-        var dy = p1.y - p0.y;
-        angle = Math.atan2(dx, dy) * 180 / Math.PI;
-
-        // The angle should be a non-negative number.
-        if (angle < 0) {
-          angle += 360;
-        }
-
-        // Very small angles produce an unexpected result because they are
-        // converted to a scientific notation string.
-        if (angle < 1e-6) {
-          angle = 0;
-        }
-      } else {
-        var p0 = this.getCoords_(fillStyle.x0_, fillStyle.y0_);
-        var width  = max.x - min.x;
-        var height = max.y - min.y;
-        focus = {
-          x: (p0.x - min.x) / width,
-          y: (p0.y - min.y) / height
-        };
-
-        width  /= this.arcScaleX_ * Z;
-        height /= this.arcScaleY_ * Z;
-        var dimension = m.max(width, height);
-        shift = 2 * fillStyle.r0_ / dimension;
-        expansion = 2 * fillStyle.r1_ / dimension - shift;
-      }
-
-      // We need to sort the color stops in ascending order by offset,
-      // otherwise IE won't interpret it correctly.
-      var stops = fillStyle.colors_;
-      stops.sort(function(cs1, cs2) {
-        return cs1.offset - cs2.offset;
-      });
-
-      var length = stops.length;
-      var color1 = stops[0].color;
-      var color2 = stops[length - 1].color;
-      var opacity1 = stops[0].alpha * this.globalAlpha;
-      var opacity2 = stops[length - 1].alpha * this.globalAlpha;
-
-      var colors = [];
-      for (var i = 0; i < length; i++) {
-        var stop = stops[i];
-        colors.push(stop.offset * expansion + shift + ' ' + stop.color);
-      }
-
-      // When colors attribute is used, the meanings of opacity and o:opacity2
-      // are reversed.
-      lineStr.push('<g_vml_:fill type="', fillStyle.type_, '"',
-                   ' method="none" focus="100%"',
-                   ' color="', color1, '"',
-                   ' color2="', color2, '"',
-                   ' colors="', colors.join(','), '"',
-                   ' opacity="', opacity2, '"',
-                   ' g_o_:opacity2="', opacity1, '"',
-                   ' angle="', angle, '"',
-                   ' focusposition="', focus.x, ',', focus.y, '" />');
-    } else {
-      lineStr.push('<g_vml_:fill color="', color, '" opacity="', opacity,
-                   '" />');
-    }
-
-    lineStr.push('</g_vml_:shape>');
-
-    this.element_.insertAdjacentHTML('beforeEnd', lineStr.join(''));
-  };
-
-  contextPrototype.fill = function() {
-    this.stroke(true);
-  }
-
-  contextPrototype.closePath = function() {
-    this.currentPath_.push({type: 'close'});
-  };
-
-  /**
-   * @private
-   */
-  contextPrototype.getCoords_ = function(aX, aY) {
-    var m = this.m_;
-    return {
-      x: Z * (aX * m[0][0] + aY * m[1][0] + m[2][0]) - Z2,
-      y: Z * (aX * m[0][1] + aY * m[1][1] + m[2][1]) - Z2
-    }
-  };
-
-  contextPrototype.save = function() {
-    var o = {};
-    copyState(this, o);
-    this.aStack_.push(o);
-    this.mStack_.push(this.m_);
-    this.m_ = matrixMultiply(createMatrixIdentity(), this.m_);
-  };
-
-  contextPrototype.restore = function() {
-    copyState(this.aStack_.pop(), this);
-    this.m_ = this.mStack_.pop();
-  };
-
-  function matrixIsFinite(m) {
-    for (var j = 0; j < 3; j++) {
-      for (var k = 0; k < 2; k++) {
-        if (!isFinite(m[j][k]) || isNaN(m[j][k])) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
-
-  function setM(ctx, m, updateLineScale) {
-    if (!matrixIsFinite(m)) {
-      return;
-    }
-    ctx.m_ = m;
-
-    if (updateLineScale) {
-      // Get the line scale.
-      // Determinant of this.m_ means how much the area is enlarged by the
-      // transformation. So its square root can be used as a scale factor
-      // for width.
-      var det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
-      ctx.lineScale_ = sqrt(abs(det));
-    }
-  }
-
-  contextPrototype.translate = function(aX, aY) {
-    var m1 = [
-      [1,  0,  0],
-      [0,  1,  0],
-      [aX, aY, 1]
-    ];
-
-    setM(this, matrixMultiply(m1, this.m_), false);
-  };
-
-  contextPrototype.rotate = function(aRot) {
-    var c = mc(aRot);
-    var s = ms(aRot);
-
-    var m1 = [
-      [c,  s, 0],
-      [-s, c, 0],
-      [0,  0, 1]
-    ];
-
-    setM(this, matrixMultiply(m1, this.m_), false);
-  };
-
-  contextPrototype.scale = function(aX, aY) {
-    this.arcScaleX_ *= aX;
-    this.arcScaleY_ *= aY;
-    var m1 = [
-      [aX, 0,  0],
-      [0,  aY, 0],
-      [0,  0,  1]
-    ];
-
-    setM(this, matrixMultiply(m1, this.m_), true);
-  };
-
-  contextPrototype.transform = function(m11, m12, m21, m22, dx, dy) {
-    var m1 = [
-      [m11, m12, 0],
-      [m21, m22, 0],
-      [dx,  dy,  1]
-    ];
-
-    setM(this, matrixMultiply(m1, this.m_), true);
-  };
-
-  contextPrototype.setTransform = function(m11, m12, m21, m22, dx, dy) {
-    var m = [
-      [m11, m12, 0],
-      [m21, m22, 0],
-      [dx,  dy,  1]
-    ];
-
-    setM(this, m, true);
-  };
-
-  /******** STUBS ********/
-  contextPrototype.clip = function() {
-    // TODO: Implement
-  };
-
-  contextPrototype.arcTo = function() {
-    // TODO: Implement
-  };
-
-  contextPrototype.createPattern = function() {
-    return new CanvasPattern_;
-  };
-
-  // Gradient / Pattern Stubs
-  function CanvasGradient_(aType) {
-    this.type_ = aType;
-    this.x0_ = 0;
-    this.y0_ = 0;
-    this.r0_ = 0;
-    this.x1_ = 0;
-    this.y1_ = 0;
-    this.r1_ = 0;
-    this.colors_ = [];
-  }
-
-  CanvasGradient_.prototype.addColorStop = function(aOffset, aColor) {
-    aColor = processStyle(aColor);
-    this.colors_.push({offset: aOffset,
-                       color: aColor.color,
-                       alpha: aColor.alpha});
-  };
-
-  function CanvasPattern_() {}
-
-  // set up externs
-  G_vmlCanvasManager = G_vmlCanvasManager_;
-  CanvasRenderingContext2D = CanvasRenderingContext2D_;
-  CanvasGradient = CanvasGradient_;
-  CanvasPattern = CanvasPattern_;
-
-})();
-
-} // if
-
-</script>
+<footer class="page-footer" style="background-color: darkgray; opacity:0.6;z-index: 90" >
+	<div class="container">
+		<div class="row">
+			<div class="col s4">
+				<h5 class="white-text">Help WeTravel Grow</h5>
+				<p class="grey-text text-lighten-4">We hope you have enjoyed using WeTravel! If you feel WeTravel has made your life colorful and want to support us, send over a donation! Any amount would help support and continue development on this project and is greatly appreciated.</p>
+				<form id="paypal-donate" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+					<input type="hidden" name="cmd" value="_s-xclick">
+					<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+					<button class="blue waves-effect waves-light btn" type="submit" name="action" alt="PayPal - The safer, easier way to pay online!">Donate Now
+					</button>
+					</input>
+					</input>
+				</form>
+			</div>
+
+			<div class="col s4">
+				<h5 class="white-text">Be A Business Partner</h5>
+				<p class="grey-text text-lighten-4">Be a partner to extend your business. We have a Gitter chat room set up where you can talk about business directly with us.</p>
+				<a class="blue waves-effect waves-light btn" target="_blank" href="https://gitter.im/sophyzhou/HungryAsianBusiness">Chat</a>
+			</div>
+
+			<div class="col s4">
+				<h5 class="white-text">Connect</h5>
+				<ul>
+					<li><a class="grey-text text-lighten-3" href="www.facebook.com">Facebook</a></li>
+					<li><a class="grey-text text-lighten-3" href="www.twitter.com">Twitter</a></li>
+					<li><a class="grey-text text-lighten-3" href="www.google.com">G+</a></li>
+					<li><a class="grey-text text-lighten-3" href="www.youtube.com">Youtube</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright">
+		<div class="container"><center>
+			© 2016-2017 WeTravel, All rights reserved
+		</center>
+		</div>
+	</div>
+</footer>
 
 </body>
+
 
 </html>

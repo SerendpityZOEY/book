@@ -6,10 +6,7 @@ layout: layout.hbs
 
 ## Team Members
 
-* Yen-Teh Liu
-* Yun Zhou
-* Rishab Kanwal
-* Yue Zhang
+(TODO: Names)
 
 ## Ideation
 
@@ -18,35 +15,35 @@ the integration of creative ideas from every team member.
 
 * What is the name of your app?
 
-	* WeTravel
+(TODO: Answer)
 
 * What collaborative activity can people do together using your app?
 
-	* The users could use our App to design and plan their travel schedule together with their friends. They can choose a region or a city on the map as the canvas background, then draw their routes on the canvas. At the same time, they could chat together in the chatting room. When they make the schedule decision, they could add or edit the schedules in the list.
+(TODO: Answer)
 
 * What is the ideal number of concurrent users (must be at least 10 but no more than 40)?
 
- 	* 10~15
+(TODO: Answer)
 
 * What skills do people need in order to do this activity?
 
-	* When you want to plan the travel.
+(TODO: Answer)
 
 * Is this activity for fun or for something practical?
 
-	* Practical and Fun 
+(TODO: Answer)
 
 * How can a person see what everyone else is doing?
 
-	* He can see others drawing and chatting and the person's icon will turn into red when they are adding schedules.
+(TODO: Answer)
 
 * How can a person see the most recent result of everyone's collaborative effort?
 
-	* He can see others drawing and chatting and the person's icon will turn into red when they are adding schedules.
+(TODO: Answer)
 
 * What can an admin see (i.e., God's mode)?
 
-	* There is no need of admin site.
+(TODO: Answer)
 
 ## Contributions
 
@@ -55,16 +52,18 @@ It's okay to credit multiple people for the same idea. The rationale of this
 section of the proposal is to demonstrate that everyone on the team contributes
 useful ideas.
 
-* Yen-Teh Liu
-  * Travel schedule list 
-  * Map View
-* Yue Zhang
-  * Canvas drawing features
-* Yun Chou
-  * Chatting room features
-* Rishab Kanwal
-  * Travel schedule list 
-  * Map View
+* Person 1
+  * idea
+  * idea
+* Person 2
+  * idea
+  * idea
+* Person 3
+  * idea
+  * idea
+* Person 4
+  * idea
+  * idea
 
 ## Plan
 
@@ -74,16 +73,15 @@ efforts may be required from your team to develop the together app.
 
 * What existing components of the uber app your team can reuse?
 
-	* The map and list component can be reused
+(TODO: Answer)
 
 * What new components and features your team may need to build?
 
-	* Canvas and chatting room
+(TODO: Answer)
 
 * What new skills your team will still need to acquire?
 
-	* manipulation of the map, like screen shot
-	* make the chatting room a collapsible window like Facebook 
+(TODO: Answer)
 
 ## What's Next?
 
