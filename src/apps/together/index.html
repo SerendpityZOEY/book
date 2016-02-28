@@ -135,17 +135,29 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
+
+
 <header>
-<nav class="nav-wrapper grey darken-3 " role="navigation" style="opacity: 0.7">
+<nav class="nav-wrapper grey darken-3 " role="navigation" style="opacity: 0.7" id="nav-bar">
 	<div class="nav-wrapper container">
 		<a id="logo-container" href="#" class="brand-logo">We Travel</a>
 		<ul class="right hide-on-med-and-down">
 			<li><a href="travel.html">Create your Travel</a></li>
 			<li><a href="#">Log In</a></li>
 			<li><a href="idea.html">About</a></li>
+			<li>
+			  <form method='get' action='http://google.com/search'>
+				<div class="input-field">
+				  <input id="search" type="search" alt='Search' required>
+				  <label for="search"><i class="material-icons">search</i></label>
+				  <i class="material-icons">close</i>
+				</div>
+			  </form>
+			</li>
 		</ul>
 	</div>
 </nav>
+
 
 <div id="abgne_float_ad" style="z-index: 110">
 	<div class="abgne_close_ad"><font color="white" size = 4>Close [X]</font></div>
@@ -165,6 +177,7 @@
 				<h3>Welcome to WeTravel!</h3>
 				<h5 class="light grey-text text-lighten-3">The world is a book and those who do not travel read only a page.</h5>
 			</div>
+
 		</li>
 		<li>
 			<img src="images/slide2.jpg">
@@ -182,6 +195,7 @@
 		</li>
 	</ul>
 </div>
+
 </header>
 
 <main>
