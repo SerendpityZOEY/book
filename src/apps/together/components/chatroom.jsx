@@ -4,28 +4,45 @@ function localTime(timestamp) {
         hours = date.getHours() || 12,
         minutes = '' + date.getMinutes(),
         ampm = (date.getHours() >= 12) ? 'pm' : 'am';
-
-    hours = (hours > 12) ? hours - 12 : hours;
-    minutes = (minutes.length < 2) ? '0' + minutes : minutes;
+        hours = (hours > 12) ? hours - 12 : hours;
+        minutes = (minutes.length < 2) ? '0' + minutes : minutes;
     return '' + hours + ':' + minutes + ampm;
 };
 
 
 class Chatroom extends React.Component {
+    submit() {
+        var message = document.getElementById('messageText1').value;
+        var time = Firebase.ServerValue.TIMESTAMP;
+        console.log("hi",message);
+        this.props.actions.sendMessage(message, time)
+        document.getElementById('messageText1').value=""
+    }
+
+    close(){
+        $('#live-chat').fadeOut(300);
+    }
+
+    fold(){
+        $('.chat').slideToggle(300, 'swing');
+        $('.chat-message-counter').fadeToggle(300, 'swing');
+    }
 
     render(){
         var messages = this.props.messages;
         var chatRoomName=this.props.chatRoomName;
+        this.props.actions.foldChat();
+
         return (
             <div id="live-chat">
 
-                <header className="clearfix">
+                <header className="clearfix" onClick={() => this.fold()}>
 
-                    <a href="#" className="chat-close">x</a>
+                    <a href="#" className="chat-close" onClick={() => this.close()}>x</a>
 
                     <h4>{chatRoomName}</h4>
 
-                    <span className="chat-message-counter">3</span>
+                    <span className="chat-message-counter">new</span>
 
                 </header>
 
@@ -56,17 +73,29 @@ class Chatroom extends React.Component {
 
                         <fieldset>
 
-                            <input type="text" placeholder="Type your message…" autofocus>
-                                <input type="hidden"></input>
-                                </input>
+                            <textarea name="messageText1" id="messageText1" placeholder ="Type your message" rows="3" ></textarea>
+                            <a className="waves-effect waves-green btn" onClick={this.submit.bind(this)}>Send</a>
+
                         </fieldset>
 
                     </form>
+
+
 
                 </div>
             </div>
 
         );
     }
+
+    submit(e) {
+        var message = document.getElementById('messageText1').value;
+        var time = Firebase.ServerValue.TIMESTAMP;
+        console.log("hi",message);
+        this.props.actions.sendMessage(message, time);
+        document.getElementById('messageText1').value=""
+    }
+
 }
 MyComponents.Chatroom = Chatroom
+

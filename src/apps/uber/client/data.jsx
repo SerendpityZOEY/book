@@ -49,6 +49,7 @@ function render_footer(){
 //
 
 var firebaseRef = new Firebase('https://hungry-asians.firebaseio.com/')
+var Ref = new Firebase('https://ohmywebsite.firebaseio.com/User')
 
 // Real-time Data (load constantly on changes)
 firebaseRef.child('providers')
@@ -82,7 +83,7 @@ firebaseRef.child('restaurants')
 actions.setUserLocation = function(latlng){
 
   if (data.user){
-    firebaseRef
+    Ref
       .child('users')
       .child(data.user.username)
       .child('pos')
@@ -92,7 +93,7 @@ actions.setUserLocation = function(latlng){
 
 actions.login = function(){
 
-  firebaseRef.authWithOAuthPopup("github", function(error, authData){
+  Ref.authWithOAuthPopup("github", function(error, authData){
 
     // handle the result of the authentication
     if (error) {
@@ -109,7 +110,7 @@ actions.login = function(){
         pos: data.center  // position, default to the map center
       }
 
-      var userRef = firebaseRef.child('users').child(user.username)
+      var userRef = Ref.child('users').child(user.username)
 
       // subscribe to the user data
       userRef.on('value', function(snapshot){
@@ -129,9 +130,9 @@ actions.logout = function(){
 
   if (data.user){
 
-    firebaseRef.unauth()
+    Ref.unauth()
 
-    var userRef = firebaseRef
+    var userRef = Ref
       .child('users')
       .child(data.user.username)
 
