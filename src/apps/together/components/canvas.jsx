@@ -112,12 +112,11 @@ class Canvas extends React.Component {
             outlineImage.onload = function() {
                 //myContext.save();
                 //myContext.globalAlpha = 0.7;
-                myContext.globalCompositeOperation='destination-over';
+                //myContext.globalCompositeOperation='destination-over';
                 myContext.drawImage(outlineImage, 0, 0, 480, 420);
                 //myContext.restore();
             };
             outlineImage.src = this.props.mapURL;
-
             //Create a reference to the pixel data for our drawing.
             var pixelDataRef = new Firebase('https://wetravel.firebaseio.com/Groups/'+this.props.groupName+'/drawing');
             var drawings = this.props.drawings;
