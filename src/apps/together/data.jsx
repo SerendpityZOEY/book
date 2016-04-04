@@ -18,6 +18,13 @@ var data = {
     user: null
 };
 console.log(data);
+
+var users = {
+    username: [],
+    details: []
+};
+
+
 // a single 'handlers' object that holds all the actions of your entire app
 var actions = {};
 // several main render function
@@ -47,14 +54,14 @@ function render_Daybar(){
         $('#day-bar').get(0)
     )
 }
-function render_form(){
-    ReactDOM.render(
-        <MyComponents.Form
-            data={data}
-            actions={actions}/>,
-        $('#form').get(0)
-    )
-}
+// function render_form(){
+//     ReactDOM.render(
+//         <MyComponents.Form
+//             data={data}
+//             actions={actions}/>,
+//         $('#form').get(0)
+//     )
+// }
 function render_list(){
     ReactDOM.render(
         <MyComponents.List
@@ -85,14 +92,42 @@ function render_canvas() {
         $('#canvas').get(0)
     );
 }
+
+function render_MemberBar(){
+    ReactDOM.render(
+        <MyComponents.Member
+            users={users}
+            actions={actions}/>,
+        $('#member-btn').get(0)
+    )
+}
+
+function render_member(){
+    ReactDOM.render(
+        <MyComponents.member_List
+            users={users}
+            actions={actions}/>,
+        $('#member_list').get(0)
+    )
+}
+
 // ACTIONS
+
+actions.getMember = function(){
+    ref.on('value', function(snapshot){
+        users.username = _.keys(snapshot.val());
+        users.details = _.values(snapshot.val());
+        render_member()
+    })
+};
+
 actions.clickDay = function(Day){
     firebaseRef.child(data.group).child('Schedule').child(Day).on('value', function(snapshot){
         console.log(snapshot.val());
         data.day = Day;
         data.time = _.keys(snapshot.val());
         data.list = _.values(snapshot.val());
-        console.log(data);
+        console.log('see list',data.list);
         render_list()
     })
 };
@@ -134,7 +169,8 @@ actions.sendMessage = function(message,time){
         messageRef.set({
             username: localStorage.getItem('username'),
             message: message,
-            time: time
+            time: time,
+            id: localStorage.getItem('id')
         })
     }else{
         Materialize.toast('Please enter your message', 3000, 'rounded')
@@ -163,7 +199,7 @@ actions.setUserLocation = function(latlng){
 var firebaseRef = new Firebase('https://wetravel.firebaseio.com/Groups');
 var ref = new Firebase('https://wetravel.firebaseio.com/Users');
 render_nav();
-render_form();
+// render_form();
 var messages={};
 //update the chatroom when there are message updates
 firebaseRef.child(data.group).child('Message').on("value", function(snapshot){
@@ -194,5 +230,8 @@ firebaseRef.child(data.group).child('Schedule').on('value',function(snapshot){
     data.days = _.keys(snapshot.val());
     render_Daybar()
 });
+
+render_MemberBar()
+
 
 

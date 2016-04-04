@@ -30,7 +30,7 @@ class Form extends React.Component{
 			<div className="row">
 				<form className="col s12">
 					<div>
-						<h5 className="center-align">Make Group</h5>
+						<h5 className="center-align">Manage Group</h5>
 					</div>
 					<div className="row">
 						<div className="input-field col s12">
@@ -38,8 +38,9 @@ class Form extends React.Component{
 							<label for="g">Group Name</label>
 						</div>
 					</div>
-					<div className="submit">
-						<a className="waves-effect waves-green btn" onClick={this.makegroup.bind(this)}>Make</a>
+					<div className="button-container">
+						<a className='button -dark center' onClick={this.makegroup.bind(this)}>Create</a>
+						<a className='button -dark center' onClick={this.deletegroup.bind(this)}>Delete</a>
 					</div>
 					</form>
 				</div>
@@ -50,6 +51,10 @@ class Form extends React.Component{
 		var time = Firebase.ServerValue.TIMESTAMP;
 		var userName = this.props.data.user;
 		this.props.actions.makeGroup(groupName, time);
+	}
+	deletegroup(e){
+		var groupName = $('#g').val();
+		this.props.actions.deleteGroup(groupName);
 	}
 }
 MyComponents.Form = Form;

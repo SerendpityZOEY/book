@@ -1,7 +1,8 @@
 // a single 'data' object that holds the data of your entire app, with initial values
 var data = {
     group: null,
-    user: null
+    user: null,
+    id: null
 };
 
 // a single 'handlers' object that holds all the actions of your entire app
@@ -36,7 +37,7 @@ function render_form(){
 
 //read firebase
 var firebaseRef = new Firebase('https://wetravel.firebaseio.com/Groups')
-var ref = new Firebase('https://ohmywebsite.firebaseio.com/User')
+var ref = new Firebase('https://wetravel.firebaseio.com/Users')
 
 // ACTIONS
 actions.login = function(){
@@ -57,9 +58,13 @@ actions.login = function(){
                 status: 'online'
             };
             data.user = user.username;
+            data.id = user.id;
+
             render_nav()
             render_form()
             localStorage.setItem( 'username', data.user)
+            localStorage.setItem( 'id', data.id)
+
             ref.child(user.username).set(user)
             firebaseRef.on('value', function(snapshot){
                 data.group = _.keys(snapshot.val())
@@ -102,10 +107,11 @@ actions.makeGroup = function(groupName, time){
         firebaseRef.child(groupName).set({
             GroupName: groupName,
             Message: {
-                rgrtrbvcfgyht: {
+                0: {
                     time: time,
                     message: "welcome to " + groupName,
-                    username: 'system'
+                    username: 'system',
+                    id: 14809576
                 }
             },
             Map:'http://maps.google.com/maps/api/staticmap?markers=ca&size=480x420&sensor=true'
@@ -114,5 +120,10 @@ actions.makeGroup = function(groupName, time){
     else {
         Materialize.toast('this group name already exists', 1000)
     }
+}
+
+actions.deleteGroup = function(groupName){
+    Materialize.toast('group removed', 1000);
+    firebaseRef.child(groupName).remove();
 }
 render_nav()

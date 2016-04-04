@@ -31,7 +31,6 @@ class Chatroom extends React.Component {
     render(){
         var messages = this.props.messages;
         var chatRoomName=this.props.chatRoomName;
-        this.props.actions.foldChat();
 
         return (
             <div id="live-chat">
@@ -42,7 +41,6 @@ class Chatroom extends React.Component {
 
                     <h4>{chatRoomName}</h4>
 
-                    <span className="chat-message-counter">new</span>
 
                 </header>
 
@@ -67,13 +65,13 @@ class Chatroom extends React.Component {
                             }
                     </div>
 
-                    <p className="chat-feedback">Your partner is typing…</p>
 
                     <form action="#" method="post">
 
                         <fieldset>
 
                             <textarea name="messageText1" id="messageText1" placeholder ="Type your message" rows="3" ></textarea>
+                            <div className="row"></div>
                             <a className="waves-effect waves-green btn" onClick={this.submit.bind(this)}>Send</a>
 
                         </fieldset>

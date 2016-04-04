@@ -7,6 +7,7 @@ class NavBar extends React.Component {
                     <ul className="left">
                         <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
                         <li><a href="index.html">Home</a></li>
+                        <li><a href={"add.html#" + this.props.data.group}>Add Schedule</a></li>
                     </ul>
                     <a className="brand-logo center">{this.props.data.group}</a>
                 </div>
