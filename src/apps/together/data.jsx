@@ -178,7 +178,7 @@ actions.sendMessage = function(message,time){
 };
 
 actions.draw = function(curColor,curSize,x,y){
-    var lineRef = new Firebase('https://wetravel.firebaseio.com/Groups/'+data.group+'/drawing');
+    var lineRef = new Firebase('https://ohmywebsite.firebaseio.com/Groups/'+data.group+'/drawing');
     lineRef.child(x + ":" + y).set({
         curColor:curColor,
         curSize:curSize
@@ -196,8 +196,8 @@ actions.setUserLocation = function(latlng){
 };
 
 //read firebase
-var firebaseRef = new Firebase('https://wetravel.firebaseio.com/Groups');
-var ref = new Firebase('https://wetravel.firebaseio.com/Users');
+var firebaseRef = new Firebase('https://ohmywebsite.firebaseio.com/Groups');
+var ref = new Firebase('https://ohmywebsite.firebaseio.com/Users');
 render_nav();
 // render_form();
 var messages={};
@@ -212,7 +212,7 @@ firebaseRef.child(data.group).child('Message').on("value", function(snapshot){
 
 var drawings={};
 var mapURL;
-var mapRef = new Firebase('https://wetravel.firebaseio.com/Groups/'+data.group+'/Map');
+var mapRef = new Firebase('https://ohmywebsite.firebaseio.com/Groups/'+data.group+'/Map');
 
 mapRef.on('value',function(snapshot) {
     mapURL = snapshot.val();

@@ -78,7 +78,7 @@ class form extends React.Component {
             var place = $('#place').val();
             var transportation = $('#transportation').val();
             var address = $('#address').val();
-            var firebaseRef = new Firebase('https://wetravel.firebaseio.com/Groups')
+            var firebaseRef = new Firebase('https://ohmywebsite.firebaseio.com/Groups')
             firebaseRef.child(groupname).child('Schedule').child(date).child(time).set({
                 budget: budget,
                 place: place,

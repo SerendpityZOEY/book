@@ -1,5 +1,5 @@
 {
-  "firebase": "ucdd2-book",
+  "firebase": "ohmywebsite",
   "public": "build",
   "ignore": [
     "firebase.json",

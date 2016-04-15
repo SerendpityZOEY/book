@@ -1,8 +1,8 @@
 class Canvas extends React.Component {
 
     refresh(){
-    var pixelDataRef = new Firebase('https://wetravel.firebaseio.com/Groups/'+this.props.groupName+'/drawing');
-    var mapRef = new Firebase('https://wetravel.firebaseio.com/Groups/'+this.props.groupName+'/Map');
+    var pixelDataRef = new Firebase('https://ohmywebsite.firebaseio.com/Groups/'+this.props.groupName+'/drawing');
+    var mapRef = new Firebase('https://ohmywebsite.firebaseio.com/Groups/'+this.props.groupName+'/Map');
     var myCanvas = document.getElementById('drawing-canvas');
     var myContext = myCanvas.getContext ? myCanvas.getContext('2d') : null;
     var transImage = new Image();
@@ -49,7 +49,7 @@ class Canvas extends React.Component {
             }
         };
         var address = document.getElementById('Address').value;
-        var mapRef = new Firebase('https://wetravel.firebaseio.com/Groups/'+this.props.groupName+'/Map');
+        var mapRef = new Firebase('https://ohmywebsite.firebaseio.com/Groups/'+this.props.groupName+'/Map');
         var res = gmap.init(address);
         mapRef.set(res);
         this.refresh();
@@ -118,7 +118,7 @@ class Canvas extends React.Component {
             };
             outlineImage.src = this.props.mapURL;
             //Create a reference to the pixel data for our drawing.
-            var pixelDataRef = new Firebase('https://wetravel.firebaseio.com/Groups/'+this.props.groupName+'/drawing');
+            var pixelDataRef = new Firebase('https://ohmywebsite.firebaseio.com/Groups/'+this.props.groupName+'/drawing');
             var drawings = this.props.drawings;
             //Setup each color palette & add it to the screen
             var colors = ["fff","000","f00","0f0","00f","88f","f8d","f88","f05","f80","0f8","cf0","08f","408","ff8","8ff", "aed081", "eee"];
