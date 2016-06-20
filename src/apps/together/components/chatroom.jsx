@@ -31,7 +31,7 @@ class Chatroom extends React.Component {
     render(){
         var messages = this.props.messages;
         var chatRoomName=this.props.chatRoomName;
-
+        var space = "  "
         return (
             <div id="live-chat">
 
@@ -54,10 +54,11 @@ class Chatroom extends React.Component {
                                     //console.log(message)
                                     return (
                                                 <div className="chat-message clearfix">
+                                                    <img src= {'https://avatars3.githubusercontent.com/u/' + message.id} alt="avatar" width="32" height="32"/>
                                                     <div className="chat-message-content clearfix">
-                                                    <span className="chat-time">{localTime(message.time)}</span>
-                                                    <h5>{message.username}</h5>
-                                                    <p>{message.message}</p>
+                                                        <span className="chat-time">{localTime(message.time)}</span>
+                                                        <h5><b>{message.username}</b></h5>
+                                                        <p>{message.message}</p>
                                                     </div>
                                                 </div>
                                     );

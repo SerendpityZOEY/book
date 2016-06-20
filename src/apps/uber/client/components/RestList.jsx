@@ -28,7 +28,7 @@ MyComponents.RestList = React.createClass({
               </div>
             </div>
           </div>
-      
+
       
         </div>
       </div>

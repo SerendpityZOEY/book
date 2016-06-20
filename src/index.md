@@ -7,7 +7,7 @@ layout: layout.hbs
 Everything I've learned from UCDD 2 - Spring 2016.
 
 ## Apps
-* [ToDos](apps/todos/)
+* [ToDos](apps/todosList/)
 * [Resume](apps/resume/)
   * [ReactJS](apps/resume/react)
 * [Parking](apps/parking/)
